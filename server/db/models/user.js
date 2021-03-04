@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize')
+const { STRING, INTEGER} = Sequelize
 const db = require('../db')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
@@ -8,12 +9,16 @@ const SALT_ROUNDS = 5;
 
 const User = db.define('user', {
   username: {
-    type: Sequelize.STRING,
+    type: STRING,
     unique: true,
     allowNull: false
   },
   password: {
-    type: Sequelize.STRING,
+    type: STRING,
+  },
+  votes: {
+    type: INTEGER,
+    min: 0
   },
   githubId: {
     type: Sequelize.INTEGER
