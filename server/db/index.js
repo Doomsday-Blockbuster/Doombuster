@@ -3,8 +3,13 @@
 const db = require('./db')
 
 const User = require('./models/User');
+const Room = require('./models/Room');
+const Song = require('./models/Song');
 
 //associations could go here!
+User.belongsTo(Room)
+Song.belongsTo(User)
+Song.belongsTo(Room)
 
 const syncAndSeed =  async()=> {
   await db.sync({force: true})
@@ -26,6 +31,8 @@ module.exports = {
   db,
   syncAndSeed,
   models: {
-    User
+    User,
+    Room,
+    Song
   }
 }
