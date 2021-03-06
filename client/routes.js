@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import { Login, Signup } from './components/Auth-Form';
 import Home from './components/Home';
-import {me} from './store'
+import {me,loadSongs} from './store'
 
 /**
  * COMPONENT
@@ -50,6 +50,7 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
+      dispatch(loadSongs())
     }
   }
 }
