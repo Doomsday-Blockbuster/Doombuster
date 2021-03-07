@@ -4,12 +4,12 @@ const db = require('./db')
 
 const User = require('./models/User');
 const Room = require('./models/Room');
-const Song = require('./models/Song');
+const Queue = require('./models/Queue');
 
 //associations could go here!
 User.belongsTo(Room)
-Song.belongsTo(User)
-Song.belongsTo(Room)
+Queue.belongsTo(User)
+Queue.belongsTo(Room)
 
 const syncAndSeed =  async()=> {
   await db.sync({force: true})
@@ -18,6 +18,17 @@ const syncAndSeed =  async()=> {
     User.create({username: 'murphy@email.com', password: '123'})
   ])
   const [cody, murphy] = users;
+
+  const room = await Room.create({name: 'original-room'})
+  cody.roomId = room.id
+  await cody.save()
+
+  const testSong = await Queue.create({
+    name: 'First Song',
+  })
+  testSong.roomId = room.id
+  // testSong.userId = cody.id
+  await testSong.save()
 
   return {
     users: {
@@ -33,6 +44,6 @@ module.exports = {
   models: {
     User,
     Room,
-    Song
+    Queue
   }
 }

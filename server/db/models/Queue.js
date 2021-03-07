@@ -2,11 +2,10 @@ const Sequelize = require('sequelize')
 const { STRING, TEXT, INTEGER, BOOLEAN} = Sequelize
 const db = require('../db')
 
-const Song = db.define('song', {
+const Queue = db.define('queue', {
   URL: {
     type: STRING,
-    isUrl: true,
-    notNull: true
+    isUrl: true
   },
   name: {
     type: STRING
@@ -20,13 +19,10 @@ const Song = db.define('song', {
   votes: {
     type: INTEGER
   },
-  queue: {
-    type: BOOLEAN
-  },
   finalPlaylist: {
     type: BOOLEAN
   }
   
 })
 
-module.exports = Song
+module.exports = Queue
