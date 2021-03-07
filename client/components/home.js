@@ -11,10 +11,12 @@ export class Home extends React.Component{
 
   componentDidMount(){
     const {room} = this.props
-    this.props.fetchQueue(room)
+    console.log(`homeroom` + typeof room)
+    this.props.fetchQueue(1)
   }
 
   render(){
+    console.log(`*****` , this.props)
     const { username, queue } = this.props
     return (
       <div>

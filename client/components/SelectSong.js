@@ -31,8 +31,9 @@ export const SongList = (props) => {
     setOpen(false);
   };
 
-  const { username,songs,room } = props;
-  console.log(typeof room)
+  const { username,songs, addToQueue} = props;
+  const room = props.room;
+  console.log(`cheese`+ typeof room)
   console.log('Songs',songs)
   const videoSrc = `https://www.youtube.com/embed?listType=playlist&list=PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU&autoplay=1`;
   
@@ -70,7 +71,7 @@ export const SongList = (props) => {
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={()=>addToQueue(room,selectedSong)}>
+                  <Button onClick={()=>addToQueue(1,selectedSong)}>
                     Yes!
                   </Button>
                   <Button onClick={handleClose}>
@@ -102,4 +103,4 @@ const mapDispatch = (dispatch, {history}) => {
   }
 };
 
-export default connect(mapState)(SongList);
+export default connect(mapState,mapDispatch)(SongList);

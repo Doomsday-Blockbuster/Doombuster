@@ -37,10 +37,13 @@ export const fetchQueue = (room) => {
 }
 
 export const addToQueue = (room,song,history) => {
-  console.log(song)
+  //console.log(song)
+  //console.log(`store` + typeof room)
   return async(dispatch) => {
-    const song = (await axios.post(`/api/queue/${room}`, song)).data;
-    dispatch(_addToQueue(song));
+    console.log('in dispatch')
+    const songReturned = (await axios.post(`/api/queue/${room}`, {name: song.title, description: song.description, image: song.thumbnail})).data;
+    console.log(songReturned)
+    dispatch(_addToQueue(songReturned));
     history.push(`/home`)
   }
 }

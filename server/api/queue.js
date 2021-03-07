@@ -1,11 +1,11 @@
 const router = require('express').Router()
-const Queue = require('../db/models/queue')
+const Song = require('../db/models/Song')
 module.exports = router
 
 
 router.get('/', async (req, res, next) => {
   try {
-    res.status(200).send(await Queue.findAll());
+    res.status(200).send(await Song.findAll());
   } catch (err) {
     next(err)
   }
@@ -13,9 +13,10 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    res.status(200).send(await Queue.findAll({
+    req.params.id = parseInt(req.params.id)
+    res.status(200).send(await Song.findAll({
       where: {
-        roomId: parseInt(req.params.id)
+        roomId: req.params.id
       }
     }));
   } catch (err) {
@@ -23,13 +24,15 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.post('/:id', async (req, res, next) => {
+router.post('/:id', async(req, res, next) => {
   try {
-    console.log(`backend` + req.body)
-    // const song = await Queue.create(req.body)
-    // song.roomId = req.params.id
-    // await song.save();
-    // res.status(201).send(song)
+    //req.params.id = parseInt(req.params.id)
+    console.log(`*****************backend` , req.body)
+    console.log(req.params.id)
+    const song = await Song.create(req.body)
+    song.roomId = '1'
+    await song.save();
+    res.status(201).send(song)
   } catch (err) {
     next(err)
   }
