@@ -11,12 +11,11 @@ export class Home extends React.Component{
 
   componentDidMount(){
     const {room} = this.props
-    console.log(`homeroom` + typeof room)
-    this.props.fetchQueue(1)
+    this.props.fetchQueue(room)
   }
 
   render(){
-    console.log(`*****` , this.props)
+    const {test} = this.props
     const { username, queue } = this.props
     return (
       <div>
@@ -24,8 +23,8 @@ export class Home extends React.Component{
         {
           queue.map(song=>{
             return (
-              <div key={song.id}>
-                <p>{song.name}</p>
+              <div>
+                <p>{song.name? song.name : "loading"}</p>
               </div>
             )
           })
@@ -38,7 +37,8 @@ const mapState = (state) => {
   return {
     username: state.auth.username,
     room: state.auth.roomId,
-    queue: state.queue
+    queue: state.queue,
+    test: state.auth
   };
 };
 

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import history from '../history'
 
-const FETCH_QUEUE = 'ADD_SONG_TO_QUEUE'
+const FETCH_QUEUE = 'FETCH_QUEUE'
 const ADD_SONG_TO_QUEUE = 'ADD_SONG_TO_QUEUE'
 // const DELETE_FROM_QUEUE = 'DELETE_FROM_QUEUE' //EMPTY--NEEDS WORK ON THUNK
 
@@ -14,10 +14,10 @@ export const _fetchQueue = (queue) => {
 }
 
 
-export const _addToQueue = (song) => {
+export const _addToQueue = (queue) => {
   return {
     type: ADD_SONG_TO_QUEUE,
-    song
+    queue
   };
 };
 
@@ -37,13 +37,9 @@ export const fetchQueue = (room) => {
 }
 
 export const addToQueue = (room,song,history) => {
-  //console.log(song)
-  //console.log(`store` + typeof room)
   return async(dispatch) => {
-    console.log('in dispatch')
-    const songReturned = (await axios.post(`/api/queue/${room}`, {name: song.title, description: song.description, image: song.thumbnail})).data;
-    console.log(songReturned)
-    dispatch(_addToQueue(songReturned));
+    const queue = (await axios.post(`/api/queue/${room}`, {name: song.title, description: song.description, image: song.thumbnail})).data;
+    dispatch(_addToQueue(queue));
     history.push(`/home`)
   }
 }
@@ -63,7 +59,7 @@ export default function(state = [], action) {
     case FETCH_QUEUE:
       return action.queue
     case ADD_SONG_TO_QUEUE:
-      return [...state, action.song]
+      return action.queue
     // case DELETE_FROM_QUEUE:
     //   return state.filter(clip=>clip.id != song.id)
     default:

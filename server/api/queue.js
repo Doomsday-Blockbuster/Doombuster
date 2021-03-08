@@ -26,13 +26,10 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/:id', async(req, res, next) => {
   try {
-    //req.params.id = parseInt(req.params.id)
-    console.log(`*****************backend` , req.body)
-    console.log(req.params.id)
     const song = await Song.create(req.body)
     song.roomId = '1'
     await song.save();
-    res.status(201).send(song)
+    res.status(201).send(await Song.findAll())
   } catch (err) {
     next(err)
   }

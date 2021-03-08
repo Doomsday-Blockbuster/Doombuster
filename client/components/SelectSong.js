@@ -33,7 +33,8 @@ export const SongList = (props) => {
 
   const { username,songs, addToQueue} = props;
   const room = props.room;
-  console.log(`cheese`+ typeof room)
+  console.log(room)
+  console.log(typeof room)
   console.log('Songs',songs)
   const videoSrc = `https://www.youtube.com/embed?listType=playlist&list=PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU&autoplay=1`;
   
@@ -57,7 +58,7 @@ export const SongList = (props) => {
           )  
         })}
 
-          //material ui confirm song popup box
+          {/* //material ui confirm song popup box */}
               <Dialog
                 open={open}
                 onClose={handleClose}
@@ -71,7 +72,7 @@ export const SongList = (props) => {
                   </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={()=>addToQueue(1,selectedSong)}>
+                  <Button onClick={()=>addToQueue(room,selectedSong)}>
                     Yes!
                   </Button>
                   <Button onClick={handleClose}>
