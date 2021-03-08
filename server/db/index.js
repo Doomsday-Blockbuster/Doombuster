@@ -23,12 +23,6 @@ const syncAndSeed =  async()=> {
   cody.roomId = room.id
   await cody.save()
 
-  const testSong = await Song.create({
-    name: 'First Song',
-  })
-  testSong.roomId = room.id
-  // testSong.userId = cody.id
-  await testSong.save()
 
   return {
     users: {
