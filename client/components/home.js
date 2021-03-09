@@ -1,5 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
+import VideoPlayer from './videoplayer';
+import VideoPlayer2 from './videoplayer2';
 
 
 
@@ -7,12 +9,15 @@ import { connect } from "react-redux";
  * COMPONENT
  */
 
+
 export const Home = (props) => {
   const { username,songs } = props;
   console.log('Songs',songs)
-  const videoSrc = `https://www.youtube.com/embed?listType=playlist&list=PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU&autoplay=1`;
+  const videoSrc = `https://www.youtube.com/embed?listType=playlist&list=PLRmBqz1N9GJk3a3xgXcUox88Mso89zf0F`;
   return (
     <div>
+      {/* <VideoPlayer/> */}
+      {/* <VideoPlayer2/> */}
       <h3>Welcome, {username}</h3>
       <div id="content">
         <div id="channel-data"></div>
@@ -30,6 +35,9 @@ export const Home = (props) => {
     </div>
   );
 };
+
+
+
 
 /**
  * CONTAINER

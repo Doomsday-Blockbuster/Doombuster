@@ -7,7 +7,8 @@ import {authenticate} from '../store'
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
-
+  const googleURL = window.googleClientId? `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube&response_type=code&redirect_uri=http://localhost:8080/auth/youtube/callback&client_id=${window.googleClientId}` : null;
+  console.log(googleURL)
   return (
     <div>
       <form onSubmit={handleSubmit} name={name}>
@@ -29,7 +30,7 @@ const AuthForm = props => {
         {error && error.response && <div> {error.response.data} </div>}
       </form>
       {
-        window.githubURL && <a href={window.githubURL}>Login / Register Via Github </a>
+        window.googleClientId && <a href={googleURL}>Login / Register Via Google </a>
       }
     </div>
   )
