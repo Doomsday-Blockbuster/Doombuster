@@ -4,8 +4,9 @@ import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import auth from './auth'
 import songs from './songs'
+import queue from './queue'
 
-const reducer = combineReducers({ auth,songs })
+const reducer = combineReducers({ auth,songs,queue })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
@@ -13,3 +14,4 @@ const store = createStore(reducer, middleware)
 export default store
 export * from './auth'
 export * from './songs'
+export * from './queue'

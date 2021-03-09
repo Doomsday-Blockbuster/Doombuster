@@ -19,6 +19,11 @@ const syncAndSeed =  async()=> {
   ])
   const [cody, murphy] = users;
 
+  const room = await Room.create({name: 'original-room'})
+  cody.roomId = room.id
+  await cody.save()
+
+
   return {
     users: {
       cody,

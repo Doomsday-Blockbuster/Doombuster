@@ -1,45 +1,51 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
+import {fetchQueue} from '../store/queue'
 
 
 
-/**
- * COMPONENT
- */
+export class Home extends React.Component{
+  constructor(props){
+    super(props)
+  }
 
-export const Home = (props) => {
-  const { username,songs } = props;
-  console.log('Songs',songs)
-  const videoSrc = `https://www.youtube.com/embed?listType=playlist&list=PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU&autoplay=1`;
-  return (
-    <div>
-      <h3>Welcome, {username}</h3>
-      <div id="content">
-        <div id="channel-data"></div>
-      </div>
+  componentDidMount(){
+    const {room} = this.props
+    this.props.fetchQueue(room)
+  }
+
+  render(){
+    const {test} = this.props
+    const { username, queue } = this.props
+    return (
       <div>
-      <iframe src={videoSrc} allowFullScreen title='Video player'/>
-        {songs.map(song=>{
-          const videoSrc = `https://www.youtube.com/embed/${song.snippet.resourceId.videoId}`;
-          return(
-            // <iframe src={videoSrc} allowFullScreen title='Video player'/>
-             <img src={song.snippet.thumbnails.medium.url} alt={song.snippet.description}/>
-          )
-        })}
+        <h1>Queue</h1>
+        {
+          queue.map(song=>{
+            return (
+              <div>
+                <p>{song.name? song.name : "loading"}</p>
+              </div>
+            )
+          })
+        }
       </div>
-    </div>
-  );
-};
+  )}
+}
 
-/**
- * CONTAINER
- */
 const mapState = (state) => {
-  console.log(state)
   return {
     username: state.auth.username,
-    songs: state.songs
+    room: state.auth.roomId,
+    queue: state.queue,
+    test: state.auth
   };
 };
 
-export default connect(mapState)(Home);
+const mapDispatch = (dispatch, {history}) => {
+  return {
+    fetchQueue: (room) => dispatch(fetchQueue(room)),
+  }
+};
+
+export default connect(mapState,mapDispatch)(Home);
