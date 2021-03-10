@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
+import VideoPlayer from './videoplayer';
 import {fetchQueue} from '../store/queue'
 
 
@@ -23,7 +24,7 @@ export class Home extends React.Component{
         {
           queue.map(song=>{
             return (
-              <div>
+              <div key={song.id}>
                 <p>{song.name? song.name : "loading"}</p>
               </div>
             )

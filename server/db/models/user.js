@@ -67,38 +67,89 @@ User.findByToken = async function(token) {
   }
 }
 
-User.authenticateGithub = async function(code){
+User.authenticateGoogle = async function(code){
   //step 1: exchange code for token
-  let response = await axios.post('https://github.com/login/oauth/access_token', {
-    client_id: process.env.GITHUB_CLIENT_ID,
-    client_secret: process.env.GITHUB_CLIENT_SECRET,
-    code
+  console.log('CODE',code)
+  let response = await axios.post('https://oauth2.googleapis.com/token', {
+    client_id: process.env.GOOGLE_CLIENT_ID,
+    client_secret: process.env.GOOGLE_CLIENT_SECRET,
+    code:code,
+    grant_type:'authorization_code',
+    redirect_uri:'http://localhost:8080/auth/youtube/callback'
   }, {
     headers: {
       accept: 'application/json'
     }
   });
+  
   const { data } = response;
   if(data.error){
     const error = Error(data.error);
     error.status = 401;
     throw error;
   }
-  //step 2: use token for user info
-  response = await axios.get('https://api.github.com/user', {
-    headers: {
-      authorization: `token ${ data.access_token }`
+  const token = response.data.access_token
+  console.log('******TOKEN*******',token)
+  // response = await axios.post('https://www.googleapis.com/youtube/v3/playlists?part=snippet',{
+  //   snippet: {
+  //   title: "Doombuster_Playlist",
+  //   }
+  // },{
+  //   headers: {
+  //     accept : 'application/json',
+  //     'Content-Type' : 'application/json',
+  //     Authorization : `Bearer ${token}`
+  //   }
+  // })
+  response = await axios.post('https://www.googleapis.com/youtube/v3/playlists',{
+    snippet: {
+    title: "Doombuster_Playlist",
     }
-  });
-  const { login, id } = response.data;
+  },{
+    params:{
+      part:'snippet'
+    },
+    headers: {
+      accept : 'application/json',
+      Authorization : `Bearer ${token}`
+    }
+  })
 
-  //step 3: either find user or create user
-  let user = await User.findOne({ where: { githubId: id, username: login } });
-  if(!user){
-    user = await User.create({ username: login, githubId: id });
-  }
-  //step 4: return jwt token
-  return user.generateToken();
+  let song = await axios.post('https://www.googleapis.com/youtube/v3/playlistItems',{
+    snippet: {
+    playlistId:response.data.id,
+    resourceId:{
+      kind:'youtube#video',
+      videoId:'fHI8X4OXluQ'
+    }
+    }
+  },{
+    params:{
+      part:'snippet'
+    },
+    headers: {
+      accept : 'application/json',
+      Authorization : `Bearer ${token}`
+    }
+  })
+
+
+ 
+  // //step 2: use token for user info
+  // response = await axios.get('https://api.github.com/user', {
+  //   headers: {
+  //     authorization: `token ${ data.access_token }`
+  //   }
+  // });
+  // const { login, id } = response.data;
+
+  // //step 3: either find user or create user
+  // let user = await User.findOne({ where: { githubId: id, username: login } });
+  // if(!user){
+  //   user = await User.create({ username: login, githubId: id });
+  // }
+  // //step 4: return jwt token
+  // return user.generateToken();
 }
 
 /**

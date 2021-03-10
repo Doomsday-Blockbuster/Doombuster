@@ -17,7 +17,8 @@ router.get('/:id', async (req, res, next) => {
     res.status(200).send(await Song.findAll({
       where: {
         roomId: req.params.id
-      }
+      },
+      order: [['id']],
     }));
   } catch (err) {
     next(err)
@@ -30,6 +31,20 @@ router.post('/:id', async(req, res, next) => {
     song.roomId = '1'
     await song.save();
     res.status(201).send(await Song.findAll())
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:id', async(req, res, next) => {
+  try {
+    const song = await Song.findOne({
+      where:{
+        id:req.params.id
+      }
+    })
+    await song.destroy();
+    res.sendStatus(201)
   } catch (err) {
     next(err)
   }

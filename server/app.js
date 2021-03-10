@@ -17,9 +17,11 @@ app.engine('html', require('ejs').renderFile);
 app.use('/auth', require('./auth'))
 app.use('/api', require('./api'))
 
-const githubURL = process.env.GITHUB_CLIENT_ID ? `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}` : null;
-
-app.get('/', (req, res)=> res.render(path.join(__dirname, '..', 'public/index.html'), { githubURL }));
+const googleClientId = process.env.GOOGLE_CLIENT_ID? process.env.GOOGLE_CLIENT_ID:null;
+//const googleURL = process.env.GOOGLE_CLIENT_ID ? `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube&response_type=code&redirect_uri=http://localhost:8080/youtube/callback&client_id=${process.env.GOOGLE_CLIENT_ID}` : null;
+//console.log('googleURL',googleURL)
+//app.get('/', (req, res)=> res.render(path.join(__dirname, '..', 'public/index.html'), { googleURL }));
+app.get('/', (req, res)=> res.render(path.join(__dirname, '..', 'public/index.html'), { googleClientId }));
 
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, '..', 'public')))
@@ -37,7 +39,7 @@ app.use((req, res, next) => {
 
 // sends index.html
 app.use('*', (req, res) => {
-  res.render(path.join(__dirname, '..', 'public/index.html'), { githubURL });
+  res.render(path.join(__dirname, '..', 'public/index.html'), { googleClientId });
 })
 
 // error handling endware

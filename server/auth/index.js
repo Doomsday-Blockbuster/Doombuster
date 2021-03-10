@@ -11,18 +11,19 @@ router.post('/login', async (req, res, next) => {
 })
 
 //github callback if using github OAUTH
-router.get('/github/callback', async(req, res, next)=> {
+router.get('/youtube/callback', async(req, res, next)=> {
   //User.authenticateGithub will attempt to use code to find a user in our system.
   //if successful, a jwt token will be returned
   //that token will be set in localStorage
   //and client will redirect to home page
+  //console.log('QUERY',req.query)
   try {
     res.send(
       `
       <html>
       <body>
         <script>
-        window.localStorage.setItem('token', '${await User.authenticateGithub(req.query.code)}');
+        window.localStorage.setItem('token', '${await User.authenticateGoogle(req.query.code)}');
         window.document.location = '/';
         </script>
       </body>

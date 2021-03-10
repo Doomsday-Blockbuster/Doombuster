@@ -25,8 +25,10 @@ const Song = db.define('song', {
   },
   finalPlaylist: {
     type: BOOLEAN
+  },
+  videoId:{
+    type : STRING
   }
-  
 })
 
 module.exports = Song

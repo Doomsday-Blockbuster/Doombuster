@@ -7,7 +7,10 @@
  * Node process on process.env
  */
 try {
-  require('../secrets')
+  const {GOOGLE_CLIENT_ID,GOOGLE_CLIENT_SECRET} = require('../secrets')
+  process.env.GOOGLE_CLIENT_ID = GOOGLE_CLIENT_ID;
+  process.env.GOOGLE_CLIENT_SECRET = GOOGLE_CLIENT_SECRET;
+  //process.env.JWT = JWT;
 }
 catch(ex){
   console.log(ex.message);
