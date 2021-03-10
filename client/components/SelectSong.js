@@ -1,6 +1,7 @@
 import React, {useState, useCallback} from "react";
 import { connect } from "react-redux";
 import {addToQueue} from '../store/queue'
+import {loadSongs} from '../store/songs'
 import VideoPlayer from './videoplayer'
 
 //material ui
@@ -11,7 +12,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 /**
  * COMPONENT
@@ -21,7 +23,18 @@ export const SongList = (props) => {
 
   const [open, setOpen] = useState(false);
   const [selectedSong, setSong] = useState({});
+  const [anchorEl, setAnchorEl] = useState(null);
 
+  
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  //popup
   const handleClickOpen = (song) => {
     console.log(song)
     setOpen(true);
@@ -32,7 +45,7 @@ export const SongList = (props) => {
     setOpen(false);
   };
 
-  const { username,songs,queue,addToQueue} = props;
+  const { username,songs,queue,addToQueue,loadSongs} = props;
   const room = props.room;
   console.log(queue)
   // console.log(room)
@@ -42,6 +55,22 @@ export const SongList = (props) => {
   
   return (
     <div>
+      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
+        Select A Genre
+      </Button>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
+        <MenuItem onClick={()=>{return loadSongs('Top50'),handleMenuClose()}}>Top 50 of 2021</MenuItem>
+        <MenuItem onClick={()=>{return loadSongs('HotGirl'), handleMenuClose()}}>Hot Girl Things</MenuItem>
+        <MenuItem onClick={()=>{return loadSongs('Workout'), handleMenuClose()}}>Workout</MenuItem>
+        <MenuItem onClick={()=>{ return loadSongs('Reggae'), handleMenuClose()}}>Reggae</MenuItem>
+        <MenuItem onClick={()=>{return loadSongs('Rock'), handleMenuClose()}}>Rock</MenuItem>
+      </Menu>
       <h3>Choose A Song, {username}</h3>
       <div id="content">
         <div id="channel-data"></div>
@@ -109,6 +138,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch, {history}) => {
   return {
     addToQueue: (room,song) => dispatch(addToQueue(room,song,history)),
+    loadSongs: (genre)=>dispatch(loadSongs(genre))
   }
 };
 
