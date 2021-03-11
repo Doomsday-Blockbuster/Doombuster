@@ -28,10 +28,10 @@ export const loadSongs = (genre) => {
           //hotgirls: PL2AHJxGoZJdq_gS_KNhXkVBk-MVp1rIPk
         },
         })
-      }else if(genre==='HotGirl'){
+      }else if(genre==='Soundbath'){
         response = await youtube.get("/playlistItems", {
           params: {
-            playlistId: "PL2AHJxGoZJdq_gS_KNhXkVBk-MVp1rIPk",
+            playlistId: "PL_4s4N3ooC9T0Roc-lnB_nYESCSPzh-nB",
           }
         })
       }else if(genre==='Reggae'){

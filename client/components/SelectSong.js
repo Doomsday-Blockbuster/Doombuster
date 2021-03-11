@@ -66,7 +66,7 @@ export const SongList = (props) => {
         onClose={handleMenuClose}
       >
         <MenuItem onClick={()=>{return loadSongs('Top50'),handleMenuClose()}}>Top 50 of 2021</MenuItem>
-        <MenuItem onClick={()=>{return loadSongs('HotGirl'), handleMenuClose()}}>Hot Girl Things</MenuItem>
+        <MenuItem onClick={()=>{return loadSongs('Soundbath'), handleMenuClose()}}>Soundbath</MenuItem>
         <MenuItem onClick={()=>{return loadSongs('Workout'), handleMenuClose()}}>Workout</MenuItem>
         <MenuItem onClick={()=>{ return loadSongs('Reggae'), handleMenuClose()}}>Reggae</MenuItem>
         <MenuItem onClick={()=>{return loadSongs('Rock'), handleMenuClose()}}>Rock</MenuItem>
