@@ -3,6 +3,11 @@ const express = require('express')
 const morgan = require('morgan')
 const app = express()
 module.exports = app
+const PORT = process.env.PORT || 8080
+const http = require("http");
+const socketIo = require("socket.io");
+const server = http.createServer(app);
+const io = socketIo(server);
 
 // logging middleware
 app.use(morgan('dev'))
@@ -37,10 +42,26 @@ app.use((req, res, next) => {
   }
 })
 
+
+
 // sends index.html
 app.use('*', (req, res) => {
   res.render(path.join(__dirname, '..', 'public/index.html'), { googleClientId });
 })
+
+
+io.on('connection',(socket)=>{
+    console.log('new client connected')
+
+    io.emit('user connected');
+    socket.on('incoming data', function(data) {
+        socket.broadcast.edmit("outgoing data", {num: data})  
+    });
+    socket.on("disconnect", () => console.log("client disconnected"))
+})
+
+
+server.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`))
 
 // error handling endware
 app.use((err, req, res, next) => {
