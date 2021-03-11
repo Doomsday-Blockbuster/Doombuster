@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import {addToQueue} from '../store/queue'
 import {loadSongs} from '../store/songs'
 import VideoPlayer from './videoplayer'
+import socketIOClient from "socket.io-client"
 
 //material ui
 import Button from '@material-ui/core/Button';
