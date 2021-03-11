@@ -8,10 +8,22 @@ import {authenticate} from '../store'
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
   const googleURL = window.googleClientId? `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube&response_type=code&redirect_uri=http://localhost:8080/auth/youtube/callback&client_id=${window.googleClientId}` : null;
-  console.log(googleURL)
+//  console.log(googleURL)
   return (
     <div>
       <form onSubmit={handleSubmit} name={name}>
+        <div>
+          <select name='roomOption'>
+            <option value='newRoom'>Create a New Room</option>
+            <option value='enterRoom'>Enter Existing Room</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="roomCode">
+            <small>Room Code</small>
+          </label>
+          <input name="roomCode" type="text" />
+        </div>
         <div>
           <label htmlFor="username">
             <small>Username</small>
@@ -29,9 +41,9 @@ const AuthForm = props => {
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      {
+      {/* {
         window.googleClientId && <a href={googleURL}>Login / Register Via Google </a>
-      }
+      } */}
     </div>
   )
 }
@@ -66,7 +78,9 @@ const mapDispatch = dispatch => {
       const formName = evt.target.name
       const username = evt.target.username.value
       const password = evt.target.password.value
-      dispatch(authenticate(username, password, formName))
+      const roomCode = evt.target.roomCode.value
+      const roomOption = evt.target.roomOption.value
+      dispatch(authenticate(username, password, formName, roomCode, roomOption))
     }
   }
 }
