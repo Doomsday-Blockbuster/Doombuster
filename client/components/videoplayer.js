@@ -21,9 +21,10 @@ constructor(){
       //   videoId:'ZmDBbnmKpqQ'
       // })
     }
-    console.log(event.data)
+    console.log('EVENT',event.data)
   }
   render() {
+    console.log('QUEUE',this.props.queue)
     const opts = {
       height: '390',
       width: '640',
@@ -32,7 +33,7 @@ constructor(){
         autoplay: 1,
       },
     };
-    console.log(this.props)
+   // console.log(this.props)
     const {videoId} = this.props
     console.log('VIDEOID: ',videoId)
     return <YouTube 

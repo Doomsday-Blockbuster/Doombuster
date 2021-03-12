@@ -9,7 +9,6 @@ class PlayQueue extends React.Component {
 
   render() {
     const {queue} = this.props
-    console.log('QUEUE',queue)
     return (
       <div>
         <VideoPlayer videoId={queue.length ? queue[0].videoId : ""} />

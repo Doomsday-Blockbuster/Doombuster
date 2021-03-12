@@ -14,21 +14,6 @@ export const _fetchQueue = (queue) => {
   }
 }
 
-
-export const _addToQueue = (queue) => {
-  return {
-    type: ADD_SONG_TO_QUEUE,
-    queue
-  };
-};
-
-export const _deleteFromQueue = (song) => {
-  return {
-    type: DELETE_SONG_FROM_QUEUE,
-    song
-  }
-}
-
 //thunk creators
 export const fetchQueue = (room) => {
   return async(dispatch) => {
@@ -39,8 +24,9 @@ export const fetchQueue = (room) => {
 
 export const addToQueue = (room,song,history) => {
   return async(dispatch) => {
-    const queue = (await axios.post(`/api/queue/${room}`, {name: song.title, description: song.description, image: song.thumbnail, videoId:song.videoId})).data;
-    dispatch(_addToQueue(queue));
+    let newSong = (await axios.post(`/api/queue/${room}`, {name: song.title, description: song.description, image: song.thumbnail, videoId:song.videoId})).data;
+    const queue = (await axios.get(`/api/queue/${room}`)).data;
+    dispatch(_fetchQueue(queue));
     history.push(`/select`)
   }
 }
@@ -59,10 +45,6 @@ export default function(state = [], action) {
   switch (action.type) {
     case FETCH_QUEUE:
       return action.queue
-    case ADD_SONG_TO_QUEUE:
-      return action.queue
-    // case DELETE_FROM_QUEUE:
-    //   return state.filter(clip=>clip.id != song.id)
     default:
       return state
   }

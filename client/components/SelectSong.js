@@ -37,7 +37,7 @@ export const SongList = (props) => {
 
   //popup
   const handleClickOpen = (song) => {
-    console.log(song)
+  //  console.log(song)
     setOpen(true);
     setSong({title: song.title, description: song.description, thumbnail: song.thumbnails.medium.url, videoId:song.resourceId.videoId});
   };
@@ -48,10 +48,10 @@ export const SongList = (props) => {
 
   const { username,songs,queue,addToQueue,loadSongs} = props;
   const room = props.room;
-  console.log(queue)
+  //console.log('QUEUE',queue)
   // console.log(room)
   // console.log(typeof room)
-  console.log('Songs',songs)
+  //console.log('Songs',songs)
   const videoSrc = `https://www.youtube.com/embed?listType=playlist&list=PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU&autoplay=1`;
   
   return (
@@ -127,7 +127,7 @@ export const SongList = (props) => {
  * CONTAINER
  */
 const mapState = (state) => {
-  console.log(state)
+ //console.log(state)
   return {
     username: state.auth.username,
     room: state.auth.roomId,

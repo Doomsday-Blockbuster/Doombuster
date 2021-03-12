@@ -17,9 +17,6 @@ const Song = db.define('song', {
   image: {
     type: STRING
   },
-  votes: {
-    type: INTEGER
-  },
   queue: {
     type: BOOLEAN
   },
