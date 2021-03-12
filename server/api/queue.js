@@ -28,7 +28,7 @@ router.get('/:id', async (req, res, next) => {
 router.post('/:id', async(req, res, next) => {
   try {
     const song = await Song.create(req.body)
-    song.roomId = '1'
+    song.roomId = req.params.id
     await song.save();
     res.status(201).send(await Song.findAll())
   } catch (err) {

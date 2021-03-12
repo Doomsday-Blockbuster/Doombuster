@@ -31,16 +31,7 @@ const init = async () => {
     else {
       await db.sync()
     }
-    // start listening (and create a 'server' object representing our server)
-    // const server = app.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`))
-    // //http.listen(PORT, () => console.log("mixing it up on ${PORT}"))
-    // io.on('connection',(socket)=>{
-    //   console.log('new client connected')
-    //   io.emit('user connected');
-    //   socket.on('message', function(msg) {
-    //     io.emit('message', msg);
-    //   });
-    // })
+
   } catch (ex) {
     console.log(ex)
   }

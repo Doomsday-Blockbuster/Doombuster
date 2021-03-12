@@ -15,9 +15,8 @@ export class Home extends React.Component{
     this.props.fetchQueue(room)
     socket.on('SongSelected',()=>{
       this.props.fetchQueue(room)
-      console.log('new queue fetched')
+      console.log('new queue fetched after for websocket')
     })
-    //when that happens fetch queue
   }
 
   render(){
