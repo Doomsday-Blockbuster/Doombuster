@@ -14,21 +14,6 @@ export const _fetchQueue = (queue) => {
   }
 }
 
-
-export const _addToQueue = (queue) => {
-  return {
-    type: ADD_SONG_TO_QUEUE,
-    queue
-  };
-};
-
-export const _deleteFromQueue = (song) => {
-  return {
-    type: DELETE_SONG_FROM_QUEUE,
-    song
-  }
-}
-
 //thunk creators
 export const fetchQueue = (room) => {
   return async(dispatch) => {
@@ -60,10 +45,6 @@ export default function(state = [], action) {
   switch (action.type) {
     case FETCH_QUEUE:
       return action.queue
-    case ADD_SONG_TO_QUEUE:
-      return action.queue
-    // case DELETE_FROM_QUEUE:
-    //   return state.filter(clip=>clip.id != song.id)
     default:
       return state
   }
