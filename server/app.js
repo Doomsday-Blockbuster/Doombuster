@@ -8,6 +8,7 @@ const http = require("http");
 const socketIo = require("socket.io");
 const server = http.createServer(app);
 const io = socketIo(server);
+const Song = require('./db/models/Song')
 
 // logging middleware
 app.use(morgan('dev'))
@@ -54,10 +55,22 @@ io.on('connection',(socket)=>{
     console.log('new client connected')
 
     io.emit('user connected');
-    socket.on('incoming data', function(data) {
-        socket.broadcast.edmit("outgoing data", {num: data})  
+    socket.on('SelectSong', async function(room,song) {
+      ////only broadcast to the other people in that room
+      //io.to(roomId).emit('selectedsong'.....)
+      console.log(room,song)
+      const newsong = await Song.create(song)
+      newsong.roomId = room;
+      await newsong.save()
+      //update database right here
+      //Song.create
+      //async
+
+      //no need to pass song
+        socket.broadcast.emit("SongSelected")
+        console.log('done')
+        socket.on("disconnect", () => console.log("client disconnected"))
     });
-    socket.on("disconnect", () => console.log("client disconnected"))
 })
 
 

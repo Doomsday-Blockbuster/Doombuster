@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from "react";
+import React, {useState, useCallback, useEffect} from "react";
 import { connect } from "react-redux";
 import {addToQueue} from '../store/queue'
 import {loadSongs} from '../store/songs'
@@ -45,6 +45,7 @@ export const SongList = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
+
 
   const { username,songs,queue,addToQueue,loadSongs} = props;
   const room = props.room;
@@ -108,7 +109,8 @@ export const SongList = (props) => {
                   <Button onClick={()=>{
                     return(
                       addToQueue(room,selectedSong),
-                      handleClose()
+                      handleClose(),
+                      socket.emit('SelectSong',room,selectedSong)
                     )
                     }}>
                     Yes!

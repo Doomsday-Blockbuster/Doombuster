@@ -13,6 +13,11 @@ export class Home extends React.Component{
   componentDidMount(){
     const {room} = this.props
     this.props.fetchQueue(room)
+    socket.on('SongSelected',()=>{
+      this.props.fetchQueue(room)
+      console.log('new queue fetched')
+    })
+    //when that happens fetch queue
   }
 
   render(){
@@ -25,7 +30,7 @@ export class Home extends React.Component{
           queue.map(song=>{
             return (
               <div key={song.id}>
-                <p>{song.name? song.name : "loading"}</p>
+                <p>{song.name}</p>
               </div>
             )
           })
