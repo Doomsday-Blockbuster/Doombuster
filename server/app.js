@@ -50,7 +50,7 @@ app.use('*', (req, res) => {
   res.render(path.join(__dirname, '..', 'public/index.html'), { googleClientId });
 })
 
-
+//websockets!!!
 io.on('connection',(socket)=>{
     console.log('new client connected')
 
@@ -59,10 +59,10 @@ io.on('connection',(socket)=>{
       const newsong = await Song.create({name: song.title, description: song.description, image: song.thumbnail, videoId:song.videoId})
       newsong.roomId = room;
       await newsong.save()
-        socket.broadcast.emit("SongSelected",room)
+        socket.broadcast.emit("SongSelected")
         console.log('done')
-        socket.on("disconnect", () => console.log("client disconnected"))
     });
+    socket.on("disconnect", () => console.log("client disconnected"))
 })
 
 

@@ -49,10 +49,6 @@ export const SongList = (props) => {
 
   const { username,songs,queue,addToQueue,loadSongs} = props;
   const room = props.room;
-  //console.log('QUEUE',queue)
-  // console.log(room)
-  // console.log(typeof room)
-  //console.log('Songs',songs)
   const videoSrc = `https://www.youtube.com/embed?listType=playlist&list=PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU&autoplay=1`;
   
   return (
@@ -128,11 +124,10 @@ export const SongList = (props) => {
 /**
  * CONTAINER
  */
-const mapState = (state) => {
- //console.log(state)
+const mapState = (state,otherProps) => {
   return {
     username: state.auth.username,
-    room: state.auth.roomId,
+    room: otherProps.match.params.id,
     songs: state.songs,
     queue: state.queue
   };
@@ -142,7 +137,7 @@ const mapDispatch = (dispatch, {history}) => {
   return {
     addToQueue: (room,song) => {
       socket.emit('SelectSong',room,song)
-      history.push('/home')},
+      history.push(`/home/${room}`)},
     loadSongs: (genre)=>dispatch(loadSongs(genre))
   }
 };

@@ -38,12 +38,13 @@ export class Home extends React.Component{
   )}
 }
 
-const mapState = (state) => {
+const mapState = (state,otherProps) => {
   return {
     username: state.auth.username,
-    room: state.auth.roomId,
+    room: otherProps.match.params.id,
     queue: state.queue,
-    test: state.auth
+    test: state.auth,
+    otherProps
   };
 };
 
