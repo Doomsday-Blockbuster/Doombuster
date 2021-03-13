@@ -24,9 +24,9 @@ export const fetchQueue = (room) => {
 
 export const addToQueue = (room,song,history) => {
   return async(dispatch) => {
-    let newSong = (await axios.post(`/api/queue/${room}`, {name: song.title, description: song.description, image: song.thumbnail, videoId:song.videoId})).data;
-    const queue = (await axios.get(`/api/queue/${room}`)).data;
-    dispatch(_fetchQueue(queue));
+    //removed because this addSong is now done in the websocket
+    //const queue = (await axios.post(`/api/queue/${room}`, {name: song.title, description: song.description, image: song.thumbnail, videoId:song.videoId})).data;
+    //dispatch(_addToQueue(queue));
     history.push(`/select`)
   }
 }
