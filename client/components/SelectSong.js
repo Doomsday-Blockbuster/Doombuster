@@ -108,7 +108,7 @@ export const SongList = (props) => {
                 <DialogActions>
                   <Button onClick={()=>{
                     return(
-                      addToQueue(room,selectedSong),
+                      //addToQueue(room,selectedSong),
                       handleClose(),
                       socket.emit('SelectSong',room,selectedSong)
                     )
