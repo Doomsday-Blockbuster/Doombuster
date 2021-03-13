@@ -23,16 +23,17 @@ Song.hasMany(Vote);
 const syncAndSeed = async () => {
   await db.sync({ force: true });
   const users = await Promise.all([
-    User.create({ username: "cody@email.com", password: "123" }),
+    User.create({ username: "cody@email.com", password: "123", admin: true }),
     User.create({ username: "murphy@email.com", password: "123" }),
   ]);
   const [cody, murphy] = users;
 
-  const room = await Room.create({ name: "original-room" });
+  const room = await Room.create({ roomCode: 1234 });
+  const room2 = await Room.create({ roomCode: 2222 });
   cody.roomId = room.id;
+  murphy.roomId = room.id;
   await cody.save();
-
-  await Vote.create({ voteValue: 1 });
+  await murphy.save();
 
   return {
     users: {

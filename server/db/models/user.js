@@ -16,8 +16,12 @@ const User = db.define("user", {
   password: {
     type: STRING,
   },
-  githubId: {
-    type: Sequelize.INTEGER,
+  votes: {
+    type: INTEGER,
+    min: 0,
+  },
+  admin: {
+    type: Sequelize.BOOLEAN,
   },
 });
 
@@ -38,13 +42,20 @@ User.prototype.generateToken = function () {
 /**
  * classMethods
  */
-User.authenticate = async function ({ username, password }) {
+User.authenticate = async function (
+  { username, password },
+  roomId,
+  roomOption
+) {
   const user = await this.findOne({ where: { username } });
   if (!user || !(await user.correctPassword(password))) {
     const error = Error("Incorrect username/password");
     error.status = 401;
     throw error;
   }
+  user.roomId = roomId;
+  if (roomOption === "newRoom") user.admin = "TRUE";
+  await user.save();
   return user.generateToken();
 };
 
