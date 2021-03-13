@@ -56,18 +56,9 @@ io.on('connection',(socket)=>{
 
     io.emit('user connected');
     socket.on('SelectSong', async function(room,song) {
-      ////only broadcast to the other people in that room
-      //io.to(roomId).emit('selectedsong'.....)
-      //console.log(room,song)
       const newsong = await Song.create({name: song.title, description: song.description, image: song.thumbnail, videoId:song.videoId})
       newsong.roomId = room;
       await newsong.save()
-      //console.log(newsong)
-      //update database right here
-      //Song.create
-      //async
-
-      //no need to pass song
         socket.broadcast.emit("SongSelected",room)
         console.log('done')
         socket.on("disconnect", () => console.log("client disconnected"))

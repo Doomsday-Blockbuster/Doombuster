@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import {addToQueue} from '../store/queue'
 import {loadSongs} from '../store/songs'
 import VideoPlayer from './videoplayer'
-import socketIOClient from "socket.io-client"
+//import socketIOClient from "socket.io-client"
 
 //material ui
 import Button from '@material-ui/core/Button';
@@ -108,9 +108,9 @@ export const SongList = (props) => {
                 <DialogActions>
                   <Button onClick={()=>{
                     return(
-                      //addToQueue(room,selectedSong),
-                      handleClose(),
-                      socket.emit('SelectSong',room,selectedSong)
+                      addToQueue(room,selectedSong),
+                      handleClose()
+                      
                     )
                     }}>
                     Yes!
@@ -140,7 +140,9 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch, {history}) => {
   return {
-    addToQueue: (room,song) => dispatch(addToQueue(room,song,history)),
+    addToQueue: (room,song) => {
+      socket.emit('SelectSong',room,song)
+      history.push('/home')},
     loadSongs: (genre)=>dispatch(loadSongs(genre))
   }
 };
