@@ -16,7 +16,7 @@ const User = db.define("user", {
   password: {
     type: STRING,
   },
-  votes: {
+  vote: {
     type: INTEGER,
     min: 0,
   },
