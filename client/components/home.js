@@ -13,6 +13,10 @@ export class Home extends React.Component{
   componentDidMount(){
     const {room} = this.props
     this.props.fetchQueue(room)
+    socket.on('SongSelected',()=>{
+      this.props.fetchQueue(room)
+      console.log('new queue fetched after for websocket')
+    })
   }
 
   render(){
@@ -25,7 +29,7 @@ export class Home extends React.Component{
           queue.map(song=>{
             return (
               <div key={song.id}>
-                <p>{song.name? song.name : "loading"}</p>
+                <p>{song.name}</p>
               </div>
             )
           })
@@ -34,12 +38,13 @@ export class Home extends React.Component{
   )}
 }
 
-const mapState = (state) => {
+const mapState = (state,otherProps) => {
   return {
     username: state.auth.username,
-    room: state.auth.roomId,
+    room: otherProps.match.params.id,
     queue: state.queue,
-    test: state.auth
+    test: state.auth,
+    otherProps
   };
 };
 

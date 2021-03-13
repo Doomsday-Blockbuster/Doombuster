@@ -8,6 +8,7 @@ const http = require("http");
 const socketIo = require("socket.io");
 const server = http.createServer(app);
 const io = socketIo(server);
+const Song = require('./db/models/Song')
 
 // logging middleware
 app.use(morgan('dev'))
@@ -49,13 +50,17 @@ app.use('*', (req, res) => {
   res.render(path.join(__dirname, '..', 'public/index.html'), { googleClientId });
 })
 
-
+//websockets!!!
 io.on('connection',(socket)=>{
     console.log('new client connected')
 
     io.emit('user connected');
-    socket.on('incoming data', function(data) {
-        socket.broadcast.edmit("outgoing data", {num: data})  
+    socket.on('SelectSong', async function(room,song) {
+      const newsong = await Song.create({name: song.title, description: song.description, image: song.thumbnail, videoId:song.videoId})
+      newsong.roomId = room;
+      await newsong.save()
+        socket.broadcast.emit("SongSelected")
+        console.log('done')
     });
     socket.on("disconnect", () => console.log("client disconnected"))
 })

@@ -1,9 +1,9 @@
-import React, {useState, useCallback} from "react";
+import React, {useState, useCallback, useEffect} from "react";
 import { connect } from "react-redux";
 import {addToQueue} from '../store/queue'
 import {loadSongs} from '../store/songs'
 import VideoPlayer from './videoplayer'
-import socketIOClient from "socket.io-client"
+//import socketIOClient from "socket.io-client"
 
 //material ui
 import Button from '@material-ui/core/Button';
@@ -46,12 +46,9 @@ export const SongList = (props) => {
     setOpen(false);
   };
 
+
   const { username,songs,queue,addToQueue,loadSongs} = props;
   const room = props.room;
-  //console.log('QUEUE',queue)
-  // console.log(room)
-  // console.log(typeof room)
-  //console.log('Songs',songs)
   const videoSrc = `https://www.youtube.com/embed?listType=playlist&list=PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU&autoplay=1`;
   
   return (
@@ -109,6 +106,7 @@ export const SongList = (props) => {
                     return(
                       addToQueue(room,selectedSong),
                       handleClose()
+                      
                     )
                     }}>
                     Yes!
@@ -126,11 +124,10 @@ export const SongList = (props) => {
 /**
  * CONTAINER
  */
-const mapState = (state) => {
- //console.log(state)
+const mapState = (state,otherProps) => {
   return {
     username: state.auth.username,
-    room: state.auth.roomId,
+    room: otherProps.match.params.id,
     songs: state.songs,
     queue: state.queue
   };
@@ -138,7 +135,9 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch, {history}) => {
   return {
-    addToQueue: (room,song) => dispatch(addToQueue(room,song,history)),
+    addToQueue: (room,song) => {
+      socket.emit('SelectSong',room,song)
+      history.push(`/home/${room}`)},
     loadSongs: (genre)=>dispatch(loadSongs(genre))
   }
 };
