@@ -16,11 +16,12 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn,room } = this.props;
+    const { isLoggedIn,isAdmin,room, roomAdmin} = this.props;
 
     return (
       <div>
-        {isLoggedIn ? (
+        {isLoggedIn?(<h3>Room Admin: {roomAdmin}</h3>):null}
+        {isLoggedIn && isAdmin? (
           <PlayQueue/>
         ) : (
           ""
@@ -51,8 +52,10 @@ const mapState = (state,otherProps) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
+    isAdmin: state.auth.admin,
     room: state.auth.roomId,
     queue: state.queue,
+    roomAdmin : state.auth.username
   };
 };
 

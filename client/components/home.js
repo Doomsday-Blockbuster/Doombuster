@@ -13,8 +13,8 @@ export class Home extends React.Component{
   componentDidMount(){
     const {room} = this.props
     this.props.fetchQueue(room)
-    socket.on('SongSelected',()=>{
-      this.props.fetchQueue(room)
+    socket.on('SongSelected',async()=>{
+      await this.props.fetchQueue(room)
       console.log('new queue fetched after for websocket')
     })
   }
