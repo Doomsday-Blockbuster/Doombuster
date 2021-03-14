@@ -109,7 +109,31 @@ export const SongList = (props) => {
                 aria-describedby="confirm-add-song"
               >
 
-                {queue.length <= 10 && !repeatSong(selectedSong)?
+
+                  {/* //queue.length <= 10 && !repeatSong(selectedSong)? */}
+                {repeatSong(selectedSong)?
+                (
+                  <div>
+                  <DialogTitle id="error">Poor Taste! JK. Song is already in queue. Please choose another!</DialogTitle>
+                  <DialogActions>
+                    <Button onClick={()=>handleClose()}>
+                      OK!
+                    </Button>
+                  </DialogActions>
+                </div>
+                )
+                : queue.length>10?
+                (
+                  <div>
+                  <DialogTitle id="error">Poor Taste! JK. Queue is too full. Come back soon!</DialogTitle>
+                  <DialogActions>
+                    <Button onClick={()=>handleClose()}>
+                      OK!
+                    </Button>
+                  </DialogActions>
+                </div>
+                )
+                :
                 (
                   <div>
                     <DialogTitle id="add-song">Add this song to the room?</DialogTitle>
@@ -133,18 +157,7 @@ export const SongList = (props) => {
                     </DialogActions>
                 </div>
                 )
-                :
-                (
-                  <div>
-                    <DialogTitle id="error">Poor Taste! JK. Queue is too full or song is already in queue. Come back soon!</DialogTitle>
-                    <DialogActions>
-                      <Button onClick={()=>handleClose()}>
-                        OK!
-                      </Button>
-                    </DialogActions>
-                  </div>
-                )
-                }
+              }
               </Dialog>
       </div>
     </div>
