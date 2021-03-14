@@ -26,7 +26,15 @@ export const SongList = (props) => {
   const [selectedSong, setSong] = useState({});
   const [anchorEl, setAnchorEl] = useState(null);
 
-  
+  const repeatSong = (song) =>{
+    const inqueue = queue.find(ele=>ele.name===song.title)
+    if(inqueue){
+      return true
+    }else{
+      return false
+    }
+  }
+
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -37,9 +45,11 @@ export const SongList = (props) => {
 
   //popup
   const handleClickOpen = (song) => {
-  //  console.log(song)
-    setOpen(true);
     setSong({title: song.title, description: song.description, thumbnail: song.thumbnails.medium.url, videoId:song.resourceId.videoId});
+    
+    //if(queue.length<=10){
+      setOpen(true);
+    
   };
 
   const handleClose = () => {
@@ -51,6 +61,9 @@ export const SongList = (props) => {
   const room = props.room;
   const videoSrc = `https://www.youtube.com/embed?listType=playlist&list=PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU&autoplay=1`;
   
+
+  console.log('selected song ', selectedSong)
+  console.log('queue ', queue)
   return (
     <div>
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
@@ -92,29 +105,59 @@ export const SongList = (props) => {
               <Dialog
                 open={open}
                 onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
+                aria-labelledby="confirm-add-song"
+                aria-describedby="confirm-add-song"
               >
-                <DialogTitle id="add-song">Add this song to the room?</DialogTitle>
-                <DialogContent>
-                  <DialogContentText id="add-song-description">
-                    {selectedSong.title}
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button onClick={()=>{
-                    return(
-                      addToQueue(room,selectedSong),
-                      handleClose()
-                      
-                    )
-                    }}>
-                    Yes!
-                  </Button>
-                  <Button onClick={handleClose}>
-                    Put it back
-                  </Button>
-                </DialogActions>
+
+
+                  {/* //queue.length <= 10 && !repeatSong(selectedSong)? */}
+                {repeatSong(selectedSong)?
+                (
+                  <div>
+                  <DialogTitle id="error-repeat">Poor Taste! JK. Song is already in queue. Please choose another!</DialogTitle>
+                  <DialogActions>
+                    <Button onClick={()=>handleClose()}>
+                      OK!
+                    </Button>
+                  </DialogActions>
+                </div>
+                )
+                : queue.length>10?
+                (
+                  <div>
+                  <DialogTitle id="error-full">Poor Taste! JK. Queue is too full. Come back soon!</DialogTitle>
+                  <DialogActions>
+                    <Button onClick={()=>handleClose()}>
+                      OK!
+                    </Button>
+                  </DialogActions>
+                </div>
+                )
+                :
+                (
+                  <div>
+                    <DialogTitle id="add-song">Add this song to the room?</DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="add-song-description">
+                        {selectedSong.title}
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={()=>{
+                        return(
+                          addToQueue(room,selectedSong),
+                          handleClose()
+                        )
+                        }}>
+                        Yes!
+                      </Button>
+                      <Button onClick={handleClose}>
+                        Put it back
+                      </Button>
+                    </DialogActions>
+                </div>
+                )
+              }
               </Dialog>
       </div>
     </div>
