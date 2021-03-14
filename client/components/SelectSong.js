@@ -114,7 +114,7 @@ export const SongList = (props) => {
                 {repeatSong(selectedSong)?
                 (
                   <div>
-                  <DialogTitle id="error">Poor Taste! JK. Song is already in queue. Please choose another!</DialogTitle>
+                  <DialogTitle id="error-repeat">Poor Taste! JK. Song is already in queue. Please choose another!</DialogTitle>
                   <DialogActions>
                     <Button onClick={()=>handleClose()}>
                       OK!
@@ -125,7 +125,7 @@ export const SongList = (props) => {
                 : queue.length>10?
                 (
                   <div>
-                  <DialogTitle id="error">Poor Taste! JK. Queue is too full. Come back soon!</DialogTitle>
+                  <DialogTitle id="error-full">Poor Taste! JK. Queue is too full. Come back soon!</DialogTitle>
                   <DialogActions>
                     <Button onClick={()=>handleClose()}>
                       OK!
