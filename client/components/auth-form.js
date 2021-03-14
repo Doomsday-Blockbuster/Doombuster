@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {authenticate} from '../store'
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, Radio, RadioGroup, FormControl, FormControlLabel} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = (theme) => ({
@@ -15,10 +15,16 @@ const styles = (theme) => ({
   form: {
     display:'flex',
     flexDirection:'column',
-    width:'200px'
+    alignItems:'center',
+    width:'500px'
+  },
+  radioButton: {
+    display:'flex',
+    justifyContent:'center'
   },
   button: {
-    margin:'1rem'
+    margin:'1rem',
+    width:'100px'
   },
 })
 
@@ -31,52 +37,67 @@ class AuthForm extends React.Component{
     this.state ={
       roomOption:'',
       roomOptionSelected:0,
-      roomCode:0
+      roomCode:0,
+      formName:'login'
     }
-    this.selectRoomOption=this.selectRoomOption.bind(this)
-    this.handleChange=this.handleChange.bind(this)
+    this.selectRoomOption = this.selectRoomOption.bind(this)
+    this.selectFormName = this.selectFormName.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.submitRoomOption = this.submitRoomOption.bind(this)
   } 
 
   selectRoomOption(ev){
-    const roomOption = ev.target.innerHTML
-    if(roomOption==='Create New Room'){
-      this.setState({roomOption:'newRoom'})
-    }
-    if(roomOption==='Enter Existing Room'){
-      this.setState({roomOption:'enterRoom'})
-    }  
+    const roomOption = ev.target.value
+    this.setState({roomOption})
+  }
+
+  selectFormName(ev){
+    const formName = ev.target.value
+    this.setState({formName})
   }
 
   async handleChange(ev){
-    this.setState({roomCode:ev.target.value})
+    const roomCode = ev.target.value
+    this.setState({roomCode})
+  }
+
+  async submitRoomOption(ev){
+    this.setState({roomOptionSelected:1})
   }
 
   render(){
     const {name, displayName, handleSubmit, error, classes} = this.props
-    const {selectRoomOption,handleChange} = this
-    const {roomOption,roomCode} = this.state
-  // const googleURL = window.googleClientId? `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/youtube&response_type=code&redirect_uri=http://localhost:8080/auth/youtube/callback&client_id=${window.googleClientId}` : null;
-  //  console.log(googleURL)
+    const {selectRoomOption,selectFormName,handleChange,submitRoomOption} = this
+    const {roomOption,roomCode,formName,roomOptionSelected} = this.state
     return (
       <div className={classes.main}>
-        {!roomOption?(
-        <div className={classes.form}>
-        <TextField style={{textAlign:'center'}} label='Enter Room Code' onChange={(ev)=>handleChange(ev)}/>
-        <Button className = {classes.button} color="primary" variant="contained" onClick={selectRoomOption}>Create New Room</Button>
-        <Button color="primary" variant="contained" onClick={selectRoomOption}>Enter Existing Room</Button>
+        {!roomOptionSelected?(
+          <div className={classes.form}>
+            <div className = {classes.radioButton}>
+            <FormControl component="fieldset">
+                <RadioGroup row onChange={selectRoomOption}>
+                  <FormControlLabel value="enterRoom" control={<Radio />} label="Enter Existing Room" />
+                  <FormControlLabel value="newRoom" control={<Radio />} label="Create New Room" />
+                </RadioGroup>
+            </FormControl>
+            </div>
+          {roomOption?(
+            <TextField style={{textAlign:'center'}} label='Enter Room Code' onChange={(ev)=>handleChange(ev)}/>
+            ):null}
+          <Button className = {classes.button} color="primary" variant="contained" onClick={submitRoomOption}>SUBMIT</Button>
         </div>
         ):null}
-        {roomOption?(<form onSubmit={(ev)=>handleSubmit(ev,roomOption,roomCode)} name={name}>
-          <div className={classes.form}>
-            <TextField label = 'Enter Username' name="username" type="text" />
-            <TextField label = 'Enter Password' name="password" type="password" />
-            <Button className = {classes.button} color="primary" variant="contained" type="submit">{displayName}</Button>
-          </div>
-          {error && error.response && <div> {error.response.data} </div>}
-        </form>):null}
-        {/* {
-          window.googleClientId && <a href={googleURL}>Login / Register Via Google </a>
-        } */}
+        {(roomOptionSelected)?(
+          <form onSubmit={(ev)=>handleSubmit(ev,roomOption,roomCode,formName)}>
+            <div className={classes.form}>
+              <TextField label = 'Enter Username' name="username" type="text" />
+              <TextField label = 'Enter Password' name="password" type="password" />
+              <Button className = {classes.button} color="primary" variant="contained" type= 'submit' value={formName}>{formName==='signup'?'Sign Up':'Login'}</Button>
+              <p>{formName==='signup'?'Already have an account?':'Dont have an account?'} <button value={formName==='login'?'signup':'login'} onClick={selectFormName}>{formName==='signup'?'Login':'Register'}</button></p>
+            </div>
+            {error && error.response && <div> {error.response.data} </div>}
+          </form>
+        ):null}
       </div>
     )
   }
@@ -107,11 +128,12 @@ const mapSignup = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleSubmit(evt,roomOption,roomCode) {
+    handleSubmit(evt,roomOption,roomCode,formName) {
       evt.preventDefault()
-      console.log(roomOption)
-      console.log(roomCode)
-      const formName = evt.target.name
+      // console.log(roomOption)
+      // console.log(roomCode)
+      // formName = evt.target.name
+      // console.log('FormName:',formName)
       const username = evt.target.username.value
       const password = evt.target.password.value
       // const roomCode = evt.target.roomCode.value

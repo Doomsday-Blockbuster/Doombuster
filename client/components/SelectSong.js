@@ -178,9 +178,10 @@ const mapState = (state,otherProps) => {
 
 const mapDispatch = (dispatch, {history}) => {
   return {
-    addToQueue: (room,song) => {
-      socket.emit('SelectSong',room,song)
-      history.push(`/home/${room}`)},
+    // addToQueue: (room,song) => {
+    //   socket.emit('SelectSong',room,song)
+    //   history.push(`/home/${room}`)},
+    addToQueue: (room,song) => dispatch(addToQueue(room,song,history)),
     loadSongs: (genre)=>dispatch(loadSongs(genre))
   }
 };

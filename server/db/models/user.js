@@ -21,7 +21,8 @@ const User = db.define('user', {
     min: 0
   },
   admin: {
-    type: Sequelize.BOOLEAN
+    type: Sequelize.BOOLEAN,
+    defaultValue: 'FALSE'
   }
 })
 
@@ -48,9 +49,10 @@ User.authenticate = async function({ username, password},roomId,roomOption){
       const error = Error('Incorrect username/password');
       error.status = 401;
       throw error;
-    }
+    }    
+    if(roomOption==='newRoom')user.admin=true
+    if(roomOption==='enterRoom' && user.roomId!==roomId)user.admin=false
     user.roomId=roomId
-    if(roomOption==='newRoom')user.admin='TRUE'
     await user.save()
     return user.generateToken();
 };

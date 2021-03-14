@@ -55,10 +55,10 @@ io.on('connection',(socket)=>{
     console.log('new client connected')
 
     io.emit('user connected');
-    socket.on('SelectSong', async function(room,song) {
-      const newsong = await Song.create({name: song.title, description: song.description, image: song.thumbnail, videoId:song.videoId})
-      newsong.roomId = room;
-      await newsong.save()
+    socket.on('SelectSong', async function() {
+      // const newsong = await Song.create({name: song.title, description: song.description, image: song.thumbnail, videoId:song.videoId})
+      // newsong.roomId = room;
+      // await newsong.save()
         socket.broadcast.emit("SongSelected")
         console.log('done')
     });
