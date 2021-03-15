@@ -4,21 +4,25 @@ module.exports = router
 
 router.post('/login', async (req, res, next) => {
   try {
-    //console.log(req.body)
-    let roomId
-    if(req.body.roomOption==='newRoom'){
-      const room = await Room.create({roomCode:req.body.roomCode})
-      roomId = room.id
-    }else{
-      roomId = await Room.findRoomByCode(req.body)
-    }
-    res.send({ token: await User.authenticate(req.body,roomId,req.body.roomOption)}); 
+    // console.log(req.body)
+    // let roomId
+    // if(req.body.roomOption==='newRoom'){
+    //   const room = await Room.create({roomCode:req.body.roomCode*1})
+    //   roomId = room.id
+    // }else{
+    //   roomId = await Room.findRoomByCode(req.body.roomCode*1)
+    //   //console.log('ROOMID',roomId)
+    // }
+
+    //res.send({ token: await User.authenticate(req.body,roomId,req.body.roomOption)}); 
+    res.send({ token: await User.authenticate(req.body)}); 
   } catch (err) {
-    if (err.name === 'SequelizeUniqueConstraintError') {
-      res.status(401).send('Room already exists')
-    } else {
+    //console.log('ERRORRRRRR********',err)
+    // if (err.name === 'SequelizeUniqueConstraintError') {
+    //   res.status(401).send('Room already exists')
+    // } else {
       next(err)
-    }
+    //}
   }
 })
 
@@ -56,7 +60,7 @@ router.post('/signup', async (req, res, next) => {
       roomId = room.id
       user.admin='TRUE'
     }else{
-      roomId = await Room.findRoomByCode(req.body)
+      roomId = await Room.findRoomByCode(req.body.roomCode)
     }
     user.roomId=roomId
     await user.save()

@@ -21,10 +21,10 @@ constructor(){
       //   videoId:'ZmDBbnmKpqQ'
       // })
     }
-    console.log('EVENT',event.data)
+   // console.log('EVENT',event.data)
   }
   render() {
-    console.log('QUEUE',this.props.queue)
+   console.log('QUEUE',this.props.queue)
     const opts = {
       height: '390',
       width: '640',
@@ -35,7 +35,7 @@ constructor(){
     };
    // console.log(this.props)
     const {videoId} = this.props
-    console.log('VIDEOID: ',videoId)
+  // console.log('VIDEOID: ',videoId)
     return <YouTube 
     videoId={videoId}
     opts={opts} 
