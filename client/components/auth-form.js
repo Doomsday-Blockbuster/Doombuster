@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {authenticate} from '../store'
-import { TextField, Button, Radio, RadioGroup, FormControl, FormControlLabel} from '@material-ui/core';
+import { TextField, Button, Radio, RadioGroup, FormControl, FormControlLabel, FormHelperText} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'
+import axios from 'axios';
 
 const styles = (theme) => ({
   main:{
@@ -38,7 +39,9 @@ class AuthForm extends React.Component{
       roomOption:'',
       roomOptionSelected:0,
       roomCode:0,
-      formName:'login'
+      formName:'login',
+      roomAlreadyExists:0,
+      roomDoesNotExist:0
     }
     this.selectRoomOption = this.selectRoomOption.bind(this)
     this.selectFormName = this.selectFormName.bind(this)
@@ -52,6 +55,7 @@ class AuthForm extends React.Component{
   }
 
   selectFormName(ev){
+    ev.preventDefault()
     const formName = ev.target.value
     this.setState({formName})
   }
@@ -61,41 +65,60 @@ class AuthForm extends React.Component{
     this.setState({roomCode})
   }
 
-  async submitRoomOption(ev){
-    this.setState({roomOptionSelected:1})
+  async submitRoomOption(roomCode){
+    try{
+      this.setState({roomOptionSelected:1})
+      this.setState({roomAlreadyExists:0})
+      this.setState({roomDoesNotExist:0})
+      const res = (await axios.get(`/api/room/${roomCode}`)).data
+      if(this.state.roomOption==='newRoom' && res.roomId){
+        this.setState({roomOptionSelected:0})
+        this.setState({roomCode:0})
+        this.setState({roomAlreadyExists:1})
+      }
+    }catch(ex){
+      if(this.state.roomOption==='enterRoom'){
+        this.setState({roomDoesNotExist:1})
+        this.setState({roomCode:0})
+        this.setState({roomOptionSelected:0})
+      }
+    }
   }
 
   render(){
-    const {name, displayName, handleSubmit, error, classes} = this.props
+    const {handleSubmit, error, classes} = this.props
     const {selectRoomOption,selectFormName,handleChange,submitRoomOption} = this
-    const {roomOption,roomCode,formName,roomOptionSelected} = this.state
+    const {roomOption,roomCode,formName,roomOptionSelected,roomAlreadyExists,roomDoesNotExist} = this.state
     return (
       <div className={classes.main}>
         {!roomOptionSelected?(
           <div className={classes.form}>
             <div className = {classes.radioButton}>
             <FormControl component="fieldset">
-                <RadioGroup row onChange={selectRoomOption}>
+                <RadioGroup row onChange={selectRoomOption} defaultValue={roomOption}>
                   <FormControlLabel value="enterRoom" control={<Radio />} label="Enter Existing Room" />
                   <FormControlLabel value="newRoom" control={<Radio />} label="Create New Room" />
                 </RadioGroup>
             </FormControl>
             </div>
           {roomOption?(
-            <TextField style={{textAlign:'center'}} label='Enter Room Code' onChange={(ev)=>handleChange(ev)}/>
+            <TextField style={{textAlign:'center'}} value={roomCode!==0?roomCode:''} label='Enter Room Code' onChange={(ev)=>handleChange(ev)}/>
             ):null}
-          <Button className = {classes.button} color="primary" variant="contained" onClick={submitRoomOption}>SUBMIT</Button>
+          <Button className = {classes.button} color="primary" variant="contained" onClick={()=>submitRoomOption(roomCode)}>SUBMIT</Button>
+          <FormHelperText>{roomAlreadyExists?'Room Code Already Exists, Please Enter A Different Code':''}</FormHelperText>
+          <FormHelperText>{roomDoesNotExist?'Invalid Room Code':''}</FormHelperText>
         </div>
         ):null}
-        {(roomOptionSelected)?(
+        {roomOptionSelected?(
           <form onSubmit={(ev)=>handleSubmit(ev,roomOption,roomCode,formName)}>
             <div className={classes.form}>
+              {/* {error?<TextField style={{textAlign:'center'}} value={roomCode!==0?roomCode:''} label='Enter Room Code' onChange={(ev)=>handleChange(ev)}/>:''} */}
               <TextField label = 'Enter Username' name="username" type="text" />
               <TextField label = 'Enter Password' name="password" type="password" />
               <Button className = {classes.button} color="primary" variant="contained" type= 'submit' value={formName}>{formName==='signup'?'Sign Up':'Login'}</Button>
               <p>{formName==='signup'?'Already have an account?':'Dont have an account?'} <button value={formName==='login'?'signup':'login'} onClick={selectFormName}>{formName==='signup'?'Login':'Register'}</button></p>
+              <FormHelperText>{error && error.response && <div> {error.response.data} </div>}</FormHelperText>
             </div>
-            {error && error.response && <div> {error.response.data} </div>}
           </form>
         ):null}
       </div>
@@ -103,25 +126,9 @@ class AuthForm extends React.Component{
   }
 }
 
-/**
- * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
- */
-const mapLogin = state => {
-  return {
-    name: 'login',
-    displayName: 'Login',
-    error: state.auth.error
-  }
-}
 
-const mapSignup = state => {
+const mapState = state => {
   return {
-    name: 'signup',
-    displayName: 'Sign Up',
     error: state.auth.error
   }
 }
@@ -130,18 +137,16 @@ const mapDispatch = dispatch => {
   return {
     handleSubmit(evt,roomOption,roomCode,formName) {
       evt.preventDefault()
-      // console.log(roomOption)
-      // console.log(roomCode)
-      // formName = evt.target.name
-      // console.log('FormName:',formName)
       const username = evt.target.username.value
       const password = evt.target.password.value
-      // const roomCode = evt.target.roomCode.value
-      // const roomOption = evt.target.roomOption.value
       dispatch(authenticate(username, password, formName, roomCode, roomOption))
+    },
+    async findRoom(roomCode){
+      console.log('roomCode',roomCode)
+      const res = await axios.get(`/api/room/${roomCode}`)
     }
   }
 }
 
-export const Login = withStyles(styles)(connect(mapLogin, mapDispatch)(AuthForm))
-export const Signup = withStyles(styles)(connect(mapSignup, mapDispatch)(AuthForm))
+
+ export const LandingPage = withStyles(styles)(connect(mapState, mapDispatch)(AuthForm))

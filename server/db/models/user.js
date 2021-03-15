@@ -4,6 +4,7 @@ const db = require('../db')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const axios = require('axios');
+const Room = require('./Room.js')
 
 const SALT_ROUNDS = 5;
 
@@ -43,13 +44,38 @@ User.prototype.generateToken = function() {
 /**
  * classMethods
  */
-User.authenticate = async function({ username, password},roomId,roomOption){
+// User.authenticate = async function({ username, password},roomId,roomOption){
+//   // console.log('RoomId',roomId)
+//   // console.log('RoomOption',roomOption)
+//     const user = await this.findOne({where: { username }})
+//     if (!user || !(await user.correctPassword(password))) {
+//       const error = Error('Incorrect username/password');
+//       error.status = 401;
+//       throw error;
+//     }    
+//     if(roomOption==='newRoom')user.admin=true
+//     if(roomOption==='enterRoom' && user.roomId!==roomId)user.admin=false
+//     user.roomId=roomId
+//     await user.save()
+//     return user.generateToken();
+// };
+
+User.authenticate = async function({ username, password,roomOption,roomCode}){
+  // console.log('RoomId',roomId)
+  // console.log('RoomOption',roomOption)
     const user = await this.findOne({where: { username }})
     if (!user || !(await user.correctPassword(password))) {
       const error = Error('Incorrect username/password');
       error.status = 401;
       throw error;
     }    
+    let roomId
+    if(roomOption==='newRoom'){
+      const room = await Room.create({roomCode:roomCode*1})
+      roomId = room.id
+    }else{
+      roomId = await Room.findRoomByCode(roomCode*1)
+    }
     if(roomOption==='newRoom')user.admin=true
     if(roomOption==='enterRoom' && user.roomId!==roomId)user.admin=false
     user.roomId=roomId

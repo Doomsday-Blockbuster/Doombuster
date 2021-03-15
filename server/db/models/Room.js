@@ -10,7 +10,7 @@ const Room = db.define('room', {
   }
 })
 
-Room.findRoomByCode = async function({roomCode}){
+Room.findRoomByCode = async function(roomCode){
   roomCode=roomCode*1
   const room = await this.findOne({where: {roomCode:roomCode}})
   if(!room){
