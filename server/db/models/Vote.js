@@ -4,7 +4,7 @@ const db = require("../db");
 
 const Vote = db.define("vote", {
   voteValue: {
-    type: ENUM(["-1", "0", "1"]),
+    type: ENUM(["-1", "1"]),
   },
 });
 
