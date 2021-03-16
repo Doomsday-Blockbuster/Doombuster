@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 // import { Login, Signup } from "./components/Auth-Form";
-import { LandingPage } from "./components/Auth-Form";
+import LandingPage from "./components/landingPage";
 import SelectSong from "./components/SelectSong";
 import Home from "./components/Home";
 import { me, loadSongs, fetchQueue } from "./store";

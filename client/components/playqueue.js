@@ -11,7 +11,7 @@ class PlayQueue extends React.Component {
     const {queue} = this.props
     return (
       <div>
-        <VideoPlayer videoId={queue.length ? queue[0].videoId : ""} />
+        {queue.length>0?<VideoPlayer videoId={queue.length ? queue[0].videoId : ""} />:''}
       </div>
     )
   }

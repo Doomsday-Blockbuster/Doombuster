@@ -31,7 +31,7 @@ export const addToQueue = (room,song,history) => {
 
     const newSong = (await axios.post(`/api/queue/${room}`, {name: song.title, description: song.description, image: song.thumbnail, videoId:song.videoId,roomId:room})).data;
     dispatch(fetchQueue(room));
-    socket.emit('SelectSong')
+    socket.emit('QueueUpdated')
     history.push(`/home/${room}`)
   }
 }
@@ -41,6 +41,7 @@ export const deleteSongFromQueue = (song, room, history) => {
     await axios.delete(`/api/queue/${song.id}`)
     const queue = (await axios.get(`/api/queue/${room}`)).data;
     dispatch(_fetchQueue(queue));
+    socket.emit('QueueUpdated')
   }
 }
 

@@ -2,8 +2,22 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {authenticate} from '../store'
 import { TextField, Button, Radio, RadioGroup, FormControl, FormControlLabel, FormHelperText} from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles'
+import { withStyles,createMuiTheme} from '@material-ui/core/styles'
+import { grey, deepPurple, amber } from '@material-ui/core/colors';
+import { ThemeProvider } from '@material-ui/styles';
 import axios from 'axios';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: deepPurple[500],
+    },
+    secondary: {
+      main: amber[500],
+      contrastText: deepPurple[900],
+    },
+  },
+});
 
 const styles = (theme) => ({
   main:{
@@ -11,7 +25,8 @@ const styles = (theme) => ({
     flexDirection:'column',
     justifyContent:'center',
     alignItems:'center',
-    height:'100vh'
+    height:'100vh',
+    color:'white'
   },
   form: {
     display:'flex',
@@ -21,18 +36,26 @@ const styles = (theme) => ({
   },
   radioButton: {
     display:'flex',
-    justifyContent:'center'
+    justifyContent:'center',
+    color:'white'
   },
   button: {
     margin:'1rem',
-    width:'100px'
+    width:'100px',
+    backgroundColor:'#34ebe5',
+    color:'black'
   },
+  // root:{
+  //   '& .MuiInputBase-input':{
+  //     color:'white'
+  //   }
+  // }
 })
 
 /**
  * COMPONENT
  */
-class AuthForm extends React.Component{
+class LandingPage extends React.Component{
   constructor(props){
     super()
     this.state ={
@@ -91,6 +114,7 @@ class AuthForm extends React.Component{
     const {roomOption,roomCode,formName,roomOptionSelected,roomAlreadyExists,roomDoesNotExist} = this.state
     return (
       <div className={classes.main}>
+        <img className = 'background-image' src ='../background.jpg' />
         {!roomOptionSelected?(
           <div className={classes.form}>
             <div className = {classes.radioButton}>
@@ -102,7 +126,7 @@ class AuthForm extends React.Component{
             </FormControl>
             </div>
           {roomOption?(
-            <TextField style={{textAlign:'center'}} value={roomCode!==0?roomCode:''} label='Enter Room Code' onChange={(ev)=>handleChange(ev)}/>
+            <TextField className = {classes.textfield} style={{textAlign:'center'}} value={roomCode!==0?roomCode:''} label='Enter Room Code' onChange={(ev)=>handleChange(ev)}/>
             ):null}
           <Button className = {classes.button} color="primary" variant="contained" onClick={()=>submitRoomOption(roomCode)}>SUBMIT</Button>
           <FormHelperText>{roomAlreadyExists?'Room Code Already Exists, Please Enter A Different Code':''}</FormHelperText>
@@ -149,4 +173,4 @@ const mapDispatch = dispatch => {
 }
 
 
- export const LandingPage = withStyles(styles)(connect(mapState, mapDispatch)(AuthForm))
+ export default withStyles(styles,theme)(connect(mapState, mapDispatch)(LandingPage))

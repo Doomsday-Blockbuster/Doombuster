@@ -12,7 +12,7 @@ export class Home extends React.Component{
 
   async componentDidMount(){
     const {room} = this.props
-    socket.on('SongSelected',async()=>{
+    socket.on('RefreshQueue',async()=>{
       await this.props.fetchQueue(room)
       console.log('new queue fetched after for websocket')
     })
