@@ -26,6 +26,12 @@ button{
   display: flex;
   flex-wrap: wrap;
 }
+.choice-title{
+  width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .background-image {
   opacity: 0.9;

@@ -96,6 +96,7 @@ export const SongList = (props) => {
               {/* <iframe src={videoSrc} allowFullScreen title='Video player'/> */}
               <button onClick={()=>handleClickOpen(song.snippet)}>
                 <img src={song.snippet.thumbnails.medium.url} alt={song.snippet.description}/>
+                <p className="choice-title">{song.snippet.title}</p>
               </button>
              </div>
           )  
