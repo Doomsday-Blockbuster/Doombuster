@@ -16,10 +16,10 @@ const User = db.define("user", {
   password: {
     type: STRING,
   },
-  vote: {
-    type: INTEGER,
-    min: 0,
-  },
+  // vote: {
+  //   type: INTEGER,
+  //   min: 0,
+  // },
   admin: {
     type: Sequelize.BOOLEAN,
   },
