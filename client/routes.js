@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-import { Login, Signup } from "./components/Auth-Form";
+// import { Login, Signup } from "./components/Auth-Form";
+import LandingPage from "./components/landingPage";
 import SelectSong from "./components/SelectSong";
 import Home from "./components/Home";
 import { me, loadSongs, fetchQueue } from "./store";
@@ -16,12 +17,15 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn,room } = this.props;
+    const { isLoggedIn,isAdmin,room, roomAdmin} = this.props;
 
     return (
       <div>
-        {isLoggedIn ? (
+        {isLoggedIn && isAdmin? (
+          <div>
+          <h3>Room Admin: {roomAdmin}</h3>
           <PlayQueue/>
+          </div>
         ) : (
           ""
         )}
@@ -33,9 +37,8 @@ class Routes extends Component {
           </Switch>
         ) : (
           <Switch>
-            <Route path="/" exact component={Login} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
+            <Route path="/" exact component={LandingPage} />
+            <Redirect to={`/`} />
           </Switch>
         )}
       </div>
@@ -51,8 +54,10 @@ const mapState = (state,otherProps) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
+    isAdmin: state.auth.admin,
     room: state.auth.roomId,
     queue: state.queue,
+    roomAdmin : state.auth.username
   };
 };
 
