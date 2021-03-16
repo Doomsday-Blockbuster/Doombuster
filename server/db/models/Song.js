@@ -1,31 +1,31 @@
-const Sequelize = require('sequelize')
-const { STRING, TEXT, INTEGER, BOOLEAN} = Sequelize
-const db = require('../db')
+const Sequelize = require("sequelize");
+const { STRING, TEXT, INTEGER, BOOLEAN } = Sequelize;
+const db = require("../db");
 
-const Song = db.define('song', {
+const Song = db.define("song", {
   URL: {
     type: STRING,
     isUrl: true,
-    notNull: true
+    notNull: true,
   },
   name: {
-    type: STRING
+    type: STRING,
   },
   description: {
-    type: TEXT
+    type: TEXT,
   },
   image: {
-    type: STRING
+    type: STRING,
   },
   queue: {
-    type: BOOLEAN
+    type: BOOLEAN,
   },
   finalPlaylist: {
-    type: BOOLEAN
+    type: BOOLEAN,
   },
-  videoId:{
-    type : STRING
-  }
-})
+  videoId: {
+    type: STRING,
+  },
+});
 
-module.exports = Song
+module.exports = Song;
