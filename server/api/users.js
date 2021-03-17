@@ -15,3 +15,17 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+
+router.get(`/:id`, async (req, res, next) => {
+  try {
+    const roomPeeps = await User.findAll({
+      where: {
+        roomId: req.params.id
+      }
+    })
+    res.send(roomPeeps)
+  } catch (err) {
+    next(err)
+  }
+})

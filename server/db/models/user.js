@@ -213,3 +213,13 @@ User.beforeUpdate(hashPassword);
 User.beforeBulkCreate((users) => {
   users.forEach(hashPassword);
 });
+
+
+User.prototype.getPeeps = async function(){
+  const peeps = await User.findAll({
+    where: {
+      roomId: this.roomId
+    }
+  })
+  return peeps.filter(peep=>peep.username != this.username);
+}

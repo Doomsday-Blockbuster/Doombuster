@@ -10,7 +10,7 @@ const FIND_ROOM = 'FIND_ROOM'
 /**
  * ACTION CREATORS
  */
-const findRoom =  => ({type: SET_AUTH, auth})
+const findRoom = () => ({type: SET_AUTH, auth})
 
 /**
  * THUNK CREATORS

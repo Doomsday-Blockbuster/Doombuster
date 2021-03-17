@@ -19,7 +19,7 @@ class Navbar extends React.Component{
                 {/* The navbar will show these links after you log in */}
                 <Link to={`/home/${room}`}>Home</Link>
                 <Link to={`/select/${room}`}>Choose a Song</Link>
-                <a href="#" onClick={handleClick}>
+                <a href="#" onClick={()=>handleClick(room)}>
                   Logout
                 </a>
               </div>
@@ -54,8 +54,8 @@ const mapState = (state,otherProps) => {
 
 const mapDispatch = dispatch => {
   return {
-    handleClick() {
-      dispatch(logout())
+    handleClick(room) {
+      dispatch(logout(room))
     }
   }
 }

@@ -39,7 +39,10 @@ export const authenticate = (username, password, method, roomCode, roomOption) =
   }
 }
 
-export const logout = () => {
+export const logout = (room) => {
+  console.log("roooomba" , room)
+  const roomPeeps = axios.get(`/users/${room}`).data;
+  console.log(roomPeeps)
   window.localStorage.removeItem(TOKEN)
   history.push('/login')
   return {
