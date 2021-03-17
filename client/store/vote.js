@@ -1,6 +1,7 @@
 import axios from "axios";
 import history from "../history";
 
+
 const UPDATE_VOTE = "UPDATE_VOTE";
 
 /**
@@ -17,7 +18,8 @@ export const updateVote = (voteValue, userId, songId) => {
   return async (dispatch) => {
     const vote = (await axios.post(`/api/vote/`, { voteValue, userId, songId }))
       .data;
-    dispatch(_updateVote(vote));
+      socket.emit('QueueUpdated')
+    //dispatch(_updateVote(vote));
   };
 };
 

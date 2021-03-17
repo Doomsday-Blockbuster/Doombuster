@@ -21,27 +21,42 @@ export class Home extends React.Component {
   }
 
   upVote(voteValue, userId, songId) {
-    this.props.updateVote(voteValue, userId, songId);
+    this.props.updateVote(voteValue, userId, songId,this.props.room);
   }
 
   downVote(voteValue, userId, songId) {
-    this.props.updateVote(voteValue, userId, songId);
+    this.props.updateVote(voteValue, userId, songId,this.props.room);
   }
 
   render() {
-    const { upVote, downVote } = this;
+    const { upVote, downVote} = this;
     const { userId } = this.props;
-    const { username, queue } = this.props;
+    let {queue} = this.props
+    let topThree = queue.slice(0,3)
+    queue = queue.slice(3);
+    console.log("QUEUE", queue);
     return (
       <div>
+        <h1>Top 3</h1>
+        {topThree.map((song)=>{
+          return (
+            <div key={song.id}>
+              <p>
+                {song.name}
+              </p>
+            </div>
+          );
+        })}
         <h1>Queue</h1>
         {queue.map((song) => {
           return (
             <div key={song.id}>
               <p>
+                
                 {song.name}
                 <button onClick={() => upVote(1, userId, song.id)}>+</button>
                 <button onClick={() => downVote(-1, userId, song.id)}>-</button>
+                 Votes: {song.totalVotes}
               </p>
             </div>
           );
@@ -64,8 +79,10 @@ const mapState = (state, otherProps) => {
 const mapDispatch = (dispatch, { history }) => {
   return {
     fetchQueue: (room) => dispatch(fetchQueue(room)),
-    updateVote: (voteValue, userId, songId) =>
-      dispatch(updateVote(voteValue, userId, songId)),
+    updateVote: async(voteValue, userId, songId, room) => {
+      await dispatch(updateVote(voteValue, userId, songId)),
+      await dispatch(fetchQueue(room))
+    }
   };
 };
 
