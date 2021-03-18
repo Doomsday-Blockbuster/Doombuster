@@ -20,8 +20,8 @@ const Song = db.define("song", {
   queue: {
     type: BOOLEAN,
   },
-  finalPlaylist: {
-    type: BOOLEAN,
+  rank: {
+    type: INTEGER,
   },
   videoId: {
     type: STRING,

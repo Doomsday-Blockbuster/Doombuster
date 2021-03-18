@@ -16,7 +16,7 @@ constructor(){
 
   videoStateChange(event){
     if(event.data===0){
-      this.props.deleteSongFromQueue(this.props.queue[0],this.props.auth.roomId)
+      this.props.deleteSongFromQueue(this.props.queue[0],this.props.auth.roomId,this.props.queue[3])
       // event.target.loadVideoById({
       //   videoId:'ZmDBbnmKpqQ'
       // })
@@ -24,7 +24,7 @@ constructor(){
    // console.log('EVENT',event.data)
   }
   render() {
-   console.log('QUEUE',this.props.queue)
+   //console.log('QUEUE',this.props.queue)
     const opts = {
       height: '390',
       width: '640',
@@ -48,7 +48,7 @@ const mapState = state => state
 
 const mapDispatch = (dispatch, {history}) => {
   return {
-    deleteSongFromQueue: (song,room) => dispatch(deleteSongFromQueue(song,room,history)),
+    deleteSongFromQueue: (song,room,nextSong) => dispatch(deleteSongFromQueue(song,room,nextSong,history)),
   }
 };
 
