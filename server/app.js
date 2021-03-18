@@ -8,7 +8,6 @@ const http = require("http");
 const socketIo = require("socket.io");
 const server = http.createServer(app);
 const io = socketIo(server);
-const Song = require('./db/models/Song')
 
 // logging middleware
 app.use(morgan('dev'))
