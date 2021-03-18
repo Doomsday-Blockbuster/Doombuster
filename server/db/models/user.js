@@ -215,11 +215,30 @@ User.beforeBulkCreate((users) => {
 });
 
 
-User.prototype.getPeeps = async function(){
-  const peeps = await User.findAll({
+// User.prototype.getPeeps = async function(){
+//   const peeps = await User.findAll({
+//     where: {
+//       roomId: this.roomId
+//     }
+//   })
+//   return peeps.filter(peep=>peep.username != this.username);
+// }
+
+User.logoutProtocol = async function({user,room}){
+  const currentAdmin = await User.findOne({
     where: {
-      roomId: this.roomId
+      username: user
     }
   })
-  return peeps.filter(peep=>peep.username != this.username);
+  currentAdmin.roomId = null;
+  currentAdmin.admin = false;
+  await currentAdmin.save()
+  const newAdmin = await User.findAll({
+       where: {
+         roomId: room
+       }
+  }).data[0]
+  newAdmin.admin= true;
+  await newAdmin.save()
+  return newAdmin;
 }

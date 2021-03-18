@@ -9,7 +9,7 @@ class Navbar extends React.Component{
   }
 
   render(){
-    const {handleClick, isLoggedIn, room, otherProps} = this.props
+    const {handleClick, username, isLoggedIn, room, otherProps} = this.props
     return(
       <div>
         <nav>
@@ -19,7 +19,7 @@ class Navbar extends React.Component{
                 {/* The navbar will show these links after you log in */}
                 <Link to={`/home/${room}`}>Home</Link>
                 <Link to={`/select/${room}`}>Choose a Song</Link>
-                <a href="#" onClick={()=>handleClick(room)}>
+                <a href="#" onClick={()=>handleClick(room,username)}>
                   Logout
                 </a>
               </div>
@@ -47,6 +47,7 @@ class Navbar extends React.Component{
 const mapState = (state,otherProps) => {
   return {
     isLoggedIn: !!state.auth.id,
+    username: state.auth.username,
     room: window.location.pathname.slice(-1)*1,
     otherProps
   }
@@ -54,8 +55,8 @@ const mapState = (state,otherProps) => {
 
 const mapDispatch = dispatch => {
   return {
-    handleClick(room) {
-      dispatch(logout(room))
+    handleClick(room,username) {
+      dispatch(logout(room,username))
     }
   }
 }
