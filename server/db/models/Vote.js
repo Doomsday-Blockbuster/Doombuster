@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize");
 const { ENUM } = Sequelize;
 const db = require("../db");
+const Song = require("./Song");
 
 const Vote = db.define("vote", {
   voteValue: {
@@ -9,3 +10,31 @@ const Vote = db.define("vote", {
 });
 
 module.exports = Vote;
+
+
+/**
+ * hooks
+ */
+const restrictDoubleVote= async (vote) => {
+  //in case the password has been changed, we want to encrypt it with bcrypt
+const oldVote = await Vote.findOne({
+  where:{
+    songId:vote.songId,
+    userId:vote.userId
+  }
+})
+console.log(oldVote)
+//console.log(oldVote.data)
+
+
+if(oldVote){
+  if(oldVote.voteValue*1 === vote.voteValue*1){
+    return Promise.reject(new Error('No Double Votes !! Feel free to change your vote'))
+  }else{
+    await oldVote.destroy()
+  }
+}
+
+};
+
+Vote.beforeCreate(restrictDoubleVote);

@@ -5,9 +5,9 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import auth from "./auth";
 import songs from "./songs";
 import queue from "./queue";
-import vote from "./vote";
+import voteError from "./vote";
 
-const reducer = combineReducers({ auth, songs, queue, vote });
+const reducer = combineReducers({ auth, songs, queue, voteError });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );

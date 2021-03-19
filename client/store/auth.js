@@ -34,7 +34,7 @@ export const authenticate = (username, password, method, roomCode, roomOption) =
     window.localStorage.setItem(TOKEN, res.data.token)
     dispatch(me())
   } catch (authError) {
-    console.log('ERROR',authError)
+   // console.log('ERROR',authError)
     return dispatch(setAuth({error: authError}))
   }
 }
