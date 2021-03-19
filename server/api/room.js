@@ -20,3 +20,15 @@ router.get('/:id', async (req, res, next) => {
     next(ex)
   }
 })
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    await Room.destroy({
+      where: {
+        roomCode: req.params.id
+      }
+    })
+  } catch (err) {
+    next(err)
+  }
+})
