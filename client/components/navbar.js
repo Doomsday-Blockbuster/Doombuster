@@ -1,63 +1,75 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../store";
 
-class Navbar extends React.Component{
-  constructor(props){
-    super(props)
-  }
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
 
-  render(){
-    const {handleClick, isLoggedIn, room, otherProps} = this.props
-    return(
-      <div>
-        <nav>
-          {isLoggedIn ? (
-            <div>
-              <div>
-                {/* The navbar will show these links after you log in */}
-                <Link to={`/home/${room}`}>Home</Link>
-                <Link to={`/select/${room}`}>Choose a Song</Link>
-                <a href="#" onClick={handleClick}>
-                  Logout
-                </a>
-              </div>
-              <hr />
-            </div>
-          ) : (
-            <div>
-              {/* The navbar will show these links before you log in */}
-              {/* <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link> */}
-            </div>
-          )}
-        </nav>
-  </div>
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
 
+const Navbar = () => {
+  const classes = useStyles();
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            {<Link to={`/home/${room}`}>Home</Link>}
+          </Typography>
 
-
-    )
-  }
-}
+          <Typography variant="h6" className={classes.title}>
+            Choose a Song
+          </Typography>
+          <Typography variant="h6" className={classes.title}>
+            Logout
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+};
 
 /**
  * CONTAINER
  */
-const mapState = (state,otherProps) => {
+const mapState = (state, otherProps) => {
   return {
     isLoggedIn: !!state.auth.id,
-    room: window.location.pathname.slice(-1)*1,
-    otherProps
-  }
-}
+    room: window.location.pathname.slice(-1) * 1,
+    otherProps,
+  };
+};
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   return {
     handleClick() {
-      dispatch(logout())
-    }
-  }
-}
+      dispatch(logout());
+    },
+  };
+};
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(mapState, mapDispatch)(Navbar);
