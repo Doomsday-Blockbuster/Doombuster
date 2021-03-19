@@ -3,12 +3,24 @@ import { connect } from "react-redux";
 import VideoPlayer from "./videoplayer";
 import { fetchQueue } from "../store/queue";
 import { updateVote } from "../store/vote";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog from "@material-ui/core/Dialog";
+import Button from '@material-ui/core/Button';
 
 export class Home extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      open: false,
+      voteType:''
+    };
     this.upVote = this.upVote.bind(this);
     this.downVote = this.downVote.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
   }
 
   async componentDidMount() {
@@ -21,35 +33,44 @@ export class Home extends React.Component {
   }
 
   async upVote(voteValue, userId, songId) {
-    await this.props.updateVote(voteValue, userId, songId,this.props.room);
-    if(this.props.voteError!==''){
-      alert('Already UpVoted !! Feel Free To Downvote')
+    await this.props.updateVote(voteValue, userId, songId, this.props.room);
+    if (this.props.voteError !== "") {
+      this.handleOpen();
+      this.setState({voteType:'upvote'})
     }
   }
 
   async downVote(voteValue, userId, songId) {
-    await this.props.updateVote(voteValue, userId, songId,this.props.room);
-    if(this.props.voteError!==''){
-      alert('Already DownVoted !! Feel Free to Upvote')
+    await this.props.updateVote(voteValue, userId, songId, this.props.room);
+    if (this.props.voteError !== "") {
+      this.handleOpen();
+      this.setState({voteType:'downvote'})
     }
   }
 
+  handleClose() {
+    this.setState({ open: false });
+  }
+
+  handleOpen() {
+    this.setState({ open: true });
+  }
+
   render() {
-    const { upVote, downVote} = this;
-    const { userId, voteError} = this.props;
-    let {queue} = this.props
-    let topThree = queue.slice(0,3)
+    const { open,voteType } = this.state;
+    const { upVote, downVote, handleClose } = this;
+    const { userId, voteError } = this.props;
+    let { queue } = this.props;
+    let topThree = queue.slice(0, 3);
     queue = queue.slice(3);
     console.log("QUEUE", queue);
     return (
       <div>
         <h1>Top 3</h1>
-        {topThree.map((song)=>{
+        {topThree.map((song) => {
           return (
             <div key={song.id}>
-              <p>
-                {song.name}
-              </p>
+              <p>{song.name}</p>
             </div>
           );
         })}
@@ -58,15 +79,22 @@ export class Home extends React.Component {
           return (
             <div key={song.id}>
               <p>
-                
                 {song.name}
                 <button onClick={() => upVote(1, userId, song.id)}>+</button>
                 <button onClick={() => downVote(-1, userId, song.id)}>-</button>
-                 Votes: {song.totalVotes}
+                Votes: {song.totalVotes}
               </p>
             </div>
           );
         })}
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>
+            {voteType==='upvote'?'Already Upvoted! Feel Free To Change Your Vote':'Already Downvoted! Feel Free To Change Your Vote'}
+          </DialogTitle>
+          <DialogActions>
+            <Button onClick={() => handleClose()}>OK!</Button>
+          </DialogActions>
+        </Dialog>
       </div>
     );
   }
@@ -79,17 +107,17 @@ const mapState = (state, otherProps) => {
     queue: state.queue,
     userId: state.auth.id,
     otherProps,
-    voteError:state.voteError
+    voteError: state.voteError,
   };
 };
 
 const mapDispatch = (dispatch, { history }) => {
   return {
     fetchQueue: (room) => dispatch(fetchQueue(room)),
-    updateVote: async(voteValue, userId, songId, room) => {
+    updateVote: async (voteValue, userId, songId, room) => {
       await dispatch(updateVote(voteValue, userId, songId));
-      await dispatch(fetchQueue(room))
-    }
+      await dispatch(fetchQueue(room));
+    },
   };
 };
 
