@@ -20,17 +20,23 @@ export class Home extends React.Component {
     await this.props.fetchQueue(room);
   }
 
-  upVote(voteValue, userId, songId) {
-    this.props.updateVote(voteValue, userId, songId,this.props.room);
+  async upVote(voteValue, userId, songId) {
+    await this.props.updateVote(voteValue, userId, songId,this.props.room);
+    if(this.props.voteError!==''){
+      alert('Already UpVoted !! Feel Free To Downvote')
+    }
   }
 
-  downVote(voteValue, userId, songId) {
-    this.props.updateVote(voteValue, userId, songId,this.props.room);
+  async downVote(voteValue, userId, songId) {
+    await this.props.updateVote(voteValue, userId, songId,this.props.room);
+    if(this.props.voteError!==''){
+      alert('Already DownVoted !! Feel Free to Upvote')
+    }
   }
 
   render() {
     const { upVote, downVote} = this;
-    const { userId } = this.props;
+    const { userId, voteError} = this.props;
     let {queue} = this.props
     let topThree = queue.slice(0,3)
     queue = queue.slice(3);
@@ -73,6 +79,7 @@ const mapState = (state, otherProps) => {
     queue: state.queue,
     userId: state.auth.id,
     otherProps,
+    voteError:state.voteError
   };
 };
 
@@ -80,7 +87,7 @@ const mapDispatch = (dispatch, { history }) => {
   return {
     fetchQueue: (room) => dispatch(fetchQueue(room)),
     updateVote: async(voteValue, userId, songId, room) => {
-      await dispatch(updateVote(voteValue, userId, songId)),
+      await dispatch(updateVote(voteValue, userId, songId));
       await dispatch(fetchQueue(room))
     }
   };
