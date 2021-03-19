@@ -10,8 +10,7 @@ const UPDATE_VOTE = "UPDATE_VOTE";
 const _updateVoteError = (voteError) => ({ type: UPDATE_VOTE, voteError });
 
 //Click on buton >> it calls a method called UPDATEVOTE
-//It either needs a valye of -1, 0, 1
-//
+//It either needs a valye of -1, 1
 
 //thunk creators
 export const updateVote = (voteValue, userId, songId) => {
@@ -22,7 +21,6 @@ export const updateVote = (voteValue, userId, songId) => {
       dispatch(_updateVoteError(''))
       socket.emit('QueueUpdated')
     }catch(ex){
-      //console.log(ex.response.data)
       dispatch(_updateVoteError(ex.response.data))
     }
   };

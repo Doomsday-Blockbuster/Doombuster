@@ -29,7 +29,7 @@ console.log(oldVote)
 
 if(oldVote){
   if(oldVote.voteValue*1 === vote.voteValue*1){
-    return Promise.reject(new Error('No Double Votes !! Feel free to change your vote'))
+    return Promise.reject(new Error('Duplicate Vote'))
   }else{
     await oldVote.destroy()
   }

@@ -23,14 +23,14 @@ export class Home extends React.Component {
   async upVote(voteValue, userId, songId) {
     await this.props.updateVote(voteValue, userId, songId,this.props.room);
     if(this.props.voteError!==''){
-      alert('Already Voted')
+      alert('Already UpVoted !! Feel Free To Downvote')
     }
   }
 
   async downVote(voteValue, userId, songId) {
     await this.props.updateVote(voteValue, userId, songId,this.props.room);
     if(this.props.voteError!==''){
-      alert('Already Voted')
+      alert('Already DownVoted !! Feel Free to Upvote')
     }
   }
 
