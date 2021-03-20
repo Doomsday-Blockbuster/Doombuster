@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = (props) => {
   const classes = useStyles();
-  const { handleClick, isLoggedIn, room, otherProps } = props;
+  const { handleClick, isLoggedIn, room, otherProps, username } = props;
   return (
     <div>
       {isLoggedIn ? (
