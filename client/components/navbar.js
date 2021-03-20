@@ -48,7 +48,7 @@ const Navbar = (props) => {
                 <Link to={`/select/${room}`}>Choose a Song</Link>
               </Typography>
               <Typography variant="h6" className={classes.title}>
-                <a href="#" onClick={handleClick}>
+                <a href="#" onClick={() => handleClick(room, username)}>
                   Logout
                 </a>
               </Typography>
@@ -68,6 +68,7 @@ const Navbar = (props) => {
 const mapState = (state, otherProps) => {
   return {
     isLoggedIn: !!state.auth.id,
+    username: state.auth.username,
     room: window.location.pathname.slice(-1) * 1,
     otherProps,
   };
@@ -75,8 +76,8 @@ const mapState = (state, otherProps) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick() {
-      dispatch(logout());
+    handleClick(room, username) {
+      dispatch(logout(room, username));
     },
   };
 };

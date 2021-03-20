@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { useReducer } from 'react'
 import history from '../history'
 
 const TOKEN = 'token'
@@ -34,12 +35,24 @@ export const authenticate = (username, password, method, roomCode, roomOption) =
     window.localStorage.setItem(TOKEN, res.data.token)
     dispatch(me())
   } catch (authError) {
-    console.log('ERROR',authError)
+   // console.log('ERROR',authError)
     return dispatch(setAuth({error: authError}))
   }
 }
 
-export const logout = () => {
+export const logout = (room,username)=> {
+  return async(dispatch) => {
+    console.log("roooomba" , room)
+    console.log('username',username)
+
+    await axios.put(`/api/users/${room}`,{username})
+    //const roomPeeps = await axios.get(`/api/users/${room}`)
+    //console.log(`room peeps`,roomPeeps.data)
+    dispatch(_logout());
+  }
+}
+
+export const _logout = () => {
   window.localStorage.removeItem(TOKEN)
   history.push('/login')
   return {

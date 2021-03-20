@@ -16,7 +16,19 @@ router.get('/:id', async (req, res, next) => {
     const roomId = await Room.findRoomByCode(req.params.id)
     res.send({roomId})
   } catch (ex) {
-    console.log('******************',ex.status)
+    //console.log('******************',ex.status)
     next(ex)
+  }
+})
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    await Room.destroy({
+      where: {
+        roomCode: req.params.id
+      }
+    })
+  } catch (err) {
+    next(err)
   }
 })

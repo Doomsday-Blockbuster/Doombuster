@@ -86,14 +86,11 @@ export const SongList = (props) => {
       <div id="content">
         <div id="channel-data"></div>
       </div>
-      {/* <VideoPlayer videoId={selectedSong.videoId}/> */}
       <div id="songList">
-      {/* <iframe src={videoSrc} allowFullScreen title='Video player'/> */}
         {songs.map(song=>{
           const videoSrc = `https://www.youtube.com/embed/${song.snippet.resourceId.videoId}`;
           return(
             <div key={song.id}>
-              {/* <iframe src={videoSrc} allowFullScreen title='Video player'/> */}
               <button onClick={()=>handleClickOpen(song.snippet)}>
                 <img src={song.snippet.thumbnails.medium.url} alt={song.snippet.description}/>
                 <p className="choice-title">{song.snippet.title}</p>
