@@ -11,16 +11,3 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// router.delete("/:id", async (req, res, next) => {
-//   try {
-//     const song = await Song.findOne({
-//       where: {
-//         id: req.params.id,
-//       },
-//     });
-//     await song.destroy();
-//     res.sendStatus(201);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
