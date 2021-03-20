@@ -23,8 +23,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = () => {
+const Navbar = (props) => {
   const classes = useStyles();
+  const { handleClick, isLoggedIn, room, otherProps } = props;
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -38,14 +39,16 @@ const Navbar = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            {<Link to={`/home/${room}`}>Home</Link>}
+            <Link to={`/home/${room}`}>Home</Link>
           </Typography>
 
           <Typography variant="h6" className={classes.title}>
-            Choose a Song
+            <Link to={`/select/${room}`}>Choose a Song</Link>
           </Typography>
           <Typography variant="h6" className={classes.title}>
-            Logout
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
           </Typography>
         </Toolbar>
       </AppBar>
