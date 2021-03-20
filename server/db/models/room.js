@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const { INTEGER } = Sequelize
 const db = require('../db')
-const User = require('./User.js')
+const User = require('./user.js')
 
 const Room = db.define('room', {
   roomCode: {

@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const Song = require("../db/models/Song");
-const Vote = require("../db/models/Vote");
+const Song = require("../db/models/song");
+const Vote = require("../db/models/vote");
 const { Op } = require("sequelize");
 module.exports = router;
 
