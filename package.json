@@ -7,6 +7,7 @@
     "node": "14.15.4"
   },
   "scripts": {
+    "build:css": "tailwind build src/style.css -o public/style.css",
     "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
     "seed": "node script/seed.js",
@@ -24,6 +25,7 @@
   "license": "MIT",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.1",
     "compression": "^1.7.3",
@@ -51,6 +53,7 @@
     "@babel/core": "^7.12.10",
     "@babel/preset-react": "^7.12.10",
     "@babel/register": "^7.12.10",
+    "autoprefixer": "^10.2.5",
     "axios": "^0.21.1",
     "axios-mock-adapter": "^1.16.0",
     "babel-loader": "^8.2.2",
@@ -60,6 +63,7 @@
     "esm": "^3.2.25",
     "mocha": "^6.2.3",
     "nodemon": "^1.19.4",
+    "postcss": "^8.2.8",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.1",
@@ -71,6 +75,7 @@
     "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
     "supertest": "^4.0.2",
+    "tailwindcss": "^2.0.4",
     "webpack": "^5.15.0",
     "webpack-cli": "^4.3.1"
   }
