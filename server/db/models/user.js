@@ -4,7 +4,7 @@ const db = require("../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const axios = require("axios");
-const Room = require("./Room.js");
+const Room = require("./room.js");
 
 const SALT_ROUNDS = 5;
 
