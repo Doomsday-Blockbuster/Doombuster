@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const { ENUM } = Sequelize;
 const db = require("../db");
-const Song = require("./Song");
+
 
 const Vote = db.define("vote", {
   voteValue: {
