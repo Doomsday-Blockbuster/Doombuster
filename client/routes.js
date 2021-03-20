@@ -11,6 +11,7 @@ import PlayQueue from './components/playqueue'
 /**
  * COMPONENT
  */
+// comment
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
