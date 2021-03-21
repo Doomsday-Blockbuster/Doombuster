@@ -23,7 +23,7 @@ router.get("/:id", async (req, res, next) => {
             attributes: ["voteValue"],
           },
         ],
-        attributes: ["id", "name", "image", "videoId", "userId", "roomId",'rank'],
+        attributes: ["id", "name", "image", "largeImage", "videoId", "userId", "roomId",'rank'],
         where: {
           roomId: req.params.id,
         },

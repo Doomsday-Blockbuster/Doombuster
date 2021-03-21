@@ -63,7 +63,7 @@ export class Home extends React.Component {
     let { queue } = this.props;
     let topThree = queue.slice(0, 3);
     queue = queue.slice(3);
-    console.log("QUEUE", queue);
+    //console.log("QUEUE", queue);
     return (
       <div>
         <h1>Top 3</h1>

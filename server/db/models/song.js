@@ -17,6 +17,9 @@ const Song = db.define("song", {
   image: {
     type: STRING,
   },
+  largeImage: {
+    type: STRING,
+  },
   queue: {
     type: BOOLEAN,
   },
