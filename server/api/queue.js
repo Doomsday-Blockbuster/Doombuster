@@ -70,17 +70,19 @@ router.put("/:id", async (req, res, next) => {
       }
     })
     topSongs.forEach(async song=>{
-      if(song.rank===2)song.rank=1
-      if(song.rank===3)song.rank=2
+      if(song.rank===2)song.rank--
+      if(song.rank===3)song.rank--
       await song.save()
     })
-    const song = await Song.findOne({
-      where: {
-        id: req.params.id,
-      },
-    });
-    song.rank=3
-    await song.save()
+    if(req.params.id*1!==0){
+      const song = await Song.findOne({
+        where: {
+          id: req.params.id,
+        },
+      });
+      song.rank=3
+      await song.save()
+    }
     res.sendStatus(201);
   } catch (err) {
     next(err);

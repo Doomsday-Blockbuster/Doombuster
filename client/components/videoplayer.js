@@ -16,6 +16,12 @@ constructor(){
 
   videoStateChange(event){
     if(event.data===0){
+      // let nextSong
+      // if(queue.length<3){
+      //   nextSong = this.props.queue[1]
+      // }else{
+      //   nextSong = this.props.queue[3]
+      // }
       this.props.deleteSongFromQueue(this.props.queue[0],this.props.auth.roomId,this.props.queue[3])
     }
   }
