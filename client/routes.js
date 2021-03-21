@@ -18,11 +18,11 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn,isAdmin,room, roomAdmin} = this.props;
+    const { isLoggedIn,room,roomAdmin} = this.props;
 
     return (
       <div>
-        {isLoggedIn && isAdmin? (
+        {isLoggedIn? (
           <div>
           <h3>Room Admin: {roomAdmin}</h3>
           <PlayQueue/>

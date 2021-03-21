@@ -56,6 +56,23 @@ button{
   color:white !important
 }
 
+#player div{
+  width:640px;
+  height:390px;
+  background-color:black;
+  color:white;
+}
+
+#largeThumbnail {
+  width:480px;
+  height:340px;
+}
+
+#placeholder{
+  width:640px;
+  height:390px;
+}
+
 /*! tailwindcss v2.0.4 | MIT License | https://tailwindcss.com */
 
 /*! modern-normalize v1.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */

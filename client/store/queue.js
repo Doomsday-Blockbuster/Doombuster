@@ -48,6 +48,7 @@ export const addToQueue = (room, song, history) => {
         name: song.title,
         description: song.description,
         image: song.thumbnail,
+        largeImage: song.largeThumbnail,
         videoId: song.videoId,
         roomId: room,
         rank:rank
