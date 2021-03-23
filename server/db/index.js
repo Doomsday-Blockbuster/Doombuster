@@ -10,7 +10,7 @@ const Vote = require("./models/vote");
 //associations could go here!
 User.belongsTo(Room);
 Song.belongsTo(User);
-Song.belongsTo(Room);
+Song.belongsTo(Room, {onDelete: "CASCADE"});
 Room.hasMany(Song);
 
 //associations added by Jared
