@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import VideoPlayer from "./videoplayer";
+import RoomDetails from "./RoomDetails"
 import { fetchQueue } from "../store/queue";
 import { updateVote } from "../store/vote";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -59,13 +60,14 @@ export class Home extends React.Component {
   render() {
     const { open,voteType } = this.state;
     const { upVote, downVote, handleClose } = this;
-    const { userId, voteError } = this.props;
+    const { userId, voteError, room } = this.props;
     let { queue } = this.props;
     let topThree = queue.slice(0, 3);
     queue = queue.slice(3);
     //console.log("QUEUE", queue);
     return (
       <div>
+        <RoomDetails roomId = {room} />
         <h1>Top 3</h1>
         {topThree.map((song) => {
           return (
