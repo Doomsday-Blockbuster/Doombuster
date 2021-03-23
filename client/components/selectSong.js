@@ -12,7 +12,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -45,7 +44,7 @@ export const SongList = (props) => {
 
   //popup
   const handleClickOpen = (song) => {
-    setSong({title: song.title, description: song.description, thumbnail: song.thumbnails.medium.url, videoId:song.resourceId.videoId});
+    setSong({title: song.title, description: song.description, thumbnail: song.thumbnails.medium.url, largeThumbnail: song.thumbnails.high.url, videoId:song.resourceId.videoId});
     
     //if(queue.length<=10){
       setOpen(true);
@@ -58,12 +57,13 @@ export const SongList = (props) => {
 
 
   const { username,songs,queue,addToQueue,loadSongs} = props;
+  console.log('PROPS',props.room)
   const room = props.room;
   const videoSrc = `https://www.youtube.com/embed?listType=playlist&list=PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU&autoplay=1`;
   
 
-  console.log('selected song ', selectedSong)
-  console.log('queue ', queue)
+  // console.log('selected song ', selectedSong)
+  // console.log('queue ', queue)
   return (
     <div>
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>

@@ -3,25 +3,26 @@ import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 // import { Login, Signup } from "./components/Auth-Form";
 import LandingPage from "./components/landingPage";
-import SelectSong from "./components/SelectSong";
-import Home from "./components/Home";
+import SelectSong from "./components/selectSong";
+import Home from "./components/home";
 import { me, loadSongs, fetchQueue } from "./store";
 import PlayQueue from './components/playqueue'
 
 /**
  * COMPONENT
  */
+// comment
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
   }
 
   render() {
-    const { isLoggedIn,isAdmin,room, roomAdmin} = this.props;
+    const { isLoggedIn,room,roomAdmin} = this.props;
 
     return (
       <div>
-        {isLoggedIn && isAdmin? (
+        {isLoggedIn? (
           <div>
           <h3>Room Admin: {roomAdmin}</h3>
           <PlayQueue/>

@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const Song = require("../db/models/Song");
-const Vote = require("../db/models/Vote");
+const Song = require("../db/models/song");
+const Vote = require("../db/models/vote");
 const { Op } = require("sequelize");
 module.exports = router;
 
@@ -23,7 +23,7 @@ router.get("/:id", async (req, res, next) => {
             attributes: ["voteValue"],
           },
         ],
-        attributes: ["id", "name", "image", "videoId", "userId", "roomId",'rank'],
+        attributes: ["id", "name", "image", "largeImage", "videoId", "userId", "roomId",'rank'],
         where: {
           roomId: req.params.id,
         },
@@ -70,17 +70,19 @@ router.put("/:id", async (req, res, next) => {
       }
     })
     topSongs.forEach(async song=>{
-      if(song.rank===2)song.rank=1
-      if(song.rank===3)song.rank=2
+      if(song.rank===2)song.rank--
+      if(song.rank===3)song.rank--
       await song.save()
     })
-    const song = await Song.findOne({
-      where: {
-        id: req.params.id,
-      },
-    });
-    song.rank=3
-    await song.save()
+    if(req.params.id*1!==0){
+      const song = await Song.findOne({
+        where: {
+          id: req.params.id,
+        },
+      });
+      song.rank=3
+      await song.save()
+    }
     res.sendStatus(201);
   } catch (err) {
     next(err);

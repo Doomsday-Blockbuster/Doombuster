@@ -48,6 +48,7 @@ export const addToQueue = (room, song, history) => {
         name: song.title,
         description: song.description,
         image: song.thumbnail,
+        largeImage: song.largeThumbnail,
         videoId: song.videoId,
         roomId: room,
         rank:rank
@@ -62,7 +63,12 @@ export const addToQueue = (room, song, history) => {
 export const deleteSongFromQueue = (song, room, nextSong) => {
   return async (dispatch) => {
     await axios.delete(`/api/queue/${song.id}`); // deletes song that just got over
-    await axios.put(`/api/queue/${nextSong.id}`) // re-assigns top 3 ranks. Rank2->Rank1, Rank3->Rank2 and top song in queue is Rank 3
+    if(nextSong){
+      await axios.put(`/api/queue/${nextSong.id}`)
+    }else{
+      await axios.put(`/api/queue/0`)
+    }
+     // re-assigns top 3 ranks. Rank2->Rank1, Rank3->Rank2 and top song in queue is Rank 3
     dispatch(fetchQueue(room)) 
     socket.emit("QueueUpdated"); 
   };

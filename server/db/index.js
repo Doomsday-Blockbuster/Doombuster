@@ -2,10 +2,10 @@
 
 const db = require("./db");
 
-const User = require("./models/User");
-const Room = require("./models/Room");
-const Song = require("./models/Song");
-const Vote = require("./models/Vote");
+const User = require("./models/user");
+const Room = require("./models/room");
+const Song = require("./models/song");
+const Vote = require("./models/vote");
 
 //associations could go here!
 User.belongsTo(Room);

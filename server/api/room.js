@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const { models: {Room}} = require('../db');
-const { findRoomByCode } = require('../db/models/Room');
-const User = require('../db/models/User');
+const { findRoomByCode } = require('../db/models/room');
+const User = require('../db/models/user');
 module.exports = router
 
 router.post('/', async (req, res, next) => {
@@ -17,7 +17,6 @@ router.get('/:id', async (req, res, next) => {
     const roomId = await Room.findRoomByCode(req.params.id)
     res.send({roomId})
   } catch (ex) {
-    //console.log('******************',ex.status)
     next(ex)
   }
 })

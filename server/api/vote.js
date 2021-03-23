@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Vote = require("../db/models/Vote");
+const Vote = require("../db/models/vote");
 module.exports = router;
 
 router.post("/", async (req, res, next) => {
@@ -11,16 +11,3 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// router.delete("/:id", async (req, res, next) => {
-//   try {
-//     const song = await Song.findOne({
-//       where: {
-//         id: req.params.id,
-//       },
-//     });
-//     await song.destroy();
-//     res.sendStatus(201);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
