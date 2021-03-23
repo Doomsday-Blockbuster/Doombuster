@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const { models: {Room}} = require('../db');
 const { findRoomByCode } = require('../db/models/Room');
+const User = require('../db/models/User');
 module.exports = router
 
 router.post('/', async (req, res, next) => {
@@ -17,6 +18,25 @@ router.get('/:id', async (req, res, next) => {
     res.send({roomId})
   } catch (ex) {
     //console.log('******************',ex.status)
+    next(ex)
+  }
+})
+
+router.get('/details/:id', async (req, res, next) => {
+  try {
+    const roomCode = await Room.findOne({
+      where: {
+        id: req.params.id
+      }
+    })
+    const admin = await User.findOne({
+      where: {
+        roomId: req.params.id,
+        admin: true
+      }
+    })
+    res.send({room: roomCode.roomCode, admin: admin.username})
+  } catch (ex) {
     next(ex)
   }
 })
