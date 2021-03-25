@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 
 
 //import {CaretDown, CaretUp, HandThumbsDown, HandThumbsUp} from '@styled-icons/bootstrap'
-import { ThumbUp, ThumbDown } from './styledIcon'
+import { ThumbUp, ThumbDown, ThumbUpSelected, ThumbDownSelected } from './styledIcon'
 
 export class Home extends React.Component {
   constructor(props) {
@@ -81,18 +81,46 @@ export class Home extends React.Component {
           );
         })}
         <h1>Queue</h1>
+        <div class ="queue-liner2">
         {queue.map((song) => {
           return (
-            <div key={song.id}>
-              <p>
-                <ThumbUp size="48" voteType={this.state.voteType} onClick={() => upVote(1, userId, song.id)} />
-                <ThumbDown size="48" voteType={this.state.voteType} onClick={() => downVote(-1, userId, song.id)} />
-                {song.name}
-                Votes: {song.totalVotes}
-              </p>
+            <div class ="queue-liner">
+            <div key={song.id} class="queue-biz">
+                {
+                  song.totalVotes === 0?
+                  (
+                    <div class="thumbs">
+                      <ThumbUp size="48" voteType={this.state.voteType} onClick={() => upVote(1, userId, song.id)} />
+                      <ThumbDown size="48" voteType={this.state.voteType} onClick={() => downVote(-1, userId, song.id)} />
+                    </div>
+                  )
+                  :
+                  song.totalVotes === 1?
+                  (
+                    <div class="thumbs">
+                      <ThumbUpSelected size="48" voteType={this.state.voteType} onClick={() => upVote(1, userId, song.id)} />
+                      <ThumbDown size="48" voteType={this.state.voteType} onClick={() => downVote(-1, userId, song.id)} />
+                    </div>
+                  )
+                  :
+                  (
+                    <div class="thumbs">
+                      <ThumbUp size="48" voteType={this.state.voteType} onClick={() => upVote(1, userId, song.id)} />
+                      <ThumbDownSelected size="48" voteType={this.state.voteType} onClick={() => downVote(-1, userId, song.id)} />
+                    </div>
+                  )
+                }
+                </div>
+                <div class="song-deetz">
+                  <p>
+                    {song.name}
+                    Votes: {song.totalVotes}
+                  </p>
+                </div>
             </div>
           );
         })}
+        </div>
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>
             {voteType==='upvote'?'Already Upvoted! Feel Free To Change Your Vote':'Already Downvoted! Feel Free To Change Your Vote'}
