@@ -6,6 +6,7 @@ import VideoPlayer from './videoplayer'
 //import socketIOClient from "socket.io-client"
 
 //material ui
+import { withStyles,createMuiTheme} from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -14,6 +15,14 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+
+const StyledButton = withStyles({
+  root: {
+    color: 'black',
+    backgroundColor: 'white',
+    margin: '1rem'
+  }
+})(Button)
 
 /**
  * COMPONENT
@@ -24,6 +33,7 @@ export const SongList = (props) => {
   const [open, setOpen] = useState(false);
   const [selectedSong, setSong] = useState({});
   const [anchorEl, setAnchorEl] = useState(null);
+  const [search, setSearch] = useState('');
 
   const repeatSong = (song) =>{
     const inqueue = queue.find(ele=>ele.name===song.title)
@@ -54,21 +64,28 @@ export const SongList = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
+  
+  const handleSearch = (e) => {
+    setSearch(e.target.value.toLowerCase())
+  }
 
 
   const { username,songs,queue,addToQueue,loadSongs} = props;
-  console.log('PROPS',props.room)
+
   const room = props.room;
   const videoSrc = `https://www.youtube.com/embed?listType=playlist&list=PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU&autoplay=1`;
   
+  const filteredSongs = songs.filter(song=>{
+    return song.snippet.title.toLowerCase().includes(search);
+  })
 
-  // console.log('selected song ', selectedSong)
-  // console.log('queue ', queue)
   return (
     <div>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
+      <div id="options">
+      <div id="select-playlist">
+      <StyledButton aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
         Select A Playlist
-      </Button>
+      </StyledButton>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
@@ -82,12 +99,20 @@ export const SongList = (props) => {
         <MenuItem onClick={()=>{ return loadSongs('Reggae'), handleMenuClose()}}>Reggae</MenuItem>
         <MenuItem onClick={()=>{return loadSongs('Rock'), handleMenuClose()}}>Rock</MenuItem>
       </Menu>
+      </div>
+      <div id= 'search'>
+        <form id='search-form'>
+            <input id = 'searchbar' type ='text' name='searchbar' placeholder = 'Search for Song in Playlist' value={search} onChange={(e)=>handleSearch(e)} />
+        </form>
+      </div>
+      </div>
+
       <h3>Select A Song, {username}</h3>
       <div id="content">
         <div id="channel-data"></div>
       </div>
       <div id="songList">
-        {songs.map(song=>{
+        {filteredSongs.map(song=>{
           const videoSrc = `https://www.youtube.com/embed/${song.snippet.resourceId.videoId}`;
           return(
             <div key={song.id}>
