@@ -11,12 +11,16 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import Button from '@material-ui/core/Button';
 
+
+//import {CaretDown, CaretUp, HandThumbsDown, HandThumbsUp} from '@styled-icons/bootstrap'
+import { ThumbUp, ThumbDown } from './styledIcon'
+
 export class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
-      voteType:''
+      voteType:'',
     };
     this.upVote = this.upVote.bind(this);
     this.downVote = this.downVote.bind(this);
@@ -81,9 +85,9 @@ export class Home extends React.Component {
           return (
             <div key={song.id}>
               <p>
+                <ThumbUp size="48" voteType={this.state.voteType} onClick={() => upVote(1, userId, song.id)} />
+                <ThumbDown size="48" voteType={this.state.voteType} onClick={() => downVote(-1, userId, song.id)} />
                 {song.name}
-                <button onClick={() => upVote(1, userId, song.id)}>+</button>
-                <button onClick={() => downVote(-1, userId, song.id)}>-</button>
                 Votes: {song.totalVotes}
               </p>
             </div>
