@@ -82,7 +82,7 @@ export const SongList = (props) => {
         <MenuItem onClick={()=>{ return loadSongs('Reggae'), handleMenuClose()}}>Reggae</MenuItem>
         <MenuItem onClick={()=>{return loadSongs('Rock'), handleMenuClose()}}>Rock</MenuItem>
       </Menu>
-      <h3>Choose A Song, {username}</h3>
+      <h3>Select A Song, {username}</h3>
       <div id="content">
         <div id="channel-data"></div>
       </div>
@@ -115,7 +115,7 @@ export const SongList = (props) => {
                   <DialogTitle id="error-repeat">Poor Taste! JK. Song is already in queue. Please choose another!</DialogTitle>
                   <DialogActions>
                     <Button onClick={()=>handleClose()}>
-                      OK!
+                      OK
                     </Button>
                   </DialogActions>
                 </div>
@@ -126,7 +126,7 @@ export const SongList = (props) => {
                   <DialogTitle id="error-full">Poor Taste! JK. Queue is too full. Come back soon!</DialogTitle>
                   <DialogActions>
                     <Button onClick={()=>handleClose()}>
-                      OK!
+                      OK
                     </Button>
                   </DialogActions>
                 </div>
@@ -147,7 +147,7 @@ export const SongList = (props) => {
                           handleClose()
                         )
                         }}>
-                        Yes!
+                        Yes
                       </Button>
                       <Button onClick={handleClose}>
                         Put it back

@@ -70,7 +70,7 @@ export class Home extends React.Component {
     queue = queue.slice(3);
     //console.log("QUEUE", queue);
     return (
-      <div>
+      <div style={{backgroundColor:'black',color:'white'}}>
         <RoomDetails roomId = {room} />
         <h1>Top 3</h1>
         {topThree.map((song) => {
