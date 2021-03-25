@@ -1,3 +1,9 @@
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 body {
   font-family: sans-serif;
 }
@@ -36,6 +42,8 @@ button{
 #songList{
   display: flex;
   flex-wrap: wrap;
+  background-color: black;
+  justify-content: center;
 }
 .choice-title{
   width: 300px;
@@ -115,14 +123,16 @@ button{
   display: flex;
   flex-direction: row;
 }
-/* .queue-biz{
-  width: 20%;
-  flex-grow: 1;
+#options{
+  display: flex;
+  justify-content: center;
 }
-.song-deetz{
-  width: 40%;
-  flex-grow: 1;
-} */
+#searchbar{
+  height: 2rem;
+  margin: 1rem;
+  width: 20rem;
+}
+
 #playerContainer{
   max-height:390px;
   /* background-image :url('image.jpg');
