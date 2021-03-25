@@ -55,6 +55,9 @@ const Navbar = (props) => {
                 <Link to={`/select/${room}`} className={classes.title}>Select A Song</Link>
               </Typography>
               <Typography variant="h6">
+                <Link to={`/trivia/${room}`} className={classes.title}>Veto Power Trivia</Link>
+              </Typography>
+              <Typography variant="h6">
                 <a href="#" onClick={() => handleClick(room, username)} className={classes.title}>
                   Logout
                 </a>

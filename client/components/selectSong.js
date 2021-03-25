@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from "react";
+import React, {useState} from "react";
 import { connect } from "react-redux";
 import {addToQueue} from '../store/queue'
 import {loadSongs} from '../store/songs'

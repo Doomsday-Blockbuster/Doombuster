@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 // import { Login, Signup } from "./components/Auth-Form";
 import LandingPage from "./components/landingPage";
-import SelectSong from "./components/selectSong";
+import selectSong from "./components/selectSong";
+import trivia from "./components/trivia";
 import Home from "./components/home";
 import { me, loadSongs, fetchQueue } from "./store";
 import PlayQueue from './components/playqueue'
@@ -32,7 +33,8 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/home/:id" component={Home} />
-            <Route path="/select/:id" component={SelectSong} />
+            <Route path="/select/:id" component={selectSong} />
+            <Route path="/trivia/:id" component={trivia} />
             <Redirect to={`/home/${room}`} />
           </Switch>
         ) : (

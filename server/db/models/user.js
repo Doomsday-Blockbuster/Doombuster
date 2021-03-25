@@ -17,14 +17,14 @@ const User = db.define("user", {
   password: {
     type: STRING,
   },
-  // vote: {
-  //   type: INTEGER,
-  //   min: 0,
-  // },
   admin: {
     type: Sequelize.BOOLEAN,
     defaultValue: "FALSE",
   },
+  score: {
+    type: INTEGER,
+    defaultValue: 0
+  }
 });
 
 module.exports = User;
