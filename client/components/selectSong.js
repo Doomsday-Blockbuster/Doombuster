@@ -67,7 +67,7 @@ export const SongList = (props) => {
   return (
     <div>
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenuClick}>
-        Select A Genre
+        Select A Playlist
       </Button>
       <Menu
         id="simple-menu"

@@ -48,7 +48,7 @@ const Navbar = (props) => {
                 <MenuIcon />
               </IconButton> */}
               <Typography variant="h6">
-                <Link to={`/home/${room}`} className={classes.title}>Home</Link>
+                <Link to={`/home/${room}`} className={classes.title}>Queue</Link>
               </Typography>
 
               <Typography variant="h6">
