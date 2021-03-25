@@ -15,7 +15,10 @@ const styles = () => ({
     maxHeight: '100px',
     display:'flex',
     alignItems:'center',
-    padding:'1px'
+    padding:'1px',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   }
 });
 
