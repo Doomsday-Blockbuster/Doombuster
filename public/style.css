@@ -72,3 +72,16 @@ button{
   width:640px;
   height:390px;
 }
+
+.queue-liner{
+  display: flex;
+  flex-direction: row;
+}
+/* .queue-biz{
+  width: 20%;
+  flex-grow: 1;
+}
+.song-deetz{
+  width: 40%;
+  flex-grow: 1;
+} */
