@@ -13,13 +13,20 @@ import MenuIcon from "@material-ui/icons/Menu";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    display:'flex',
+    flexDirection:'row',
+    justifyContent:'space-between',
   },
   menuButton: {
     marginRight: theme.spacing(2),
   },
+  colorPrimary:{
+    backgroundColor:'#101b61'
+  },
   title: {
-    flexGrow: 1,
+    fontFamily:'Carter One',
+    fontSize:'3.5vh',
+    color:'white'
   },
 }));
 
@@ -27,28 +34,28 @@ const Navbar = (props) => {
   const classes = useStyles();
   const { handleClick, isLoggedIn, room, otherProps, username } = props;
   return (
-    <div>
+    <div id='navbar'>
       {isLoggedIn ? (
-        <div className={classes.root}>
-          <AppBar position="static">
-            <Toolbar>
-              <IconButton
+        <div>
+          <AppBar position="sticky" className={classes.colorPrimary}>
+            <Toolbar className={classes.root}>
+              {/* <IconButton
                 edge="start"
                 className={classes.menuButton}
                 color="inherit"
                 aria-label="menu"
               >
                 <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" className={classes.title}>
-                <Link to={`/home/${room}`}>Home</Link>
+              </IconButton> */}
+              <Typography variant="h6">
+                <Link to={`/home/${room}`} className={classes.title}>Home</Link>
               </Typography>
 
-              <Typography variant="h6" className={classes.title}>
-                <Link to={`/select/${room}`}>Choose a Song</Link>
+              <Typography variant="h6">
+                <Link to={`/select/${room}`} className={classes.title}>Select A Song</Link>
               </Typography>
-              <Typography variant="h6" className={classes.title}>
-                <a href="#" onClick={() => handleClick(room, username)}>
+              <Typography variant="h6">
+                <a href="#" onClick={() => handleClick(room, username)} className={classes.title}>
                   Logout
                 </a>
               </Typography>
