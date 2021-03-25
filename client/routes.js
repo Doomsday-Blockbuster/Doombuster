@@ -21,10 +21,9 @@ class Routes extends Component {
     const { isLoggedIn,room,roomAdmin} = this.props;
 
     return (
-      <div>
+      <div id='main'>
         {isLoggedIn? (
-          <div>
-          <h3>Room Admin: {roomAdmin}</h3>
+          <div id='playerContainer'>
           <PlayQueue/>
           </div>
         ) : (
