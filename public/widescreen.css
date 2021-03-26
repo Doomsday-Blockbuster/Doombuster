@@ -131,8 +131,14 @@ button{
 }
 
 #largeThumbnail {
-  width:100%;
+  width:480px;
   height:340px;
+}
+
+.currentSongName{
+  margin:0;
+  font-family:'Passion One';
+  font-size:1.5rem;
 }
 
 #placeholder{
@@ -214,7 +220,6 @@ width:10%;
   width:85%;
   padding-left: 0.2em;
 }
-
 
 
 @keyframes floatText {
