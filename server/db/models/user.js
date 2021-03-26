@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const { STRING, INTEGER } = Sequelize;
+const { STRING, INTEGER, BOOLEAN } = Sequelize;
 const db = require("../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -21,9 +21,9 @@ const User = db.define("user", {
     type: Sequelize.BOOLEAN,
     defaultValue: "FALSE",
   },
-  score: {
-    type: INTEGER,
-    defaultValue: 0
+  gameWon: {
+    type: BOOLEAN,
+    defaultValue: false
   }
 });
 
