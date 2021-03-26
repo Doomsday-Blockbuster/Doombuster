@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display:'flex',
@@ -21,12 +22,20 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   colorPrimary:{
-    backgroundColor:'#101b61'
+    // backgroundColor:'#101b61'
+    backgroundColor:'#050e4a'
+  },
+  titles: {
+    display:'flex',
+    justifyContent:'space-between',
+    width:'30%vw'
   },
   title: {
-    fontFamily:'Carter One',
-    fontSize:'3.5vh',
-    color:'white'
+    fontFamily:'Plane Crash',
+    fontSize:'2em',
+    color:'white',
+    opacity:'75%',
+    textShadow:'6px 2px black',
   },
 }));
 
@@ -37,7 +46,7 @@ const Navbar = (props) => {
     <div id='navbar'>
       {isLoggedIn ? (
         <div>
-          <AppBar position="sticky" className={classes.colorPrimary}>
+          <AppBar position="fixed" className={classes.colorPrimary}>
             <Toolbar className={classes.root}>
               {/* <IconButton
                 edge="start"
@@ -47,12 +56,11 @@ const Navbar = (props) => {
               >
                 <MenuIcon />
               </IconButton> */}
-              <Typography variant="h6">
-                <Link to={`/home/${room}`} className={classes.title}>Queue</Link>
+              <Typography>
+                <Link to={`/home/${room}`} className='navtitles'>queue</Link>
               </Typography>
-
-              <Typography variant="h6">
-                <Link to={`/select/${room}`} className={classes.title}>Select A Song</Link>
+              <Typography>
+                <Link to={`/select/${room}`} className='navtitles'>select a song</Link>
               </Typography>
               <Typography variant="h6">
                 <Link to={`/trivia/${room}`} className={classes.title}>Veto Power Trivia</Link>
