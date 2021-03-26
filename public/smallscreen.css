@@ -43,6 +43,8 @@ button{
 #songList{
   display: flex;
   flex-wrap: wrap;
+  background-color: black;
+  justify-content: center;
 }
 .choice-title{
   width: 300px;
