@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
+import { flexbox } from "@material-ui/system";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,7 +73,12 @@ const PlayQueue = (props) => {
                 );
               })}
               <div>
-                <Button variant="contained" color="primary">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  display="flex"
+                  justifyContent="center"
+                >
                   Skip Song
                 </Button>
               </div>
