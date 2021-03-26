@@ -5,6 +5,15 @@ import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
 const styles = () => ({
   root: {
@@ -31,6 +40,7 @@ const styles = () => ({
 
 const PlayQueue = (props) => {
   const _classes = styles();
+  const _useStyles = useStyles();
   const { queue, isAdmin, classes } = props;
   let topThree = queue.slice(0, 3);
   console.log(queue);
@@ -64,7 +74,9 @@ const PlayQueue = (props) => {
                 );
               })}
               <div>
-                <Button>Skip Song</Button>
+                <Button variant="contained" color="primary">
+                  Skip Song
+                </Button>
               </div>
             </div>
           ) : (
