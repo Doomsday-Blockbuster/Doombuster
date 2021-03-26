@@ -114,65 +114,56 @@ export class Home extends React.Component {
         {/* <div class ="queue-liner2"> */}
         {queue.map((song) => {
           return (
-            <div id="queueItem" key={song.id}>
-              <div>
-                <div style={{ display: "flex" }} class="queue-liner">
-                  <div key={song.id} class="queue-biz">
+              <div id="queueItem" key={song.id}>
+                <div className="queue-liner">
+                  <div key={song.id} className="queue-biz">
                     {song.totalVotes === 0 ? (
-                      <div class="thumbs">
+                      <div className="thumbs">
                         <ThumbUp
-                          size="48"
+                          size={iconSize}
                           voteType={this.state.voteType}
                           onClick={() => upVote(1, userId, song.id)}
                         />
                         <ThumbDown
-                          size="48"
+                          size={iconSize}
                           voteType={this.state.voteType}
                           onClick={() => downVote(-1, userId, song.id)}
                         />
                       </div>
                     ) : song.totalVotes === 1 ? (
-                      <div class="thumbs">
+                      <div className="thumbs">
                         <ThumbUpSelected
-                          size="48"
+                          size={iconSize}
                           voteType={this.state.voteType}
                           onClick={() => upVote(1, userId, song.id)}
                         />
                         <ThumbDown
-                          size="48"
+                          size={iconSize}
                           voteType={this.state.voteType}
                           onClick={() => downVote(-1, userId, song.id)}
                         />
                       </div>
                     ) : (
-                      <div class="thumbs">
+                      <div className="thumbs">
                         <ThumbUp
-                          size="48"
+                          size={iconSize}
                           voteType={this.state.voteType}
                           onClick={() => upVote(1, userId, song.id)}
                         />
                         <ThumbDownSelected
-                          size="48"
+                          size={iconSize}
                           voteType={this.state.voteType}
                           onClick={() => downVote(-1, userId, song.id)}
                         />
                       </div>
                     )}
                   </div>
-                  <div
-                    style={{
-                      opacity: "90%",
-                      paddingLeft: "1rem",
-                      maxWidth: "230px",
-                      overflow: "hidden",
-                    }}
-                  >
+                  <div className='queue-song'>
                     {song.name}
                   </div>
                 </div>
                 <div>Votes: {song.totalVotes}</div>
               </div>
-            </div>
           );
         })}
         <Dialog open={open} onClose={handleClose}>
