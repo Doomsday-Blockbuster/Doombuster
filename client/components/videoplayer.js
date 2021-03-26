@@ -16,22 +16,21 @@ constructor(){
 
   videoStateChange(event){
     if(event.data===0){
-      // let nextSong
-      // if(queue.length<3){
-      //   nextSong = this.props.queue[1]
-      // }else{
-      //   nextSong = this.props.queue[3]
-      // }
       this.props.deleteSongFromQueue(this.props.queue[0],this.props.auth.roomId,this.props.queue[3])
     }
   }
   render() {
-   //console.log('QUEUE',this.props.queue)
-    const opts = {
+   const windowWidth = window.innerWidth
+    const opts = windowWidth>700?{
       height: '390',
       width: '640',
       playerVars: {
-        // https://developers.google.com/youtube/player_parameters
+        autoplay: 1,
+      },
+    }:{
+      height: '230',
+      width: windowWidth-10,
+      playerVars: {
         autoplay: 1,
       },
     };

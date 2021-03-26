@@ -1,0 +1,232 @@
+body {
+  font-family: sans-serif;
+  margin:0;
+}
+
+a {
+  text-decoration: none;
+}
+
+label {
+  display: block;
+}
+
+nav a {
+  display: inline-block;
+  margin: 1em;
+}
+
+#main{
+background-image :url('background.jpg');
+background-size:cover;
+margin-top: 64px;
+position:relative;
+height:100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+background-repeat: repeat;
+}
+
+form div {
+  margin: 1em;
+  display: inline-block;
+}
+button{
+  cursor: pointer;
+}
+#songList{
+  display: flex;
+  flex-wrap: wrap;
+}
+.choice-title{
+  width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.background-image {
+  opacity: 0.9;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.MuiInputBase-input{
+  color:white !important
+}
+
+.MuiButton-contained {
+  background-color: rgb(0, 255, 255) !important;
+  color: rgb(0, 0, 0) !important;
+}
+
+.MuiFormLabel-root {
+  color:white !important
+}
+
+
+.navtitles{
+  font-family:'Plane Crash';
+  font-size:2em;
+  color:white;
+  opacity:75%;
+  text-shadow:6px 2px black;
+}
+
+#playerBar{
+  display:flex;
+  justify-content:center;
+}
+
+#playerBarItems{
+  display:flex;
+  flex-direction: row;
+  justify-content:space-around;
+  align-items:center;
+}
+
+#player{
+  max-width:640px;
+  height:390px;
+  background-color:black;
+  color:white;
+}
+
+#topThree{
+  display:flex;
+  flex-direction:column;
+  background-color:black;
+  color:white;
+  width : 500px;
+  height:390px;
+  margin: 0 0 0 1rem;
+}
+
+#topThree h1{
+  display:flex;
+  justify-content:center;
+  display:flex;
+  justify-content:center;
+  font-size:3em;
+  font-family:'Plane Crash';
+  margin: 0.3em 0 0.3em 0;
+  opacity: 85%;
+}
+
+#topThree img{
+  height:75px;
+  width:100px;
+}
+
+#topThreeItem{
+  box-shadow:0 4px 12px rgb(52 235 229 / 50%);
+  display: flex;
+  align-items: center;
+  margin:0 0.5em 0 0.5em;
+}
+
+#largeThumbnail {
+  width:100%;
+  height:340px;
+}
+
+#placeholder{
+  width:100%;
+  height:390px;
+}
+
+#playerContainer{
+  max-height:390px;
+  /* background-image :url('image.jpg');
+  background-size:1000px 390px;
+  background-position:right;
+  background-repeat:no-repeat; 
+  background-color:black;*/
+}
+
+
+.MuiCard-root{
+  font-size:14px;
+  background-color:#050e4a;
+  color:white;
+  margin:10px;
+  height: 75px;
+  display:flex;
+  align-items:center;
+  /* padding:1px; */
+  white-space:nowrap;
+  overflow:scroll;
+  text-overflow: ellipsis;
+}
+
+#queue{
+  width: 1156px;
+  background-color: #081522;
+  color:white;
+  font-family: 'Plane Crash';
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#queue h1{
+  opacity: 85%;
+}
+
+#queueItem{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5em 0 0.5em;
+  background-color:black;
+  margin-bottom: 0.5em;
+  color: white;
+  overflow: hidden;
+  width:99%;
+  box-shadow: 0 3px 8px rgb(52 235 229 / 50%);
+  font-family: "Gazelle";
+  font-size: 1.8em;
+  height: 2.5em;
+  border-radius: 10px;
+}
+
+.queue-liner{
+display: flex;
+width:90%;
+max-height:100%;
+}
+
+.queue-biz{
+display:flex;
+align-items:center;
+width:10%;
+}
+
+.queue-song{
+  opacity: 90%;
+  white-space: nowrap;
+  overflow: hidden;
+  width:85%;
+  padding-left: 0.2em;
+}
+
+
+
+@keyframes floatText {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@font-face { font-family: Vintage Warehouse; src: url('./fonts/Vintage\ Warehouse.ttf'); } 
+@font-face { font-family: Tatoo Shop; src: url('./fonts/Tattoo\ Shop.otf'); }
+@font-face { font-family: Chernobyl; src: url('./fonts/Chernobyl.otf'); }
+@font-face { font-family: Propaganda; src: url('./fonts/PROPAGAN.ttf'); }
+@font-face { font-family: Plane Crash; src: url('./fonts/Plane\ Crash.ttf'); }
+@font-face { font-family: Eight Bit; src: url('./fonts/8-BIT\ WONDER.TTF'); }
+@font-face { font-family: Gazelle; src: url('./fonts/Gazelle.ttf }

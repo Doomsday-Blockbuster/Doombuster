@@ -1,26 +1,41 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import VideoPlayer from "./videoplayer";
-import RoomDetails from "./RoomDetails"
 import { fetchQueue } from "../store/queue";
 import { updateVote } from "../store/vote";
 import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
+import {
+  ThumbUp,
+  ThumbDown,
+  ThumbUpSelected,
+  ThumbDownSelected,
+} from "./styledIcon";
 
-
-//import {CaretDown, CaretUp, HandThumbsDown, HandThumbsUp} from '@styled-icons/bootstrap'
-import { ThumbUp, ThumbDown, ThumbUpSelected, ThumbDownSelected } from './styledIcon'
+// const styles = () => ({
+//   root: {
+//     backgroundColor: "black",
+//     // backgroundColor:'#140e2b',
+//     color: "white",
+//     overflow: "hidden",
+//     // width:'100%',
+//     boxShadow: "0 3px 8px rgb(52 235 229 / 50%)",
+//     fontFamily: "Gazelle",
+//     // fontSize: "1.8em",
+//     maxHeight: "3rem",
+//     display: "flex",
+//     justifyContent: "space-between",
+//   },
+// });
 
 export class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
-      voteType:'',
+      voteType: "",
     };
     this.upVote = this.upVote.bind(this);
     this.downVote = this.downVote.bind(this);
@@ -41,7 +56,7 @@ export class Home extends React.Component {
     await this.props.updateVote(voteValue, userId, songId, this.props.room);
     if (this.props.voteError !== "") {
       this.handleOpen();
-      this.setState({voteType:'upvote'})
+      this.setState({ voteType: "upvote" });
     }
   }
 
@@ -49,7 +64,7 @@ export class Home extends React.Component {
     await this.props.updateVote(voteValue, userId, songId, this.props.room);
     if (this.props.voteError !== "") {
       this.handleOpen();
-      this.setState({voteType:'downvote'})
+      this.setState({ voteType: "downvote" });
     }
   }
 
@@ -62,68 +77,100 @@ export class Home extends React.Component {
   }
 
   render() {
-    const { open,voteType } = this.state;
+    const { open, voteType } = this.state;
     const { upVote, downVote, handleClose } = this;
-    const { userId, voteError, room } = this.props;
+    const { userId, classes } = this.props;
     let { queue } = this.props;
-    let topThree = queue.slice(0, 3);
+    // let topThree = queue.slice(0, 3);
     queue = queue.slice(3);
     //console.log("QUEUE", queue);
+    const windowWidth = window.innerWidth;
+    const iconSize = windowWidth > 700 ? 30 : 15;
     return (
-      <div style={{backgroundColor:'black',color:'white'}}>
-        <RoomDetails roomId = {room} />
-        <h1>Top 3</h1>
-        {topThree.map((song) => {
-          return (
-            <div key={song.id}>
-              <p>{song.name}</p>
-            </div>
-          );
-        })}
-        <h1>Queue</h1>
-        <div class ="queue-liner2">
+      // <div id="queue">
+      //   {/* <RoomDetails roomId = {room} /> */}
+      //   <h1>queue</h1>
+      //   {queue.map((song) => {
+      //     return (
+      //       <div id='queueItem' key={song.id}>
+      //           <div style={{display:'flex'}}>
+      //             <ThumbUp
+      //               size={iconSize}
+      //               voteType={this.state.voteType}
+      //               onClick={() => upVote(1, userId, song.id)}
+      //             />
+      //             <ThumbDown
+      //               size={iconSize}
+      //               voteType={this.state.voteType}
+      //               onClick={() => downVote(-1, userId, song.id)}
+      //             />
+      //             <div style={{opacity:'90%',paddingLeft:'1rem',maxWidth:'230px',overflow:'hidden'}}>{song.name}</div>
+      //           </div>
+      //           <div>Votes: {song.totalVotes}</div>
+      //
+      <div id="queue">
+        {/* <RoomDetails roomId = {room} /> */}
+        <h1>queue</h1>
+        {/* <div class ="queue-liner2"> */}
         {queue.map((song) => {
           return (
-            <div class ="queue-liner">
-            <div key={song.id} class="queue-biz">
-                {
-                  song.totalVotes === 0?
-                  (
-                    <div class="thumbs">
-                      <ThumbUp size="48" voteType={this.state.voteType} onClick={() => upVote(1, userId, song.id)} />
-                      <ThumbDown size="48" voteType={this.state.voteType} onClick={() => downVote(-1, userId, song.id)} />
-                    </div>
-                  )
-                  :
-                  song.totalVotes === 1?
-                  (
-                    <div class="thumbs">
-                      <ThumbUpSelected size="48" voteType={this.state.voteType} onClick={() => upVote(1, userId, song.id)} />
-                      <ThumbDown size="48" voteType={this.state.voteType} onClick={() => downVote(-1, userId, song.id)} />
-                    </div>
-                  )
-                  :
-                  (
-                    <div class="thumbs">
-                      <ThumbUp size="48" voteType={this.state.voteType} onClick={() => upVote(1, userId, song.id)} />
-                      <ThumbDownSelected size="48" voteType={this.state.voteType} onClick={() => downVote(-1, userId, song.id)} />
-                    </div>
-                  )
-                }
-                </div>
-                <div class="song-deetz">
-                  <p>
+              <div id="queueItem" key={song.id}>
+                <div className="queue-liner">
+                  <div key={song.id} className="queue-biz">
+                    {song.totalVotes === 0 ? (
+                      <div className="thumbs">
+                        <ThumbUp
+                          size={iconSize}
+                          voteType={this.state.voteType}
+                          onClick={() => upVote(1, userId, song.id)}
+                        />
+                        <ThumbDown
+                          size={iconSize}
+                          voteType={this.state.voteType}
+                          onClick={() => downVote(-1, userId, song.id)}
+                        />
+                      </div>
+                    ) : song.totalVotes === 1 ? (
+                      <div className="thumbs">
+                        <ThumbUpSelected
+                          size={iconSize}
+                          voteType={this.state.voteType}
+                          onClick={() => upVote(1, userId, song.id)}
+                        />
+                        <ThumbDown
+                          size={iconSize}
+                          voteType={this.state.voteType}
+                          onClick={() => downVote(-1, userId, song.id)}
+                        />
+                      </div>
+                    ) : (
+                      <div className="thumbs">
+                        <ThumbUp
+                          size={iconSize}
+                          voteType={this.state.voteType}
+                          onClick={() => upVote(1, userId, song.id)}
+                        />
+                        <ThumbDownSelected
+                          size={iconSize}
+                          voteType={this.state.voteType}
+                          onClick={() => downVote(-1, userId, song.id)}
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <div className='queue-song'>
                     {song.name}
-                    Votes: {song.totalVotes}
-                  </p>
+                  </div>
                 </div>
-            </div>
+                <div>Votes: {song.totalVotes}</div>
+              </div>
           );
         })}
-        </div>
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle>
-            {voteType==='upvote'?'Already Upvoted! Feel Free To Change Your Vote':'Already Downvoted! Feel Free To Change Your Vote'}
+            {voteType === "upvote"
+              ? "Already Upvoted! Feel Free To Change Your Vote"
+              : "Already Downvoted! Feel Free To Change Your Vote"}
           </DialogTitle>
           <DialogActions>
             <Button onClick={() => handleClose()}>OK!</Button>
