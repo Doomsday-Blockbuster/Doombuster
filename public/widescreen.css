@@ -207,6 +207,20 @@ width:90%;
 max-height:100%;
 }
 
+#options{
+  display: flex;
+  justify-content: center;
+}
+#searchbar{
+  height: 2rem;
+  margin: 1rem;
+  width: 20rem;
+}
+
+#songList{
+  background-color: black;
+}
+
 .queue-biz{
 display:flex;
 align-items:center;
