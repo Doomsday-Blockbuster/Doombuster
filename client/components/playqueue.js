@@ -39,8 +39,6 @@ const styles = () => ({
 });
 
 const PlayQueue = (props) => {
-  const _classes = styles();
-  const _useStyles = useStyles();
   const { queue, isAdmin, classes } = props;
   let topThree = queue.slice(0, 3);
   console.log(queue);
@@ -60,7 +58,7 @@ const PlayQueue = (props) => {
               <h1>top 3</h1>
               {topThree.map((song) => {
                 return (
-                  <div id="topThreeItem">
+                  <div id="topThreeItem" key={song.id}>
                     <img src={song.image}></img>
                     <Card
                       key={song.id}
