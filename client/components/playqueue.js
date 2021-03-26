@@ -22,7 +22,7 @@ const styles = () => ({
     maxWidth:'375px',
     padding: '0 0 0 1em',
     fontFamily : 'Eight Bit',
-    opacity:'90%'
+    opacity:'80%'
     // animation: 'floatText 12s infinite linear',
     // paddingLeft: '100%', /*Initial offset, which places the text off-screen*/
   },

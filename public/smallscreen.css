@@ -186,7 +186,7 @@ button{
   overflow: hidden;
   width:99%;
   box-shadow: 0 3px 8px rgb(52 235 229 / 50%);
-  font-family: "Gazelle";
+  font-family: "Passion One";
   font-size: 1.2em;
   height: 2.5em;
   display:flex;
@@ -208,7 +208,7 @@ button{
   }
   
   .queue-song{
-    opacity: 90%;
+    opacity: 80%;
     overflow: hidden;
     width:85%;
     padding-left: 0.2em;
@@ -227,3 +227,4 @@ button{
 @font-face { font-family: Propaganda; src: url('./fonts/PROPAGAN.ttf'); }
 @font-face { font-family: Plane Crash; src: url('./fonts/Plane\ Crash.ttf'); }
 @font-face { font-family: Eight Bit; src: url('./fonts/8-BIT\ WONDER.TTF'); }
+@font-face { font-family: Gazelle; src: url('./fonts/Gazelle.ttf'); }
