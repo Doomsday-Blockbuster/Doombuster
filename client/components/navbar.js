@@ -56,12 +56,8 @@ const Navbar = (props) => {
               >
                 <MenuIcon />
               </IconButton> */}
-               {/* <Typography className={classes.title}>
-                DOOMBUSTER
-              </Typography> */}
-              {/* <div className={classes.titles}> */}
-              <Typography>
-                <Link to={`/home/${room}`} className='navtitles'>queue</Link>
+              <Typography variant="h6">
+                <Link to={`/home/${room}`} className={classes.title}>Queue</Link>
               </Typography>
               <Typography>
                 <Link to={`/select/${room}`} className='navtitles'>select a song</Link>

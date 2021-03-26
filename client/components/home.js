@@ -7,9 +7,12 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
-
-//import {CaretDown, CaretUp, HandThumbsDown, HandThumbsUp} from '@styled-icons/bootstrap'
-import { ThumbUp, ThumbDown } from "./styledIcon";
+import {
+  ThumbUp,
+  ThumbDown,
+  ThumbUpSelected,
+  ThumbDownSelected,
+} from "./styledIcon";
 
 // const styles = () => ({
 //   root: {
@@ -81,29 +84,94 @@ export class Home extends React.Component {
     // let topThree = queue.slice(0, 3);
     queue = queue.slice(3);
     //console.log("QUEUE", queue);
-    const windowWidth = window.innerWidth
-    const iconSize = windowWidth>700?30:15
+    const windowWidth = window.innerWidth;
+    const iconSize = windowWidth > 700 ? 30 : 15;
     return (
+      // <div id="queue">
+      //   {/* <RoomDetails roomId = {room} /> */}
+      //   <h1>queue</h1>
+      //   {queue.map((song) => {
+      //     return (
+      //       <div id='queueItem' key={song.id}>
+      //           <div style={{display:'flex'}}>
+      //             <ThumbUp
+      //               size={iconSize}
+      //               voteType={this.state.voteType}
+      //               onClick={() => upVote(1, userId, song.id)}
+      //             />
+      //             <ThumbDown
+      //               size={iconSize}
+      //               voteType={this.state.voteType}
+      //               onClick={() => downVote(-1, userId, song.id)}
+      //             />
+      //             <div style={{opacity:'90%',paddingLeft:'1rem',maxWidth:'230px',overflow:'hidden'}}>{song.name}</div>
+      //           </div>
+      //           <div>Votes: {song.totalVotes}</div>
+      //
       <div id="queue">
         {/* <RoomDetails roomId = {room} /> */}
         <h1>queue</h1>
+        {/* <div class ="queue-liner2"> */}
         {queue.map((song) => {
           return (
-            <div id='queueItem' key={song.id}>
-                <div style={{display:'flex'}}>
-                  <ThumbUp
-                    size={iconSize}
-                    voteType={this.state.voteType}
-                    onClick={() => upVote(1, userId, song.id)}
-                  />
-                  <ThumbDown
-                    size={iconSize}
-                    voteType={this.state.voteType}
-                    onClick={() => downVote(-1, userId, song.id)}
-                  />
-                  <div style={{opacity:'90%',paddingLeft:'1rem',maxWidth:'230px',overflow:'hidden'}}>{song.name}</div>
+            <div id="queueItem" key={song.id}>
+              <div>
+                <div style={{ display: "flex" }} class="queue-liner">
+                  <div key={song.id} class="queue-biz">
+                    {song.totalVotes === 0 ? (
+                      <div class="thumbs">
+                        <ThumbUp
+                          size="48"
+                          voteType={this.state.voteType}
+                          onClick={() => upVote(1, userId, song.id)}
+                        />
+                        <ThumbDown
+                          size="48"
+                          voteType={this.state.voteType}
+                          onClick={() => downVote(-1, userId, song.id)}
+                        />
+                      </div>
+                    ) : song.totalVotes === 1 ? (
+                      <div class="thumbs">
+                        <ThumbUpSelected
+                          size="48"
+                          voteType={this.state.voteType}
+                          onClick={() => upVote(1, userId, song.id)}
+                        />
+                        <ThumbDown
+                          size="48"
+                          voteType={this.state.voteType}
+                          onClick={() => downVote(-1, userId, song.id)}
+                        />
+                      </div>
+                    ) : (
+                      <div class="thumbs">
+                        <ThumbUp
+                          size="48"
+                          voteType={this.state.voteType}
+                          onClick={() => upVote(1, userId, song.id)}
+                        />
+                        <ThumbDownSelected
+                          size="48"
+                          voteType={this.state.voteType}
+                          onClick={() => downVote(-1, userId, song.id)}
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <div
+                    style={{
+                      opacity: "90%",
+                      paddingLeft: "1rem",
+                      maxWidth: "230px",
+                      overflow: "hidden",
+                    }}
+                  >
+                    {song.name}
+                  </div>
                 </div>
                 <div>Votes: {song.totalVotes}</div>
+              </div>
             </div>
           );
         })}
