@@ -5,10 +5,11 @@ import {HandThumbsDown, HandThumbsUp} from '@styled-icons/bootstrap'
 
 
 export const ThumbUp = styled(HandThumbsUp)`
-  color: purple;
+  color: #BE00FE;
   font-weight: bold;
-  margin: 0.25rem;
+  margin: 0.25rem 0.5rem 0.25rem 0.25rem;
   &:hover {
+    color: #EC3499;
     box-shadow: inset 0 0 10px #000000;
     cursor: pointer;
   }
@@ -16,12 +17,13 @@ export const ThumbUp = styled(HandThumbsUp)`
 `
 
 export const ThumbDown = styled(HandThumbsDown)`
-  color: purple;
+  color: #BE00FE;
   font-weight: bold;
-  margin: 0.25rem;
+  margin: 0.25rem 0.5rem 0.25rem 0.25rem;
   &:hover {
+    color: #EC3499;
     box-shadow: inset 0 0 10px #000000;
-    curser: pointer;
+    cursor: pointer;
   }
   
   

@@ -7,19 +7,25 @@ import { withStyles } from '@material-ui/core/styles'
 
 const styles = () => ({
   root: {
-    fontSize:'20px',
-    backgroundColor:'#101b61',
+    backgroundColor:'#050e4a',
     color:'white',
-    margin:'1px',
-    boxShadow: '0 4px 12px rgb(52 235 229 / 50%)',
-    maxHeight: '100px',
-    display:'flex',
-    alignItems:'center',
-    padding:'1px',
-    whiteSpace: 'nowrap',
     overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  }
+    width:'100%',
+  },
+  topSong:{
+    backgroundColor:'#471061',
+    color:'white',
+    overflow: 'hidden',
+    width:'100%',
+  },
+  songName:{
+    maxWidth:'375px',
+    padding: '0 0 0 1em',
+    fontFamily : 'Eight Bit',
+    opacity:'90%'
+    // animation: 'floatText 12s infinite linear',
+    // paddingLeft: '100%', /*Initial offset, which places the text off-screen*/
+  },
 });
 
 class PlayQueue extends React.Component {
@@ -46,13 +52,15 @@ class PlayQueue extends React.Component {
             </div>
             {topThree.length>0?(
             <div id="topThree">
-                <h1 style={{fontSize:'3rem', fontFamily: 'Passion One'}}>TOP 3</h1>
+                <h1>top 3</h1>
                 {topThree.map((song) => {
                   return (
-                    <Card key={song.id} className={classes.root}>
-                      <img src={song.image} style={{height:'75px',width:'100px'}}></img>
-                      <p>{song.name}</p>
-                    </Card>
+                    <div id='topThreeItem'>
+                      <img src={song.image}></img>
+                      <Card key={song.id} className={song.rank===1?classes.topSong:classes.root}>
+                        <p className={classes.songName}>{song.name}</p>
+                      </Card>
+                    </div>
                   );
                 })}
             </div>):('')}
