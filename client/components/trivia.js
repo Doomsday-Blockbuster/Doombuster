@@ -17,15 +17,31 @@ const StyledButton = withStyles({
 
 
 export const Trivia = (props) => {
-  const [q,setQ] = useState({})
-  const [score,setScore] = useState({})
+  // const [data,setData] = useState([])
+  const [question,setQuestion] = useState({})
+  const [score,setScore] = useState(0)
 
   useEffect(()=>{
-    const question = props.fetchQuestion
-    console.log(question)
+    axios.get('https://opentdb.com/api.php?amount=50')
+    .then((response)=>{
+      console.log(`data`,response.data.results)
+      console.log(typeof response.data.results)
+      const num = Math.floor(Math.random()*50)
+      setQuestion(response.data.results[num])
+    })
   },[])
 
+  const handleNext = () => {
+    axios.get('https://opentdb.com/api.php?amount=50')
+    .then((response)=>{
+      console.log(`data`,response.data.results)
+      console.log(typeof response.data.results)
+      const num = Math.floor(Math.random()*50)
+      setQuestion(response.data.results[num])
+    })
+  }
 
+console.log(question)
   return (
     <div>
       <h2 style={{color: "white"}}>Answer 5 Questions Correctly in a Row to Win Veto Power</h2>
@@ -34,7 +50,28 @@ export const Trivia = (props) => {
       <div id="trivia-master">
 
       <div className = "activeTrivia">
-        <StyledButton>Next</StyledButton>
+        <h2 style={{color: "white"}}>
+          {question.question}
+        </h2>
+        {
+          question.type === 'multiple' ?
+          (
+            <div>
+              <p style={{color: "white"}}>{question.correct_answer}</p>
+              <p style={{color: "white"}}>{question.incorrect_answers[0]}</p>
+              <p style={{color: "white"}}>{question.incorrect_answers[1]}</p>
+              <p style={{color: "white"}}>{question.incorrect_answers[2]}</p>
+            </div>
+          )
+          :
+          (
+            <div>
+              <p style={{color: "white"}}>true</p>
+              <p style={{color: "white"}}>false</p>
+            </div>
+          )
+        }
+        <StyledButton onClick={()=>handleNext()}>Next</StyledButton>
       </div>
 
       </div>
@@ -53,7 +90,6 @@ const mapState = (state,otherProps) => {
 
 const mapDispatch = (dispatch, {history}) => {
   return {
-    fetchQuestion: async()=>await axios.get('https://opentdb.com/api.php?amount=50').results
   }
 };
 
