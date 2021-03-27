@@ -43,6 +43,8 @@ button{
 #songList{
   display: flex;
   flex-wrap: wrap;
+  background-color: black;
+  justify-content: center;
 }
 .choice-title{
   width: 300px;
@@ -127,7 +129,13 @@ button{
 
 #largeThumbnail {
   width:100%;
-  height:340px;
+  height:230px;
+}
+
+.currentSongName{
+  margin:0;
+  font-family:'Passion One';
+  font-size:1rem;
 }
 
 #placeholder{
@@ -139,6 +147,15 @@ button{
   max-height:390px;
 } */
 
+#options{
+  display: flex;
+  justify-content: center;
+}
+#searchbar{
+  height: 2rem;
+  margin: 1rem;
+  width: 20rem;
+}
 
 .MuiCard-root{
   font-size:10px;
