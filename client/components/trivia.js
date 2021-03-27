@@ -42,7 +42,7 @@ export const Trivia = (props) => {
   }
 
 console.log(question)
-console.log(question?JSON.parse(question.question.replace(/&quot;/g,'"')):'')
+//console.log(question?JSON.parse(question.question.replace(/&quot;/g,'"')):'')
 // JSON.parse(data.replace(/&quot;/g,'"'));
   return (
     <div>

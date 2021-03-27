@@ -20,7 +20,7 @@ router.get("/:id", async (req, res, next) => {
         include: [
           {
             model: Vote,
-            attributes: ["voteValue"],
+            attributes: ["voteValue","userId"],
           },
         ],
         attributes: ["id", "name", "image", "largeImage", "videoId", "userId", "roomId",'rank'],
