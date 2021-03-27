@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from "react";
+import React, {useState} from "react";
 import { connect } from "react-redux";
 import {addToQueue} from '../store/queue'
 import {loadSongs} from '../store/songs'
@@ -6,7 +6,7 @@ import VideoPlayer from './videoplayer'
 //import socketIOClient from "socket.io-client"
 
 //material ui
-import { withStyles,createMuiTheme} from '@material-ui/core/styles'
+import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';

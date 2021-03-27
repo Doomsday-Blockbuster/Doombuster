@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const { STRING, INTEGER } = Sequelize;
+const { STRING, INTEGER, BOOLEAN } = Sequelize;
 const db = require("../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -17,14 +17,14 @@ const User = db.define("user", {
   password: {
     type: STRING,
   },
-  // vote: {
-  //   type: INTEGER,
-  //   min: 0,
-  // },
   admin: {
     type: Sequelize.BOOLEAN,
     defaultValue: "FALSE",
   },
+  gameWon: {
+    type: BOOLEAN,
+    defaultValue: false
+  }
 });
 
 module.exports = User;

@@ -62,9 +62,11 @@ const Navbar = (props) => {
               <Typography>
                 <Link to={`/select/${room}`} className='navtitles'>select a song</Link>
               </Typography>
-              {/* </div> */}
-              <Typography>
-                <a href="#" onClick={() => handleClick(room, username)} className='navtitles'>
+              <Typography variant="h6">
+                <Link to={`/trivia/${room}`} className={classes.title}>trivia</Link>
+              </Typography>
+              <Typography variant="h6">
+                <a href="#" onClick={() => handleClick(room, username)} className={classes.title}>
                   logout
                 </a>
               </Typography>
