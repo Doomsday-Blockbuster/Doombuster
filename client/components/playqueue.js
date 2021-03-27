@@ -7,6 +7,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { flexbox } from "@material-ui/system";
+import { deleteSongFromQueue } from "../store";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +44,12 @@ const PlayQueue = (props) => {
   const { queue, isAdmin, classes } = props;
   let topThree = queue.slice(0, 3);
   console.log(queue);
+
+  const handleSkip = () => {
+    props.deleteSongFromQueue(props.queue[0], props.auth, props.queue[3]);
+    // console.log("Helloooooo!*!*!*!*!*!*!*!*");
+  };
+
   return (
     <div id="playerBar">
       {isAdmin ? (
@@ -72,12 +79,19 @@ const PlayQueue = (props) => {
                   </div>
                 );
               })}
-              <div>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
                 <Button
                   variant="contained"
                   color="primary"
-                  display="flex"
-                  justifyContent="center"
+                  onClick={() => {
+                    handleSkip();
+                  }}
                 >
                   Skip Song
                 </Button>
@@ -123,7 +137,14 @@ const mapState = (state) => {
     isLoggedIn: !!state.auth.id,
     isAdmin: state.auth.admin,
     queue: state.queue,
+    auth: state.auth.roomId,
+  };
+};
+const mapDispatch = (dispatch, { history }) => {
+  return {
+    deleteSongFromQueue: (song, room, nextSong) =>
+      dispatch(deleteSongFromQueue(song, room, nextSong, history)),
   };
 };
 
-export default withStyles(styles)(connect(mapState)(PlayQueue));
+export default withStyles(styles)(connect(mapState, mapDispatch)(PlayQueue));
