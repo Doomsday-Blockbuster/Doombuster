@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchQueue } from "../store/queue";
+import queue, { fetchQueue } from "../store/queue";
 import { updateVote } from "../store/vote";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -80,7 +80,7 @@ export class Home extends React.Component {
     const { open, voteType } = this.state;
     const { upVote, downVote, handleClose } = this;
     const { userId, classes } = this.props;
-    let { queue } = this.props;
+    let { queue, votes } = this.props;
     // let topThree = queue.slice(0, 3);
     queue = queue.slice(3);
     //console.log("QUEUE", queue);
@@ -111,13 +111,15 @@ export class Home extends React.Component {
       <div id="queue">
         {/* <RoomDetails roomId = {room} /> */}
         <h1>queue</h1>
-        {/* <div class ="queue-liner2"> */}
         {queue.map((song) => {
+
+          let userVote = song.votes.find((vote)=>vote.userId === userId)
+          console.log(`userVote`,userVote)
           return (
               <div id="queueItem" key={song.id}>
                 <div className="queue-liner">
                   <div key={song.id} className="queue-biz">
-                    {song.totalVotes === 0 ? (
+                    { !userVote ? (
                       <div className="thumbs">
                         <ThumbUp
                           size={iconSize}
@@ -130,7 +132,7 @@ export class Home extends React.Component {
                           onClick={() => downVote(-1, userId, song.id)}
                         />
                       </div>
-                    ) : song.totalVotes === 1 ? (
+                    ) : userVote.voteValue === "1" ? (
                       <div className="thumbs">
                         <ThumbUpSelected
                           size={iconSize}
@@ -189,6 +191,7 @@ const mapState = (state, otherProps) => {
     userId: state.auth.id,
     otherProps,
     voteError: state.voteError,
+    votes:queue.votes
   };
 };
 

@@ -20,6 +20,7 @@ export const Trivia = (props) => {
   // const [data,setData] = useState([])
   const [question,setQuestion] = useState({})
   const [score,setScore] = useState(0)
+  const [radioValue, setRadioValue] = useState('')
   const [answerValue, setAnswerValue] = useState('')
 
   useEffect(()=>{
