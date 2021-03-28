@@ -47,8 +47,6 @@ export const Trivia = (props) => {
   }
 
 console.log(question)
-// console.log(question?JSON.parse(question.question.replace(/&quot;/g,'"')):'')
-// JSON.parse(data.replace(/&quot;/g,'"'));
   return (
     <div>
       <h2 style={{color: "white"}}>Answer 5 Questions Correctly in a Row to Win Veto Power</h2>
