@@ -233,6 +233,11 @@ button{
 
   .activeTrivia{
     background-color: black;
+    color: white;
+  }
+
+  .formgroup{
+    display: flex;
   }
   
 

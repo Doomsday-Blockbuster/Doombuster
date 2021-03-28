@@ -2,8 +2,8 @@
 
 import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
-import Button from "@material-ui/core/Button";
 import { withStyles } from '@material-ui/core/styles'
+import {Button} from '@material-ui/core';
 import axios from 'axios'
 
 const StyledButton = withStyles({
@@ -20,6 +20,8 @@ export const Trivia = (props) => {
   // const [data,setData] = useState([])
   const [question,setQuestion] = useState({})
   const [score,setScore] = useState(0)
+  const [radioValue, setRadioValue] = useState('')
+  const [answerValue, setAnswerValue] = useState('')
 
   useEffect(()=>{
     axios.get('https://opentdb.com/api.php?amount=50')
@@ -41,9 +43,11 @@ export const Trivia = (props) => {
     })
   }
 
+  const handleRadioChange = () => {
+
+  }
+
 console.log(question)
-//console.log(question?JSON.parse(question.question.replace(/&quot;/g,'"')):'')
-// JSON.parse(data.replace(/&quot;/g,'"'));
   return (
     <div>
       <h2 style={{color: "white"}}>Answer 5 Questions Correctly in a Row to Win Veto Power</h2>
@@ -52,34 +56,53 @@ console.log(question)
       <div id="trivia-master">
 
       <div className = "activeTrivia">
-        <h2 style={{color: "white"}}>
-          {question.question}
-        </h2>
-        {
-          question.type === 'multiple' ?
-          (
-            <div>
-              <p style={{color: "white"}}>{question.correct_answer}</p>
-              <p style={{color: "white"}}>{question.incorrect_answers[0]}</p>
-              <p style={{color: "white"}}>{question.incorrect_answers[1]}</p>
-              <p style={{color: "white"}}>{question.incorrect_answers[2]}</p>
-            </div>
-          )
-          :
-          (
-            <div>
-              <p style={{color: "white"}}>true</p>
-              <p style={{color: "white"}}>false</p>
-            </div>
-          )
-        }
+        <form>
+          <h2>
+            {question.question}
+          </h2>
+          {
+            question.type === 'multiple' ?
+            (
+              <div>
+                <div className="formgroup">
+                  <input type='radio' id="choice1" name="anss" value={question.correct_answer} />
+                  <label for="choice1">{question.correct_answer}</label>
+                </div>
+                <div className="formgroup">
+                  <input type='radio' id="choice2" name="anss" value={question.incorrect_answers[0]} />
+                  <label>{question.incorrect_answers[0]}</label>
+                </div>
+                <div className="formgroup">
+                  <input type='radio' id="choice3" name="anss" value={question.incorrect_answers[1]} />
+                  <label>{question.incorrect_answers[1]}</label>
+                </div>
+                <div className="formgroup">
+                  <input type='radio' id="choice4" name="anss" value={question.incorrect_answers[2]} />
+                  <label>{question.incorrect_answers[2]}</label>
+                </div>
+              </div>
+            )
+            :
+            (
+              <div>
+                <div className="formgroup">
+                  <input type='radio' id="true" name="ans" value="true" />
+                  <label for="true">True</label>
+                </div>
+                <div className="formgroup">
+                  <input type='radio' id="false" name="ans" value="false" />
+                  <label for="false">False</label>
+                </div>
+
+                
+              </div>
+            )
+          }
+        </form>
         <StyledButton onClick={()=>handleNext()}>Next</StyledButton>
       </div>
-
       </div>
-
-
-    </div>
+      </div>
 
   )
 }
