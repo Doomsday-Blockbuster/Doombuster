@@ -44,7 +44,7 @@ const styles = () => ({
 const PlayQueue = (props) => {
   const { queue, isAdmin, classes } = props;
   let topThree = queue.slice(0, 3);
-  console.log(queue);
+  //console.log(queue);
 
   const handleSkip = () => {
     props.deleteSongFromQueue(props.queue[0], props.auth, props.queue[3]);
@@ -131,7 +131,7 @@ const PlayQueue = (props) => {
               <h1>top 3</h1>
               {topThree.map((song) => {
                 return (
-                  <div id="topThreeItem">
+                  <div key={song.id} id="topThreeItem">
                     <img src={song.image}></img>
                     <Card
                       key={song.id}
