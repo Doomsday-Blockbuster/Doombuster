@@ -6,6 +6,7 @@ const User = require("./models/user");
 const Room = require("./models/room");
 const Song = require("./models/song");
 const Vote = require("./models/vote");
+const Playlist = require('./models/playlist')
 
 //associations could go here!
 User.belongsTo(Room);
@@ -35,15 +36,22 @@ const syncAndSeed = async () => {
   await cody.save();
   await murphy.save();
 
+  const playlists = await Promise.all([
+    Playlist.create({playlistName:'Top50',playlistUrl:'PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU'}),
+    Playlist.create({playlistName:'Rock',playlistUrl:'RDCLAK5uy_mfut9V_o1n9nVG_m5yZ3ztCif29AHUffI'}),
+    Playlist.create({playlistName:'Reggae',playlistUrl:'RDGMEM29nh-so2GiiVvCzzeO3LJQ'}),
+    Playlist.create({playlistName:'Soundbath',playlistUrl:'PL_4s4N3ooC9T0Roc-lnB_nYESCSPzh-nB'}),
+  ])
+
   return {
     users: {
       cody,
+
       murphy,
     },
   };
 };
 
-//Jared added Vote to the module.exports below
 module.exports = {
   db,
   syncAndSeed,
@@ -52,5 +60,6 @@ module.exports = {
     Room,
     Song,
     Vote,
+    Playlist
   },
 };

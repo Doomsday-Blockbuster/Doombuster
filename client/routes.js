@@ -6,7 +6,7 @@ import LandingPage from "./components/landingPage";
 import selectSong from "./components/selectSong";
 import trivia from "./components/trivia";
 import Home from "./components/home";
-import { me, loadSongs, fetchQueue } from "./store";
+import { me, loadSongs, loadPlaylists, fetchQueue } from "./store";
 import PlayQueue from './components/playqueue'
 
 /**
@@ -16,10 +16,14 @@ import PlayQueue from './components/playqueue'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
+    socket.on("PlaylistAdded", async () => {
+      console.log('playlist added')
+      this.props.loadInitialData();
+    });
   }
 
   render() {
-    const { isLoggedIn,room,roomAdmin} = this.props;
+    const { isLoggedIn,room } = this.props;
 
     return (
       <div id='main'>
@@ -59,7 +63,8 @@ const mapState = (state,otherProps) => {
     isAdmin: state.auth.admin,
     room: state.auth.roomId,
     queue: state.queue,
-    roomAdmin : state.auth.username
+    roomAdmin : state.auth.username,
+    playlists: state.playlists
   };
 };
 
@@ -68,6 +73,7 @@ const mapDispatch = (dispatch) => {
     loadInitialData() {
       dispatch(me());
       dispatch(loadSongs());
+      dispatch(loadPlaylists())
     },
   };
 };

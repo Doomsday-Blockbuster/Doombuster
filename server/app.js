@@ -58,6 +58,10 @@ io.on('connection',(socket)=>{
         socket.broadcast.emit("RefreshQueue")
         console.log('done')
     });
+    socket.on('PlaylistAdded',function() {
+        socket.broadcast.emit('PlaylistAdded')
+        console.log('playlist added - server')
+    });
     socket.on("disconnect", () => console.log("client disconnected"))
 })
 

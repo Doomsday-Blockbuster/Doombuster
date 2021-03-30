@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import { connect } from "react-redux";
-import {addToQueue} from '../store/queue'
-import {loadSongs} from '../store/songs'
-import VideoPlayer from './videoplayer'
+import {addToQueue} from '../store/queue';
+import {loadSongs} from '../store/songs';
+import AddPlaylist from './addPlaylist';
 //import socketIOClient from "socket.io-client"
 
 //material ui
@@ -34,7 +34,11 @@ export const SongList = (props) => {
   const [selectedSong, setSong] = useState({});
   const [anchorEl, setAnchorEl] = useState(null);
   const [search, setSearch] = useState('');
-
+  const [add, setAdd] = useState(false)
+  const { username,songs,queue,room,playlists,addToQueue,loadSongs} = props;
+  const filteredSongs = songs.filter(song=>{
+    return song.snippet.title.toLowerCase().includes(search);
+  })
   const repeatSong = (song) =>{
     const inqueue = queue.find(ele=>ele.name===song.title)
     if(inqueue){
@@ -68,16 +72,10 @@ export const SongList = (props) => {
   const handleSearch = (e) => {
     setSearch(e.target.value.toLowerCase())
   }
-
-
-  const { username,songs,queue,addToQueue,loadSongs} = props;
-
-  const room = props.room;
-  const videoSrc = `https://www.youtube.com/embed?listType=playlist&list=PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU&autoplay=1`;
-  
-  const filteredSongs = songs.filter(song=>{
-    return song.snippet.title.toLowerCase().includes(search);
-  })
+ 
+  const addPlaylist = () => {
+    setAdd(true)
+  }
 
   return (
     <div>
@@ -93,11 +91,14 @@ export const SongList = (props) => {
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
       >
-        <MenuItem onClick={()=>{return loadSongs('Top50'),handleMenuClose()}}>Top 50 of 2021</MenuItem>
-        <MenuItem onClick={()=>{return loadSongs('Soundbath'), handleMenuClose()}}>Soundbath</MenuItem>
-        <MenuItem onClick={()=>{return loadSongs('Workout'), handleMenuClose()}}>Workout</MenuItem>
+        {playlists.map(playlist=>(
+            <MenuItem key={playlist.id} onClick={()=>{return loadSongs(playlist.playlistName),handleMenuClose()}}>{playlist.playlistName}</MenuItem>
+        ))}
+        <MenuItem onClick={()=>{return addPlaylist(),handleMenuClose()}}>ADD PLAYLIST</MenuItem>
+        {/* <MenuItem onClick={()=>{return loadSongs('Top50'),handleMenuClose()}}>Top 50 of 2021</MenuItem>
         <MenuItem onClick={()=>{ return loadSongs('Reggae'), handleMenuClose()}}>Reggae</MenuItem>
         <MenuItem onClick={()=>{return loadSongs('Rock'), handleMenuClose()}}>Rock</MenuItem>
+        <MenuItem onClick={()=>{return loadSongs('Soundbath'), handleMenuClose()}}>Soundbath</MenuItem> */}
       </Menu>
       </div>
       <div id= 'search'>
@@ -107,13 +108,16 @@ export const SongList = (props) => {
       </div>
       </div>
 
-      <h3>Select A Song, {username}</h3>
+      {/* <h3>Select A Song, {username}</h3>
       <div id="content">
         <div id="channel-data"></div>
-      </div>
+      </div> */}
+      {add?(
+        <AddPlaylist add={add} setAdd={setAdd}/>
+      ):null}
+
       <div id="songList">
         {filteredSongs.map(song=>{
-          const videoSrc = `https://www.youtube.com/embed/${song.snippet.resourceId.videoId}`;
           return(
             <div key={song.id}>
               <button onClick={()=>handleClickOpen(song.snippet)}>
@@ -159,7 +163,7 @@ export const SongList = (props) => {
                 :
                 (
                   <div>
-                    <DialogTitle id="add-song">Add this song to the room?</DialogTitle>
+                    <DialogTitle id="add-song">Add this song to the queue?</DialogTitle>
                     <DialogContent>
                       <DialogContentText id="add-song-description">
                         {selectedSong.title}
@@ -195,7 +199,8 @@ const mapState = (state,otherProps) => {
     username: state.auth.username,
     room: otherProps.match.params.id,
     songs: state.songs,
-    queue: state.queue
+    queue: state.queue,
+    playlists: state.playlists
   };
 };
 
