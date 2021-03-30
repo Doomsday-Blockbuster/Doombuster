@@ -2,6 +2,7 @@ import React, {useState,useEffect} from "react";
 import { connect } from "react-redux";
 import {addToQueue} from '../store/queue';
 import {loadSongs} from '../store/songs';
+import {page} from '../store/page'
 import AddPlaylist from './addPlaylist';
 //import socketIOClient from "socket.io-client"
 
@@ -35,7 +36,7 @@ export const SongList = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [search, setSearch] = useState('');
   const [add, setAdd] = useState(false)
-  const { username,songs,queue,room,playlists,addToQueue,loadSongs} = props;
+  const { username,songs,queue,room,playlists,addToQueue,loadSongs,setPage} = props;
   const filteredSongs = songs.filter(song=>{
     return song.snippet.title.toLowerCase().includes(search);
   })
@@ -173,6 +174,7 @@ export const SongList = (props) => {
                       <Button onClick={()=>{
                         return(
                           addToQueue(room,selectedSong),
+                          setPage(),
                           handleClose()
                         )
                         }}>
@@ -200,7 +202,7 @@ const mapState = (state,otherProps) => {
     room: otherProps.match.params.id,
     songs: state.songs,
     queue: state.queue,
-    playlists: state.playlists
+    playlists: state.playlists,
   };
 };
 
@@ -210,7 +212,8 @@ const mapDispatch = (dispatch, {history}) => {
     //   socket.emit('SelectSong',room,song)
     //   history.push(`/home/${room}`)},
     addToQueue: (room,song) => dispatch(addToQueue(room,song,history)),
-    loadSongs: (genre)=>dispatch(loadSongs(genre))
+    loadSongs: (genre)=>dispatch(loadSongs(genre)),
+    setPage:()=>dispatch(page())
   }
 };
 

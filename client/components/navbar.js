@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { logout } from "../store";
-
+import { logout , page} from "../store";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -39,9 +38,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 const Navbar = (props) => {
   const classes = useStyles();
-  const { handleClick, isLoggedIn, room, otherProps, username } = props;
+  const { handleClick, isLoggedIn, room, username, setPage, page} = props;
   return (
     <div id='navbar'>
       {isLoggedIn ? (
@@ -56,12 +56,15 @@ const Navbar = (props) => {
               >
                 <MenuIcon />
               </IconButton> */}
+              {page==='home'?(
               <Typography>
-                <Link to={`/home/${room}`} className='navtitles'>queue</Link>
+              <Link to={`/home/${room}`} onClick = {setPage} className='navtitles'>queue</Link>
+            </Typography>
+              ):(
+                <Typography>
+                <Link to={`/select/${room}`} onClick = {setPage} className='navtitles'>select a song</Link>
               </Typography>
-              <Typography>
-                <Link to={`/select/${room}`} className='navtitles'>select a song</Link>
-              </Typography>
+              )}
               <Typography>
                 <Link to={`/trivia/${room}`} className='navtitles'>trivia</Link>
               </Typography>
@@ -83,12 +86,12 @@ const Navbar = (props) => {
 /**
  * CONTAINER
  */
-const mapState = (state, otherProps) => {
+const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
     username: state.auth.username,
     room: window.location.pathname.slice(-1) * 1,
-    otherProps,
+    page: state.page
   };
 };
 
@@ -97,6 +100,9 @@ const mapDispatch = (dispatch) => {
     handleClick(room, username) {
       dispatch(logout(room, username));
     },
+    setPage(){
+      dispatch(page())
+    }
   };
 };
 
