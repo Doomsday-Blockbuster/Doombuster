@@ -22,9 +22,9 @@ nav a {
 }
 
 #main{
-  background-image :url('background.jpg');
+  background-image :url('background_3.jpg');
   background-size:cover;
-  margin-top: 56px;
+  padding-top: 56px;
   position:relative;
   height:100vh;
   display: flex;
@@ -33,13 +33,41 @@ nav a {
   background-repeat: repeat;
   }
 
+  #appname{
+    font-size: 3.3rem;
+    font-family: 'Erosion';
+    opacity: 90%;
+    -webkit-text-stroke: 0.3px black;
+    margin:0;
+  }
+
+  #icon{
+    font-family: 'DJ';
+    font-size: 6rem;
+    opacity: 80%;
+    margin:0;
+    /* color:#d9f0ff; */
+    color:black;
+    -webkit-text-stroke: 1px white;
+  }
+
+  #form {
+    width:100vw;
+  }
+
 form div {
   margin: 1em;
   display: inline-block;
 }
+
+.MuiTypography-body1{
+  font-size: 0.8rem !important;
+}
+
 button{
   cursor: pointer;
 }
+
 #songList{
   display: flex;
   flex-wrap: wrap;
@@ -254,3 +282,5 @@ button{
 @font-face { font-family: Plane Crash; src: url('./fonts/Plane\ Crash.ttf'); }
 @font-face { font-family: Eight Bit; src: url('./fonts/8-BIT\ WONDER.TTF'); }
 @font-face { font-family: Gazelle; src: url('./fonts/Gazelle.ttf'); }
+@font-face { font-family: Erosion; src: url('./fonts/Examples\ of\ erosion.ttf'); }
+@font-face { font-family: DJ; src: url('./fonts/DJ\ Icons.ttf')}

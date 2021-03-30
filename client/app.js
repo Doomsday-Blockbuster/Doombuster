@@ -8,7 +8,7 @@ import Routes from './routes'
 const App = () => {
   return (
       <div>
-        <Navbar />
+        <Navbar history={history} />
         <Routes />
       </div>
   )

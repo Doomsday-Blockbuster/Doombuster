@@ -23,16 +23,15 @@ const styles = (theme) => ({
   main:{
     display:'flex',
     flexDirection:'column',
-    justifyContent:'center',
+    justifyContent:'space-evenly',
     alignItems:'center',
-    height:'100vh',
+    height:'60vh',
     color:'white'
   },
   form: {
     display:'flex',
     flexDirection:'column',
     alignItems:'center',
-    width:'500px'
   },
   radioButton: {
     display:'flex',
@@ -45,11 +44,9 @@ const styles = (theme) => ({
     backgroundColor:'#34ebe5',
     color:'black'
   },
-  // root:{
-  //   '& .MuiInputBase-input':{
-  //     color:'white'
-  //   }
-  // }
+  root:{
+    color:'white'
+  }
 })
 
 /**
@@ -114,9 +111,11 @@ class LandingPage extends React.Component{
     const {roomOption,roomCode,formName,roomOptionSelected,roomAlreadyExists,roomDoesNotExist} = this.state
     return (
       <div className={classes.main}>
-        <img className = 'background-image' src ='../background.jpg' />
+        <h1 id='appname'>Doombuster</h1>
+        <p id='icon'>h</p>
+        {/* <img className = 'background-image' src ='../background.jpg' /> */}
         {!roomOptionSelected?(
-          <div className={classes.form}>
+          <div id='form' className={classes.form}>
             <div className = {classes.radioButton}>
             <FormControl component="fieldset">
                 <RadioGroup row onChange={selectRoomOption} defaultValue={roomOption}>
@@ -129,8 +128,8 @@ class LandingPage extends React.Component{
             <TextField className = {classes.textfield} style={{textAlign:'center'}} value={roomCode!==0?roomCode:''} label='Enter Room Code' onChange={(ev)=>handleChange(ev)}/>
             ):null}
           <Button className = {classes.button} color="primary" variant="contained" onClick={()=>submitRoomOption(roomCode)}>SUBMIT</Button>
-          <FormHelperText>{roomAlreadyExists?'Room Code Already Exists, Please Enter A Different Code':''}</FormHelperText>
-          <FormHelperText>{roomDoesNotExist?'Invalid Room Code':''}</FormHelperText>
+          <FormHelperText className={classes.root}>{roomAlreadyExists?'Room Code Already Exists, Please Enter A Different Code':''}</FormHelperText>
+          <FormHelperText className={classes.root}>{roomDoesNotExist?'Invalid Room Code':''}</FormHelperText>
         </div>
         ):null}
         {roomOptionSelected?(
@@ -141,7 +140,7 @@ class LandingPage extends React.Component{
               <TextField label = 'Enter Password' name="password" type="password" />
               <Button className = {classes.button} color="primary" variant="contained" type= 'submit' value={formName}>{formName==='signup'?'Sign Up':'Login'}</Button>
               <p>{formName==='signup'?'Already have an account?':'Dont have an account?'} <button value={formName==='login'?'signup':'login'} onClick={selectFormName}>{formName==='signup'?'Login':'Register'}</button></p>
-              <FormHelperText>{error && error.response && <div> {error.response.data} </div>}</FormHelperText>
+              <FormHelperText className={classes.root}>{error && error.response && <div> {error.response.data} </div>}</FormHelperText>
             </div>
           </form>
         ):null}
