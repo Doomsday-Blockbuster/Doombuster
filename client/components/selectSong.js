@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import { connect } from "react-redux";
 import {addToQueue} from '../store/queue';
 import {loadSongs} from '../store/songs';
@@ -39,8 +39,6 @@ export const SongList = (props) => {
   const filteredSongs = songs.filter(song=>{
     return song.snippet.title.toLowerCase().includes(search);
   })
-
-  console.log('Add',add)
   const repeatSong = (song) =>{
     const inqueue = queue.find(ele=>ele.name===song.title)
     if(inqueue){

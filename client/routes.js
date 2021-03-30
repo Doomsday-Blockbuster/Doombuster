@@ -16,6 +16,10 @@ import PlayQueue from './components/playqueue'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData();
+    socket.on("PlaylistAdded", async () => {
+      console.log('playlist added')
+      this.props.loadInitialData();
+    });
   }
 
   render() {
