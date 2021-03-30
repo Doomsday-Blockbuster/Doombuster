@@ -3,6 +3,9 @@
 import React, {useState, useEffect} from "react";
 import { connect } from "react-redux";
 import { withStyles } from '@material-ui/core/styles'
+
+import { Radio, RadioGroup, FormControl, FormControlLabel, FormHelperText} from '@material-ui/core';
+
 import {Button} from '@material-ui/core';
 import axios from 'axios'
 
@@ -11,9 +14,20 @@ const StyledButton = withStyles({
     margin:'1rem',
     width:'100px',
     backgroundColor:'#34ebe5',
-    color:'black'
+    color:'black',
+    '&:hover': {
+      backgroundColor: '#fe019a'
+    }
   }
 })(Button)
+
+const StyledRadio = withStyles({
+  root: {
+    margin:'0',
+    color:'white',
+    padding:'0'
+  }
+})(Radio)
 
 
 export const Trivia = (props) => {
@@ -21,7 +35,14 @@ export const Trivia = (props) => {
   const [question,setQuestion] = useState({})
   const [score,setScore] = useState(0)
   const [radioValue, setRadioValue] = useState('')
-  const [answerValue, setAnswerValue] = useState('')
+  const [correct, setCorrect] = useState(false)
+
+  function parseHtmlEnteties(str) {
+    return str.replace(/&#([0-9]{1,3});/gi, function(match, numStr) {
+        var num = parseInt(numStr, 10); // read num as normal number
+        return String.fromCharCode(num);
+    });
+}
 
   useEffect(()=>{
     axios.get('https://opentdb.com/api.php?amount=50')
@@ -34,6 +55,22 @@ export const Trivia = (props) => {
   },[])
 
   const handleNext = () => {
+    console.log(`selection`,radioValue.response)
+    console.log(typeof question.correct_answer)
+    console.log(`correct`,question.correct_answer)
+    console.log(typeof radioValue.response)
+    console.log(question.correct_answer === radioValue.response)
+
+    if(question.correct_answer === radioValue.response){
+      setScore(score=>score+1)
+      console.log(`score`,score)
+    }else{
+      setScore(0)
+    }
+
+    if(score >= 5){
+      
+    }
     axios.get('https://opentdb.com/api.php?amount=50')
     .then((response)=>{
       console.log(`data`,response.data.results)
@@ -43,16 +80,18 @@ export const Trivia = (props) => {
     })
   }
 
-  const handleRadioChange = () => {
-
+  const handleRadioChange = (ev) => {
+      const response = ev.target.value
+      setRadioValue({response})
   }
 
 console.log(question)
+
   return (
     <div>
       <h2 style={{color: "white"}}>Answer 5 Questions Correctly in a Row to Win Veto Power</h2>
       
-      <h2 style={{color: "white"}}>Score: </h2>
+      <h2 style={{color: "white"}}>Score: {score}</h2>
       <div id="trivia-master">
 
       <div className = "activeTrivia">
@@ -62,40 +101,24 @@ console.log(question)
           </h2>
           {
             question.type === 'multiple' ?
-            (
-              <div>
-                <div className="formgroup">
-                  <input type='radio' id="choice1" name="anss" value={question.correct_answer} />
-                  <label for="choice1">{question.correct_answer}</label>
-                </div>
-                <div className="formgroup">
-                  <input type='radio' id="choice2" name="anss" value={question.incorrect_answers[0]} />
-                  <label>{question.incorrect_answers[0]}</label>
-                </div>
-                <div className="formgroup">
-                  <input type='radio' id="choice3" name="anss" value={question.incorrect_answers[1]} />
-                  <label>{question.incorrect_answers[1]}</label>
-                </div>
-                <div className="formgroup">
-                  <input type='radio' id="choice4" name="anss" value={question.incorrect_answers[2]} />
-                  <label>{question.incorrect_answers[2]}</label>
-                </div>
-              </div>
+            ( 
+              <FormControl component="fieldset">
+                <RadioGroup column onChange={handleRadioChange} value={radioValue} defaultValue=''>
+                  <FormControlLabel value={question.correct_answer} control={<StyledRadio />} label={question.correct_answer} />
+                  <FormControlLabel value={question.incorrect_answers[0]} control={<StyledRadio />} label={question.incorrect_answers[0]} />
+                  <FormControlLabel value={question.incorrect_answers[1]} control={<StyledRadio />} label={question.incorrect_answers[1]} />
+                  <FormControlLabel value={question.incorrect_answers[2]} control={<StyledRadio />} label={question.incorrect_answers[2]} />
+                </RadioGroup>
+              </FormControl>
             )
             :
             (
-              <div>
-                <div className="formgroup">
-                  <input type='radio' id="true" name="ans" value="true" />
-                  <label for="true">True</label>
-                </div>
-                <div className="formgroup">
-                  <input type='radio' id="false" name="ans" value="false" />
-                  <label for="false">False</label>
-                </div>
-
-                
-              </div>
+              <FormControl component="fieldset">
+              <RadioGroup column onChange={handleRadioChange} defaultValue={radioValue}>
+                <FormControlLabel value="True" control={<Radio />} label="True" />
+                <FormControlLabel value="False" control={<Radio />} label="False" />
+              </RadioGroup>
+            </FormControl>
             )
           }
         </form>
