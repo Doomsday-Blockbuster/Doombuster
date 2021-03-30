@@ -22,6 +22,7 @@ const handleSubmit = async (ev) => {
         const playlist = (await axios.post('/api/playlists',{playlistName,playlistUrl})).data
         props.setAdd(false);
         props.loadPlaylists();
+        socket.emit("PlaylistAdded");
     }catch(ex){
         console.log(ex)
     }
