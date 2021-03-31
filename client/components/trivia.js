@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { withStyles } from '@material-ui/core/styles'
 //import {updateWinner} from '../store/auth'
 
-import { Radio, RadioGroup, FormControl, FormControlLabel, FormHelperText} from '@material-ui/core';
+import { Radio, RadioGroup, FormControl, FormControlLabel, Dialog, DialogActions, DialogTitle} from '@material-ui/core';
 
 import {Button} from '@material-ui/core';
 import axios from 'axios'
@@ -36,8 +36,8 @@ export const Trivia = (props) => {
   const [question,setQuestion] = useState({})
   const [score,setScore] = useState(0)
   const [radioValue, setRadioValue] = useState('')
-  const [correct, setCorrect] = useState(false)
   const [gameWon, setGameWon] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const { userId, username, room } = props;
 
@@ -61,19 +61,15 @@ export const Trivia = (props) => {
 
     if(question.correct_answer === radioValue.response){
       setScore(score=>score+1)
-      setCorrect(true)
     }else{
+      handleLoserPop()
       setScore(0)
-      setCorrect(false)
     }
     console.log(`score`,score)
     if(score >= 4){
       setGameWon(true)
-      console.log(`gamewon`,gameWon)
       axios.put(`/api/users/${room}`,{username,gameWon: true})
       setScore(0)
-      console.log(`score`,score)
-      console.log(`won`,gameWon)
 
     }
     axios.get('https://opentdb.com/api.php?amount=50')
@@ -88,48 +84,90 @@ export const Trivia = (props) => {
       setRadioValue({response})
   }
 
+  const renderFeedback = () =>{
+    switch(score) {
+      case 0:
+        return ""
+      case 1:
+        return "Correct"
+      case 2:
+        return "Correct Again"
+      case 3: 
+        return "Don't Blow It"
+      case 4:
+        return "One More!"
+      default:
+        return ""
+    }
+  }
+
+  const handleLoserPop = () => {
+      setOpen(true); 
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
 console.log(question)
   return (
     <div>
       <h2 id="trivia-instructions">Answer 5 in a Row to Veto a Song</h2>
       <div id="trivia-master">
 
-      <div className = "activeTrivia">
-        <h2>
-            {question.question}
-        </h2>
-        <div className = "answerAndScore">
-          <form>
-            {
-              question.type === 'multiple' ?
-              ( 
-                <FormControl component="fieldset">
-                  <RadioGroup column onChange={handleRadioChange} value={radioValue} defaultValue=''>
-                    <FormControlLabel value={question.correct_answer} control={<StyledRadio />} label={question.correct_answer} />
-                    <FormControlLabel value={question.incorrect_answers[0]} control={<StyledRadio />} label={question.incorrect_answers[0]} />
-                    <FormControlLabel value={question.incorrect_answers[1]} control={<StyledRadio />} label={question.incorrect_answers[1]} />
-                    <FormControlLabel value={question.incorrect_answers[2]} control={<StyledRadio />} label={question.incorrect_answers[2]} />
-                  </RadioGroup>
-                </FormControl>
-              )
-              :
-              (
-                <FormControl component="fieldset">
-                <RadioGroup column onChange={handleRadioChange} defaultValue={radioValue}>
-                  <FormControlLabel value="True" control={<Radio />} label="True" />
-                  <FormControlLabel value="False" control={<Radio />} label="False" />
-                </RadioGroup>
-              </FormControl>
-              )
-            }
-          </form>
-          <div id="score-div">
-            <h2>SCORE</h2>
-            <h2 id="score-board">{score}</h2>
+
+      {
+        gameWon?
+          <div className = "activeTrivia">
+            <h2>You Won! You can veto one song. Veto wisely.</h2>
+            </div>
+            :
+          <div className = "activeTrivia">
+            <h2>
+                {question.question}
+            </h2>
+            <div className = "answerAndScore">
+              <form>
+                {
+                  question.type === 'multiple' ?
+                  ( 
+                    <FormControl component="fieldset">
+                      <RadioGroup column onChange={handleRadioChange} value={radioValue} defaultValue=''>
+                        <FormControlLabel value={question.correct_answer} control={<StyledRadio />} label={question.correct_answer} />
+                        <FormControlLabel value={question.incorrect_answers[0]} control={<StyledRadio />} label={question.incorrect_answers[0]} />
+                        <FormControlLabel value={question.incorrect_answers[1]} control={<StyledRadio />} label={question.incorrect_answers[1]} />
+                        <FormControlLabel value={question.incorrect_answers[2]} control={<StyledRadio />} label={question.incorrect_answers[2]} />
+                      </RadioGroup>
+                    </FormControl>
+                  )
+                  :
+                  (
+                    <FormControl component="fieldset">
+                    <RadioGroup column onChange={handleRadioChange} defaultValue={radioValue}>
+                      <FormControlLabel value="True" control={<Radio />} label="True" />
+                      <FormControlLabel value="False" control={<Radio />} label="False" />
+                    </RadioGroup>
+                  </FormControl>
+                  )
+                }
+              </form>
+              <div id="score-div">
+                <h2>SCORE</h2>
+                <h2 id="score-board">{score}</h2>
+                <h6 style={{color:"#fe019a"}}>{renderFeedback()}</h6>
+              </div>
+            </div>
+            <StyledButton onClick={()=>handleNext()}>Next</StyledButton>
           </div>
-        </div>
-        <StyledButton onClick={()=>handleNext()}>Next</StyledButton>
-      </div>
+        }
+
+              <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="confirm-add-song"
+                aria-describedby="confirm-add-song"
+              >
+                  <DialogTitle id="error-repeat">Better luck next time!</DialogTitle>
+                </Dialog>
       </div>
       </div>
 
