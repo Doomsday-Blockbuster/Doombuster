@@ -61,10 +61,12 @@ export const Trivia = (props) => {
 
     if(question.correct_answer === radioValue.response){
       setScore(score=>score+1)
+      setCorrect(true)
     }else{
       setScore(0)
+      setCorrect(false)
     }
-
+    console.log(`score`,score)
     if(score >= 4){
       setGameWon(true)
       console.log(`gamewon`,gameWon)
@@ -89,39 +91,43 @@ export const Trivia = (props) => {
 console.log(question)
   return (
     <div>
-      <h2 style={{color: "white"}}>Answer 5 Questions Correctly in a Row to Win Veto Power</h2>
-      
-      <h2 style={{color: "white"}}>Score: {score}</h2>
+      <h2 id="trivia-instructions">Answer 5 in a Row to Veto a Song</h2>
       <div id="trivia-master">
 
       <div className = "activeTrivia">
-        <form>
-          <h2>
+        <h2>
             {question.question}
-          </h2>
-          {
-            question.type === 'multiple' ?
-            ( 
-              <FormControl component="fieldset">
-                <RadioGroup column onChange={handleRadioChange} value={radioValue} defaultValue=''>
-                  <FormControlLabel value={question.correct_answer} control={<StyledRadio />} label={question.correct_answer} />
-                  <FormControlLabel value={question.incorrect_answers[0]} control={<StyledRadio />} label={question.incorrect_answers[0]} />
-                  <FormControlLabel value={question.incorrect_answers[1]} control={<StyledRadio />} label={question.incorrect_answers[1]} />
-                  <FormControlLabel value={question.incorrect_answers[2]} control={<StyledRadio />} label={question.incorrect_answers[2]} />
+        </h2>
+        <div className = "answerAndScore">
+          <form>
+            {
+              question.type === 'multiple' ?
+              ( 
+                <FormControl component="fieldset">
+                  <RadioGroup column onChange={handleRadioChange} value={radioValue} defaultValue=''>
+                    <FormControlLabel value={question.correct_answer} control={<StyledRadio />} label={question.correct_answer} />
+                    <FormControlLabel value={question.incorrect_answers[0]} control={<StyledRadio />} label={question.incorrect_answers[0]} />
+                    <FormControlLabel value={question.incorrect_answers[1]} control={<StyledRadio />} label={question.incorrect_answers[1]} />
+                    <FormControlLabel value={question.incorrect_answers[2]} control={<StyledRadio />} label={question.incorrect_answers[2]} />
+                  </RadioGroup>
+                </FormControl>
+              )
+              :
+              (
+                <FormControl component="fieldset">
+                <RadioGroup column onChange={handleRadioChange} defaultValue={radioValue}>
+                  <FormControlLabel value="True" control={<Radio />} label="True" />
+                  <FormControlLabel value="False" control={<Radio />} label="False" />
                 </RadioGroup>
               </FormControl>
-            )
-            :
-            (
-              <FormControl component="fieldset">
-              <RadioGroup column onChange={handleRadioChange} defaultValue={radioValue}>
-                <FormControlLabel value="True" control={<Radio />} label="True" />
-                <FormControlLabel value="False" control={<Radio />} label="False" />
-              </RadioGroup>
-            </FormControl>
-            )
-          }
-        </form>
+              )
+            }
+          </form>
+          <div id="score-div">
+            <h2>SCORE</h2>
+            <h2 id="score-board">{score}</h2>
+          </div>
+        </div>
         <StyledButton onClick={()=>handleNext()}>Next</StyledButton>
       </div>
       </div>
