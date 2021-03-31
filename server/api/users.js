@@ -36,32 +36,38 @@ router.get(`/:id`, async (req, res, next) => {
 
 router.put(`/:id`, async(req,res,next)=>{
   try{
-    const currentAdmin = await User.findOne({
+    const current = await User.findOne({
       where: {
         username: req.body.username
       }
     })
-    currentAdmin.roomId = null;
-    currentAdmin.admin = false;
-    await currentAdmin.save()
-    //console.log(`current`,currentAdmin)
-    const newAdmin = await User.findOne({
-         where: {
-           roomId: req.params.id
-         }
-    })
-    //if undefined then delete room!!!
-    console.log(newAdmin)
-    console.log(`new`,newAdmin)
-    if(newAdmin){
-      newAdmin.admin= true;
-      await newAdmin.save()
-      console.log(`newadmin`,newAdmin)
+    console.log(req.body.gameWon)
+    if(req.body.gameWon){
+      console.log(`WEEEEEEEEEEEEEEEEEEEEEEEEEEEEEDIDITTTTT!`)
+      current.gameWon = req.body.gameWon
+      current.save()
+      console.log(`is this here:`,current.gameWon)
     }else{
-      //cascade: sequelize....any associations get deleted with it
-      await Room.destroy({where: {
-        id: req.params.id
-      }})
+      current.roomId = null;
+      current.admin = false;
+      await current.save()
+      //console.log(`current`,currentAdmin)
+      const newAdmin = await User.findOne({
+          where: {
+            roomId: req.params.id
+          }
+      })
+
+      if(newAdmin){
+        newAdmin.admin= true;
+        await newAdmin.save()
+        console.log(`newadmin`,newAdmin)
+      }else{
+        //cascade: sequelize....any associations get deleted with it
+        await Room.destroy({where: {
+          id: req.params.id
+        }})
+      }
     }
     res.sendStatus(200);
 

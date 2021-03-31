@@ -114,7 +114,6 @@ export class Home extends React.Component {
         {queue.map((song) => {
 
           let userVote = song.votes.find((vote)=>vote.userId === userId)
-          // console.log(`userVote`,userVote)
           return (
               <div id="queueItem" key={song.id}>
                 <div className="queue-liner">

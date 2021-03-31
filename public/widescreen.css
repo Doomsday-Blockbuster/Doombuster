@@ -272,6 +272,29 @@ width:10%;
     width:70vw;
 }
 
+.answerAndScore{
+  display: flex;
+  justify-content: space-around;
+}
+
+#score-div{
+  display: flex;
+  flex: 0.5;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #34ebe5;
+  font-size: 2rem;
+}
+
+#score-board{
+  font-size: 6rem;
+}
+#trivia-instructions{
+  font-size: 2rem;
+  color: #34ebe5;
+}
+
 
 @keyframes floatText {
   to {
