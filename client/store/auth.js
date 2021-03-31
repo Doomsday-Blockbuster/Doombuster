@@ -42,8 +42,6 @@ export const authenticate = (username, password, method, roomCode, roomOption) =
 
 export const logout = (room,username)=> {
   return async(dispatch) => {
-    console.log("roooomba" , room)
-    console.log('username',username)
 
     await axios.put(`/api/users/${room}`,{username})
     //const roomPeeps = await axios.get(`/api/users/${room}`)
@@ -60,6 +58,7 @@ export const _logout = () => {
     auth: {}
   }
 }
+
 
 /**
  * REDUCER
