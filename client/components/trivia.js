@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
+import {page} from '../store/page'
 //import {updateWinner} from '../store/auth'
 
 import {
@@ -80,6 +81,7 @@ export const Trivia = (props) => {
   // URL for just music trivia below
   //https://opentdb.com/api.php?amount=50&category=12&difficulty=easy&type=multiple
   useEffect(() => {
+    props.setPage()
     axios
       .get(
         "https://opentdb.com/api.php?amount=50&category=12&difficulty=easy&type=multiple"
@@ -252,12 +254,14 @@ const mapState = (state, otherProps) => {
     userId: state.auth.id,
     username: state.auth.username,
     room: otherProps.match.params.id,
+    page: state.page
   };
 };
 
 const mapDispatch = (dispatch, { history }) => {
   return {
     updateWinner: (userId, bool) => dispatch(updateWinner(userId, bool)),
+    setPage:()=>dispatch(page())
   };
 };
 

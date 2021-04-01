@@ -56,7 +56,7 @@ const Navbar = (props) => {
               >
                 <MenuIcon />
               </IconButton> */}
-              {page==='home'?(
+              {page==='home' || page==='trivia'?(
               <Typography>
               <Link to={`/home/${room}`} onClick = {setPage} className='navtitles'>queue</Link>
             </Typography>
