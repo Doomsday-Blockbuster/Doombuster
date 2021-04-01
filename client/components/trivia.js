@@ -48,12 +48,36 @@ export const Trivia = (props) => {
     });
 }
 
+function convertHTML(str) {
+  let regex = /[&|<|>|"|']/g;
+  let htmlString = str.replace(regex, function(match){
+    if(match === "&amp;"){
+      return "&";
+    }else if(match === "&lt;"){
+      return "<"
+    }else if(match === "&gt;"){
+      return ">";
+    }else if(match === "&quot;"){
+      return '"';
+    }else{
+      return " ' ";
+    }
+  });
+      
+  return htmlString;
+}
+
   useEffect(()=>{
     axios.get('https://opentdb.com/api.php?amount=50')
     .then((response)=>{
       console.log(`data`,response.data.results)
       const num = Math.floor(Math.random()*50)
-      setQuestion(response.data.results[num])
+      const question = response.data.results[num]
+      console.log(`before`,question.question)
+      question.question = convertHTML(question.question)
+      //setQuestion(response.data.results[num])
+      setQuestion(question)
+      console.log(`after`,question.question)
     })
   },[])
 
@@ -66,7 +90,7 @@ export const Trivia = (props) => {
       setScore(0)
     }
     console.log(`score`,score)
-    if(score >= 4){
+    if(score >= 2){
       setGameWon(true)
       axios.put(`/api/users/${room}`,{username,gameWon: true})
       setScore(0)
