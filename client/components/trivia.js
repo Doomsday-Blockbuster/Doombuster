@@ -43,7 +43,7 @@ export const Trivia = (props) => {
   // const [data,setData] = useState([])
   const [question, setQuestion] = useState({});
   const [score, setScore] = useState(0);
-  const [radioValue, setRadioValue] = useState("");
+  const [radioValue, setRadioValue] = useState('');
   const [gameWon, setGameWon] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -178,7 +178,6 @@ export const Trivia = (props) => {
                 {question.type === "multiple" ? (
                   <FormControl component="fieldset">
                     <RadioGroup
-                      column
                       onChange={handleRadioChange}
                       value={radioValue}
                       defaultValue=""
@@ -208,7 +207,6 @@ export const Trivia = (props) => {
                 ) : (
                   <FormControl component="fieldset">
                     <RadioGroup
-                      column
                       onChange={handleRadioChange}
                       defaultValue={radioValue}
                     >

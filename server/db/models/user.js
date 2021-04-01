@@ -23,7 +23,7 @@ const User = db.define("user", {
   },
   gameWon: {
     type: BOOLEAN,
-    defaultValue: false
+    defaultValue: 'FALSE'
   }
 });
 

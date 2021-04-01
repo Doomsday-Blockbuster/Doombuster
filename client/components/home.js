@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import queue, { fetchQueue } from "../store/queue";
 import { updateVote } from "../store/vote";
+import {page} from '../store/page'
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
@@ -13,6 +14,7 @@ import {
   ThumbUpSelected,
   ThumbDownSelected,
 } from "./styledIcon";
+
 
 // const styles = () => ({
 //   root: {
@@ -45,6 +47,7 @@ export class Home extends React.Component {
 
   async componentDidMount() {
     const { room } = this.props;
+    this.props.setPage()
     socket.on("RefreshQueue", async () => {
       await this.props.fetchQueue(room);
       console.log("new queue fetched after for websocket");
@@ -201,6 +204,7 @@ const mapDispatch = (dispatch, { history }) => {
       await dispatch(updateVote(voteValue, userId, songId));
       await dispatch(fetchQueue(room));
     },
+    setPage:()=>dispatch(page())
   };
 };
 

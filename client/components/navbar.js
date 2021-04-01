@@ -56,13 +56,13 @@ const Navbar = (props) => {
               >
                 <MenuIcon />
               </IconButton> */}
-              {page==='home' || page==='trivia'?(
+              {page==='select' || page==='trivia'?(
               <Typography>
-              <Link to={`/home/${room}`} onClick = {setPage} className='navtitles'>queue</Link>
+              <Link to={`/home/${room}`} className='navtitles'>queue</Link>
             </Typography>
               ):(
                 <Typography>
-                <Link to={`/select/${room}`} onClick = {setPage} className='navtitles'>select a song</Link>
+                <Link to={`/select/${room}`} className='navtitles'>select a song</Link>
               </Typography>
               )}
               <Typography>

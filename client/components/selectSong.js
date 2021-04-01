@@ -37,6 +37,13 @@ export const SongList = (props) => {
   const [search, setSearch] = useState('');
   const [add, setAdd] = useState(false)
   const { username,songs,queue,room,playlists,addToQueue,loadSongs,setPage} = props;
+  
+  useEffect(() => {
+    props.setPage()
+  }, []);
+  
+  
+  
   const filteredSongs = songs.filter(song=>{
     return song.snippet.title.toLowerCase().includes(search);
   })
