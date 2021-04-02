@@ -75,6 +75,9 @@ button{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-family: 'Bohemian';
+  padding-left: 0.5em;
+  text-align: left;
 }
 
 .background-image {
@@ -320,3 +323,5 @@ width:10%;
 @font-face { font-family: Gazelle; src: url('./fonts/Gazelle.ttf'); }
 @font-face { font-family: Erosion; src: url('./fonts/Examples\ of\ erosion.ttf'); }
 @font-face { font-family: DJ; src: url('./fonts/DJ\ Icons.ttf')}
+@font-face { font-family: Bohemian; src: url('./fonts/Bohemian\ Typewriter.ttf')}
+@font-face { font-family: JMH; src: url('./fonts/JMH\ Typewriter.ttf')}

@@ -75,10 +75,14 @@ button{
   justify-content: center;
 }
 .choice-title{
-  width: 300px;
+  width: 80%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding-left: 0.5em;
+  text-align: left;
+  font-family: 'Bohemian';
+  font-size: 0.9rem;
 }
 
 .background-image {
@@ -214,16 +218,24 @@ button{
   align-items: center;
 }
 
+#select-song-item {
+  max-width: 99vw;
+  box-shadow: 0 3px 8px rgb(52 235 229 / 50%);
+  margin-bottom: 0.3em;
+}
+
 #select-song-item img{
   height: 50px;
-  width: 60px;
+  width: 20%;
 }
 
 #select-song-item button{
+  max-width: 100%;
   background-color: black;
   color: white;
   display: flex;
   align-items: center;
+  border-width:0px;
 }
 
 #queue{
@@ -305,3 +317,5 @@ button{
 @font-face { font-family: Gazelle; src: url('./fonts/Gazelle.ttf'); }
 @font-face { font-family: Erosion; src: url('./fonts/Examples\ of\ erosion.ttf'); }
 @font-face { font-family: DJ; src: url('./fonts/DJ\ Icons.ttf')}
+@font-face { font-family: Bohemian; src: url('./fonts/Bohemian\ Typewriter.ttf')}
+@font-face { font-family: JMH; src: url('./fonts/JMH\ Typewriter.ttf')}
