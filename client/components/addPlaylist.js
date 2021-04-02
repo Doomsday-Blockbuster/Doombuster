@@ -2,6 +2,19 @@ import React,{useState} from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
 import {loadPlaylists} from '../store'
+import { TextField, Button, FormControl, FormControlLabel, FormHelperText} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles'
+
+const styles = () => ({
+    root:{
+        color:'black',
+        backgroundColor: 'rgb(0, 255, 255)',
+    },
+    input:{
+        background:'#33373d',
+        margin:'1em 0 1em 0',
+    }
+})
 
 export const AddPlaylist = (props) => {
 console.log('PROPS',props)
@@ -28,12 +41,15 @@ const handleSubmit = async (ev) => {
     }
 }
     return (
-        <div>
-            <label style={{color:'white'}}>Playlist Name</label>
-            <input name='name' value={playlistName} onChange={(ev)=>handleChange(ev)}></input>
-            <label style={{color:'white'}}>Playlist Id</label>
-            <input name='url' value={playlistUrl} onChange={(ev)=>handleChange(ev)}></input>
-            <button onClick = {handleSubmit}>Submit</button>
+        <div id='addPlaylist'>
+            <div id='playlist-name'>
+                <TextField className={props.classes.input} size='small' name='name' label='Enter Playlist Name' value={playlistName} variant='outlined' onChange={(ev)=>handleChange(ev)}></TextField>
+            </div>
+           <div id='playlist-id'>
+                <TextField style={{marginBottom:'0.2em'}} className={props.classes.input} size= 'small' name='url' label='Enter Playlist Id' value={playlistUrl} variant='outlined' onChange={(ev)=>handleChange(ev)}></TextField>    
+           </div>
+           <p style={{color:'white',marginBottom:'1em'}}>Example: PLZeFbqMoTRYQeCplrjdasjG7Uc8NMkj0p</p>
+           <Button className = {props.classes.root} size='small' onClick = {handleSubmit}>Add Playlist</Button>
         </div>
     )
 }
@@ -44,4 +60,4 @@ const mapDispatch = (dispatch) => {
     }
 }
 
-export default connect(null,mapDispatch)(AddPlaylist)
+export default withStyles(styles)(connect(null,mapDispatch)(AddPlaylist))
