@@ -37,7 +37,10 @@ const syncAndSeed = async () => {
   await murphy.save();
 
   const playlists = await Promise.all([
-    Playlist.create({playlistName:'Top50',playlistUrl:'PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU'}),
+    Playlist.create({playlistName:'Top50-2021',playlistUrl:'PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU'}),
+    Playlist.create({playlistName:'Top50-2020',playlistUrl:'PLfWTbASpwTDiVOkVmOU2QA97pFtR0fXj6'}),
+    Playlist.create({playlistName:'Top50-2019',playlistUrl:'PLLNMtg6QEY4ePU7aQg5zCYx08HU3bNCgp'}),
+    Playlist.create({playlistName:'EDM',playlistUrl:'PLPbMT4wSxX89gUYpgYMrmOqsupKMRR5Rj'}),
     Playlist.create({playlistName:'Rock',playlistUrl:'RDCLAK5uy_mfut9V_o1n9nVG_m5yZ3ztCif29AHUffI'}),
     Playlist.create({playlistName:'Reggae',playlistUrl:'RDGMEM29nh-so2GiiVvCzzeO3LJQ'}),
     Playlist.create({playlistName:'Soundbath',playlistUrl:'PL_4s4N3ooC9T0Roc-lnB_nYESCSPzh-nB'}),

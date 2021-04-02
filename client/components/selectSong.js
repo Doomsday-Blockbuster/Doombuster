@@ -46,6 +46,7 @@ export const SongList = (props) => {
     setPage,
   } = props;
 
+  //console.log('**SONGS**',songs)
   useEffect(() => {
     props.setPage();
   }, []);
@@ -114,6 +115,16 @@ export const SongList = (props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
               >
+                <MenuItem
+                  onClick={() => {
+                    return (
+                      loadSongs('All'), handleMenuClose()
+                    );
+                  }}
+                  style={{fontWeight:'1000'}}
+                >
+                  All Songs
+                </MenuItem>
                 {playlists.map((playlist) => (
                   <MenuItem
                     key={playlist.id}
@@ -130,6 +141,7 @@ export const SongList = (props) => {
                   onClick={() => {
                     return addPlaylist(), handleMenuClose();
                   }}
+                  style={{color:'red'}}
                 >
                   ADD PLAYLIST
                 </MenuItem>
@@ -247,7 +259,7 @@ const mapDispatch = (dispatch, { history }) => {
     //   socket.emit('SelectSong',room,song)
     //   history.push(`/home/${room}`)},
     addToQueue: (room, song) => dispatch(addToQueue(room, song, history)),
-    loadSongs: (genre) => dispatch(loadSongs(genre)),
+    loadSongs: (playlistSelected) => dispatch(loadSongs(playlistSelected)),
     setPage: () => dispatch(page()),
   };
 };

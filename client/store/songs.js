@@ -12,64 +12,32 @@ const _loadSongs = (songs) => ({type: LOAD_SONGS, songs})
  * THUNK CREATORS
  */
 
-export const loadSongs = (genre) => {
+export const loadSongs = (playlistSelected) => {
     return async (dispatch) => {
       let response
+      let allSongs = []
       const playlists = (await axios.get('/api/playlists')).data
-      const selectedPlaylist = playlists.find(playlist=>playlist.playlistName===genre)
-      //console.log('SELECTED PLAYLIST',selectedPlaylist)
-      const playlistId = selectedPlaylist?selectedPlaylist.playlistUrl:"PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU"
-      
-      //console.log('PLAYLIST_ID',playlistId)
-      
-      response = await youtube.get("/playlistItems", {
-        params: {
-          playlistId:playlistId
-        },
-      })
-      //console.log('PLAYLISTS',playlists)
-
-      // switch(genre){
-      //   case 'Top50':
-      //     response = await youtube.get("/playlistItems", {
-      //         params: {
-      //           //2021
-      //           playlistId: "PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU",
-      //         },
-      //     })
-      //     break
-      //   case 'Soundbath':
-      //     response = await youtube.get("/playlistItems", {
-      //           params: {
-      //             playlistId: "PL_4s4N3ooC9T0Roc-lnB_nYESCSPzh-nB",
-      //           }
-      //     })
-      //     break
-      //   case "Reggae":
-      //     response = await youtube.get("/playlistItems", {
-      //       params: {
-      //         playlistId: "RDGMEM29nh-so2GiiVvCzzeO3LJQ",
-      //       }
-      //     })
-      //     break
-      //   case "Rock":
-      //     response = await youtube.get("/playlistItems", {
-      //       params: {
-      //         playlistId: "RDCLAK5uy_mfut9V_o1n9nVG_m5yZ3ztCif29AHUffI",
-      //       }
-      //     })
-      //     break
-      //   default:
-      //     response = await youtube.get("/playlistItems", {
-      //       params: {
-      //         //2021
-      //         playlistId: "PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU",
-      //       },
-      //   })
-      //   break
-      // }
-
-        return dispatch(_loadSongs(response.data.items))
+      if(playlistSelected==='All'){
+        playlists.map(async playlist=>{
+          response = await youtube.get("/playlistItems",{
+            params: {
+              playlistId:playlist.playlistUrl
+            }
+          })
+          allSongs = [...allSongs,...response.data.items]
+          dispatch(_loadSongs(allSongs))
+        })
+      }else{
+        const selectedPlaylist = playlists.find(playlist=>playlist.playlistName===playlistSelected)
+        const playlistId = selectedPlaylist?selectedPlaylist.playlistUrl:"PLDIoUOhQQPlXr63I_vwF9GD8sAKh77dWU"
+        response = await youtube.get("/playlistItems", {
+          params: {
+            playlistId:playlistId
+          },
+        })
+        allSongs = [...allSongs,...response.data.items]
+        dispatch(_loadSongs(allSongs))
+      }
   }
 }
 
