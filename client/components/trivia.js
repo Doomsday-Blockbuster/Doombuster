@@ -92,7 +92,7 @@ export const Trivia = (props) => {
         console.log(`data`, response.data.results);
         const num = Math.floor(Math.random() * 50);
         const question = response.data.results[num];
-        setQuestion(question);
+        console.log(`question: `, question)
 
         let answers = [question.correct_answer]
         for(let i = 0; i < question.incorrect_answers.length; i++){
@@ -105,7 +105,7 @@ export const Trivia = (props) => {
           answers[i] = answers[randomNum]
           answers[randomNum] = temp
         }
-    
+        setQuestion(question);
         setAnswerArray(answers)
       });
   }, []);
@@ -129,20 +129,20 @@ export const Trivia = (props) => {
       )
       .then((response) => {
         const num = Math.floor(Math.random() * 50);
-        setQuestion(response.data.results[num]);
-
+        const question = response.data.results[num];
+        console.log(`question: `, question)
         let answers = [question.correct_answer]
         for(let i = 0; i < question.incorrect_answers.length; i++){
           answers.push(question.incorrect_answers[i])
         }
     
-        for(let i = 0; i < answers.length; i++){
-          let randomNum = Math.floor(Math.random() * i)
-          const temp = answers[i]
+        for(let i = answers.length-1; i > 0; i--){
+          let randomNum = Math.floor(Math.random() * (i+1))
+          let temp = answers[i]
           answers[i] = answers[randomNum]
           answers[randomNum] = temp
         }
-    
+        setQuestion(question);
         setAnswerArray(answers)
       });
   };
