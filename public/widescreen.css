@@ -285,11 +285,13 @@ width:10%;
     background-color: black;
     color: white;
     width:70vw;
+    font-family: JMH;
 }
 
 .answerAndScore{
   display: flex;
   justify-content: space-around;
+  font-family: JMH;
 }
 
 #score-div{
@@ -307,7 +309,9 @@ width:10%;
 }
 #trivia-instructions{
   font-size: 2rem;
+  font-family: 'Plane Crash';
   color: #34ebe5;
+  background-color: black;
 }
 
 

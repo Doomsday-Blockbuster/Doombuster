@@ -293,11 +293,35 @@ button{
   .activeTrivia{
     background-color: black;
     color: white;
-  }
+    width:100vw;
+    font-family: JMH;
+}
 
-  .formgroup{
-    display: flex;
-  }
+.answerAndScore{
+  display: flex;
+  justify-content: space-around;
+  font-family: JMH;
+}
+
+#score-div{
+  display: flex;
+  flex: 0.5;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #34ebe5;
+  font-size: 1rem;
+}
+
+#score-board{
+  font-size: 6rem;
+}
+#trivia-instructions{
+  font-size: 1rem;
+  font-family: 'Plane Crash';
+  color: #34ebe5;
+  background-color: black;
+}
   
 
 @keyframes floatText {

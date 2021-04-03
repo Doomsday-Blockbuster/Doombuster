@@ -36,6 +36,7 @@ const StyledRadio = withStyles({
     margin: "0",
     color: "white",
     padding: "0",
+    fontFamily: "JMH"
   },
 })(Radio);
 
@@ -189,7 +190,7 @@ export const Trivia = (props) => {
 
   return (
     <div>
-      <h2 id="trivia-instructions">Answer 3 in a Row to Veto a Song</h2>
+      <h2 id="trivia-instructions">answer 3 in a row to veto a song</h2>
       <div id="trivia-master">
         {gameWon ? (
           <div className="activeTrivia">
