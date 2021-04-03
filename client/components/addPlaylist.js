@@ -2,13 +2,20 @@ import React,{useState} from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
 import {loadPlaylists} from '../store'
+import { loadSongs } from "../store/songs";
 import { TextField, Button, FormControl, FormControlLabel, FormHelperText} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'
 
+
 const styles = () => ({
     root:{
-        color:'black',
-        backgroundColor: 'rgb(0, 255, 255)',
+        color: "white",
+        backgroundColor: "black",
+        border: '1px solid white',
+        "&:hover": {
+          backgroundColor: "white",
+          color:'black'
+        },
     },
     input:{
         background:'#33373d',
@@ -35,6 +42,7 @@ const handleSubmit = async (ev) => {
         const playlist = (await axios.post('/api/playlists',{playlistName,playlistUrl})).data
         props.setAdd(false);
         props.loadPlaylists();
+        props.loadSongs(playlist.playlistName)
         socket.emit("PlaylistAdded");
     }catch(ex){
         console.log(ex)
@@ -56,7 +64,8 @@ const handleSubmit = async (ev) => {
 
 const mapDispatch = (dispatch) => {
     return{
-        loadPlaylists: () => dispatch(loadPlaylists())
+        loadPlaylists: () => dispatch(loadPlaylists()),
+        loadSongs: (playlistSelected) => dispatch(loadSongs(playlistSelected)),
     }
 }
 

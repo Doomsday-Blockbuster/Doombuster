@@ -244,6 +244,7 @@ max-height:100%;
 #options{
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 #addPlaylist{
@@ -254,9 +255,11 @@ max-height:100%;
   margin: 1rem 0 1rem 0;
 }
 
+#search{
+  margin-left:2rem;
+}
+
 #searchbar{
-  height: 2rem;
-  margin: 1rem;
   width: 20rem;
 }
 

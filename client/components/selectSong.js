@@ -8,7 +8,7 @@ import AddPlaylist from "./addPlaylist";
 
 //material ui
 import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+import {Button,TextField} from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -17,13 +17,34 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
-const StyledButton = withStyles({
-  root: {
-    color: "black",
-    backgroundColor: "white",
-    margin: "1rem",
+// const StyledButton = withStyles({
+//   root: {
+//     color: "white",
+//     backgroundColor: "black",
+//     border: '1px solid white',
+//     "&:hover": {
+//       backgroundColor: "white",
+//       color:'black'
+//     },
+//     margin: "1rem",
+//   }
+// })(Button);
+
+const styles = () => ({
+  root:{
+      color: "white",
+      backgroundColor: "black",
+      border: '1px solid white',
+      "&:hover": {
+        backgroundColor: "white",
+        color:'black'
+      },
   },
-})(Button);
+  input:{
+      background:'#1a1a1a',
+      margin:'1em 0 1em 0',
+  }
+})
 
 /**
  * COMPONENT
@@ -101,13 +122,14 @@ export const SongList = (props) => {
         <div>
           <div id="options">
             <div id="select-playlist">
-              <StyledButton
+              <Button
                 aria-controls="simple-menu"
                 aria-haspopup="true"
                 onClick={handleMenuClick}
+                className={props.classes.root}
               >
                 Select A Playlist
-              </StyledButton>
+              </Button>
               <Menu
                 id="simple-menu"
                 anchorEl={anchorEl}
@@ -149,23 +171,14 @@ export const SongList = (props) => {
             </div>
 
             <div id="search">
-              <form id="search-form">
-                <input
-                  id="searchbar"
-                  type="text"
-                  name="searchbar"
-                  placeholder="Search for Song in Playlist"
-                  value={search}
-                  onChange={(e) => handleSearch(e)}
-                />
-              </form>
+                <TextField id='searchbar' className={props.classes.input} size='small' name='searchbar' label='Search in Playlist' value={search} variant='outlined' onChange={(e) => handleSearch(e)}></TextField>
             </div>
           </div>
 
           <div id="songList">
-            {filteredSongs.map((song) => {
+            {filteredSongs.map((song,idx) => {
               return (
-                <div id='select-song-item' key={song.id}>
+                <div id='select-song-item' key={idx}>
                   <button onClick={() => handleClickOpen(song.snippet)}>
                     <img
                       src={song.snippet.thumbnails.medium.url}
@@ -264,4 +277,4 @@ const mapDispatch = (dispatch, { history }) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(SongList);
+export default withStyles(styles)(connect(mapState, mapDispatch)(SongList));

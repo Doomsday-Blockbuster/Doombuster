@@ -74,6 +74,7 @@ button{
   background-color: black;
   justify-content: center;
 }
+
 .choice-title{
   width: 80%;
   white-space: nowrap;
@@ -181,11 +182,8 @@ button{
 
 #options{
   display: flex;
-  justify-content: center;
-}
-#searchbar{
-  height: 2rem;
-  margin: 1rem;
+  justify-content: space-around;
+  align-items: center;
 }
 
 #addPlaylist{
