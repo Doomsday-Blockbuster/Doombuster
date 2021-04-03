@@ -56,6 +56,10 @@ export const Trivia = (props) => {
   //     });
   // }
 
+  const randomAnswer = () => {
+    
+  }
+
   function convertHTML(str) {
     let regex = /&quot;|&amp;|&#039;|&lt;|&gt;|&eacute;/g;
     return str.replace(regex, function (match, numStr) {
@@ -134,12 +138,12 @@ export const Trivia = (props) => {
       case 1:
         return "Correct";
       case 2:
-        return "Correct Again";
-      case 3:
-        return "Don't Blow It";
-      case 4:
-        return "One More!";
-      default:
+        return "One More";
+      // case 3:
+      //   return "Don't Blow It";
+      // case 4:
+      //   return "One More!";
+      // default:
         return "";
     }
   };
@@ -156,7 +160,6 @@ export const Trivia = (props) => {
     question.correct_answer = convertHTML(question.correct_answer);
     question.incorrect_answers = question.incorrect_answers.map(
       (incorrect_answer) => {
-        console.log(incorrect_answer);
         return convertHTML(incorrect_answer);
       }
     );
@@ -164,7 +167,7 @@ export const Trivia = (props) => {
 
   return (
     <div>
-      <h2 id="trivia-instructions">Answer 5 in a Row to Veto a Song</h2>
+      <h2 id="trivia-instructions">Answer 3 in a Row to Veto a Song</h2>
       <div id="trivia-master">
         {gameWon ? (
           <div className="activeTrivia">

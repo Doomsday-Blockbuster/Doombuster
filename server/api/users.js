@@ -25,7 +25,6 @@ router.get(`/:id`, async (req, res, next) => {
         roomId: req.params.id
       }
     })
-    console.log(`roooooooom peeps:`,roomPeeps)
 
     //const roomPeeps = User.getPeeps(req.params.id)
     res.send(roomPeeps)
@@ -41,17 +40,14 @@ router.put(`/:id`, async(req,res,next)=>{
         username: req.body.username
       }
     })
-    console.log(req.body.gameWon)
+
     if(req.body.gameWon){
-      console.log(`WEEEEEEEEEEEEEEEEEEEEEEEEEEEEEDIDITTTTT!`)
       current.gameWon = req.body.gameWon
       current.save()
-      console.log(`is this here:`,current.gameWon)
     }else{
       current.roomId = null;
       current.admin = false;
       await current.save()
-      //console.log(`current`,currentAdmin)
       const newAdmin = await User.findOne({
           where: {
             roomId: req.params.id
@@ -61,7 +57,6 @@ router.put(`/:id`, async(req,res,next)=>{
       if(newAdmin){
         newAdmin.admin= true;
         await newAdmin.save()
-        console.log(`newadmin`,newAdmin)
       }else{
         //cascade: sequelize....any associations get deleted with it
         await Room.destroy({where: {
