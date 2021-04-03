@@ -61,6 +61,29 @@ const PlayQueue = (props) => {
             ) : (
               <img id="placeholder" src="../placeholder.jpg" />
             )}
+            {queue.length > 0 ? (
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                <Button
+                  id="skip-button"
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    handleSkip();
+                  }}
+                >
+                  Skip Song
+                </Button>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           {topThree.length > 0 ? (
             <div id="topThree">
@@ -80,23 +103,6 @@ const PlayQueue = (props) => {
                   </div>
                 );
               })}
-              <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {
-                    handleSkip();
-                  }}
-                >
-                  Skip Song
-                </Button>
-              </div>
             </div>
           ) : (
             ""
@@ -125,6 +131,29 @@ const PlayQueue = (props) => {
                 <img id="placeholder" src="../placeholder.jpg" />
               </div>
             )}
+            {queue.length > 0 ? (
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                <Button
+                  id="skip-button"
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    handleSkip();
+                  }}
+                >
+                  Veto Power
+                </Button>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           {topThree.length > 0 ? (
             <div id="topThree">
@@ -144,53 +173,11 @@ const PlayQueue = (props) => {
                   </div>
                 );
               })}
-              <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {
-                    handleSkip();
-                  }}
-                >
-                  Skip Song
-                </Button>
-              </div>
             </div>
           ) : (
             ""
           )}
         </div>
-        // <div>
-        //   {queue.length > 0 ? (
-        //     <div>
-        //       <div
-        //         style={{
-        //           display: "flex",
-        //           justifyContent: "center",
-        //           alignItems: "center",
-        //           flexDirection: "column",
-        //         }}
-        //       >
-        //         <h3>{queue[0].name}</h3>
-        //         <img id="largeThumbnail" src={queue[0].largeImage} />
-        //         <h3>CURRENTLY PLAYING</h3>
-        //       </div>
-        //       <div id="topThree">
-        //         <p>Hi</p>
-        //       </div>
-        //     </div>
-        //   ) : (
-        //     <div>
-        //       <img id="placeholder" src="../placeholder.jpg" />
-        //     </div>
-        //   )}
-        // </div>
       )}
     </div>
   );
