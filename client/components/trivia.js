@@ -46,6 +46,7 @@ export const Trivia = (props) => {
   const [radioValue, setRadioValue] = useState('');
   const [gameWon, setGameWon] = useState(false);
   const [open, setOpen] = useState(false);
+  const [answerArray, setAnswerArray] = useState([])
 
   const { userId, username, room } = props;
 
@@ -56,9 +57,6 @@ export const Trivia = (props) => {
   //     });
   // }
 
-  const randomAnswer = () => {
-    
-  }
 
   function convertHTML(str) {
     let regex = /&quot;|&amp;|&#039;|&lt;|&gt;|&eacute;/g;
@@ -94,11 +92,21 @@ export const Trivia = (props) => {
         console.log(`data`, response.data.results);
         const num = Math.floor(Math.random() * 50);
         const question = response.data.results[num];
-        //console.log(`before`,question.question)
-        //question.question = convertHTML(question.question)
-        //setQuestion(response.data.results[num])
         setQuestion(question);
-        //console.log(`after`,question.question)
+
+        let answers = [question.correct_answer]
+        for(let i = 0; i < question.incorrect_answers.length; i++){
+          answers.push(question.incorrect_answers[i])
+        }
+    
+        for(let i = 0; i < answers.length; i++){
+          let randomNum = Math.floor(Math.random() * i)
+          const temp = answers[i]
+          answers[i] = answers[randomNum]
+          answers[randomNum] = temp
+        }
+    
+        setAnswerArray(answers)
       });
   }, []);
 
@@ -121,8 +129,21 @@ export const Trivia = (props) => {
       )
       .then((response) => {
         const num = Math.floor(Math.random() * 50);
-        //console.log('******',response.data.results[num])
         setQuestion(response.data.results[num]);
+
+        let answers = [question.correct_answer]
+        for(let i = 0; i < question.incorrect_answers.length; i++){
+          answers.push(question.incorrect_answers[i])
+        }
+    
+        for(let i = 0; i < answers.length; i++){
+          let randomNum = Math.floor(Math.random() * i)
+          const temp = answers[i]
+          answers[i] = answers[randomNum]
+          answers[randomNum] = temp
+        }
+    
+        setAnswerArray(answers)
       });
   };
 
@@ -163,6 +184,7 @@ export const Trivia = (props) => {
         return convertHTML(incorrect_answer);
       }
     );
+
   }
 
   return (
@@ -178,54 +200,34 @@ export const Trivia = (props) => {
             <h2>{question.question}</h2>
             <div className="answerAndScore">
               <form>
-                {question.type === "multiple" ? (
-                  <FormControl component="fieldset">
-                    <RadioGroup
-                      onChange={handleRadioChange}
-                      value={radioValue}
-                      defaultValue=""
-                    >
-                      <FormControlLabel
-                        value={question.correct_answer}
-                        control={<StyledRadio />}
-                        label={question.correct_answer}
-                      />
-                      <FormControlLabel
-                        value={question.incorrect_answers[0]}
-                        control={<StyledRadio />}
-                        label={question.incorrect_answers[0]}
-                      />
-                      <FormControlLabel
-                        value={question.incorrect_answers[1]}
-                        control={<StyledRadio />}
-                        label={question.incorrect_answers[1]}
-                      />
-                      <FormControlLabel
-                        value={question.incorrect_answers[2]}
-                        control={<StyledRadio />}
-                        label={question.incorrect_answers[2]}
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                ) : (
                   <FormControl component="fieldset">
                     <RadioGroup
                       onChange={handleRadioChange}
                       defaultValue={radioValue}
                     >
-                      <FormControlLabel
+                      {
+                        answerArray.map(answer=>{
+                          return (
+                            <FormControlLabel
+                              value={answer}
+                              control={<StyledRadio />}
+                              label={answer}
+                            />
+                          )
+                        })
+                      }
+                      {/* <FormControlLabel
                         value="True"
-                        control={<Radio />}
+                        control={<StyledRadio />}
                         label="True"
                       />
                       <FormControlLabel
                         value="False"
-                        control={<Radio />}
+                        control={<StyledRadio />}
                         label="False"
-                      />
+                      /> */}
                     </RadioGroup>
                   </FormControl>
-                )}
               </form>
               <div id="score-div">
                 <h2>SCORE</h2>
