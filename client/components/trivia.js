@@ -132,9 +132,9 @@ export const Trivia = (props) => {
         const num = Math.floor(Math.random() * 50);
         const question = response.data.results[num];
         console.log(`question: `, question)
-        let answers = [question.correct_answer]
+        let answers = [convertHTML(question.correct_answer)]
         for(let i = 0; i < question.incorrect_answers.length; i++){
-          answers.push(question.incorrect_answers[i])
+          answers.push(convertHTML(question.incorrect_answers[i]))
         }
     
         for(let i = answers.length-1; i > 0; i--){
@@ -188,6 +188,7 @@ export const Trivia = (props) => {
 
   }
 
+
   return (
     <div>
       <h2 id="trivia-instructions">answer 3 in a row to veto a song</h2>
@@ -236,7 +237,7 @@ export const Trivia = (props) => {
                 <h6 style={{ color: "#fe019a" }}>{renderFeedback()}</h6>
               </div>
             </div>
-            <StyledButton onClick={() => handleNext()}>Next</StyledButton>
+            <StyledButton disabled={!radioValue} onClick={() => handleNext()}>Next</StyledButton>
           </div>
         )}
 
