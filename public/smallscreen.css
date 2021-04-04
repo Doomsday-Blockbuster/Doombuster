@@ -51,6 +51,14 @@ nav a {
     -webkit-text-stroke: 1px white;
   }
 
+  #icon-nav{
+    font-family: 'DJ';
+    font-size: 1rem;
+    opacity: 80%;
+    color:black;
+    -webkit-text-stroke: 1px white;
+  }
+
   #form {
     width:100vw;
   }
@@ -113,9 +121,14 @@ button{
   font-family:'Plane Crash';
   font-size:1em;
   color:white;
-  opacity:75%;
+  opacity:85%;
   text-shadow:6px 2px black;
 }
+
+.navtitle-container{
+  display: flex;
+  justify-content: center
+  }
 
 #playerBar{
   display:flex;
@@ -292,6 +305,68 @@ button{
     overflow: hidden;
     width:85%;
     padding-left: 0.2em;
+  }
+
+  #options{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0.5rem;
+  }
+  
+  #options-main{
+    width:100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #02031c;
+  }
+  
+  #options-main h3{
+    color:white;
+    font-family:'Bohemian';
+    font-size: small;
+    margin:0;
+  }
+  
+  #custom-song{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    margin:0 1rem 0 1rem;
+  }
+  
+  #select-playlist-container{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    margin:0 1rem 0 1rem;
+  }
+  
+  #addPlaylist{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem 0 1rem 0;
+  }
+  
+  /* #search{
+    margin:0 1rem 0 1rem;
+  } */
+  
+  /* #searchbar{
+    width: 20rem;
+  } */
+  
+  /* #custom-song-input{
+    width: 20rem;
+  } */
+  
+  #songList{
+    background-color: black;
+    width: 100vw;
   }
 
   .activeTrivia{
