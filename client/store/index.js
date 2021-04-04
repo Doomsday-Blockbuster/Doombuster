@@ -9,8 +9,9 @@ import voteError from "./vote";
 import roomdetail from "./room";
 import playlists from './playlists';
 import page from './page'
+import customSong from './customsong'
 
-const reducer = combineReducers({ auth, songs, queue, voteError, roomdetail, playlists, page});
+const reducer = combineReducers({ auth, songs, queue, voteError, roomdetail, playlists, page, customSong});
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );
@@ -23,3 +24,4 @@ export * from "./vote";
 export * from "./room";
 export * from './playlists';
 export * from './page';
+export * from './customsong';

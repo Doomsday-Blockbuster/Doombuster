@@ -16,6 +16,8 @@ export const loadSongs = (playlistSelected) => {
     return async (dispatch) => {
       let response
       let allSongs = []
+      
+      //console.log('Video',video)
       const playlists = (await axios.get('/api/playlists')).data
       if(playlistSelected==='All'){
         playlists.map(async playlist=>{
