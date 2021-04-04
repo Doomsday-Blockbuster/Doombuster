@@ -143,6 +143,7 @@ export const Trivia = (props) => {
           answers[i] = answers[randomNum]
           answers[randomNum] = temp
         }
+        setRadioValue('');
         setQuestion(question);
         setAnswerArray(answers)
       });

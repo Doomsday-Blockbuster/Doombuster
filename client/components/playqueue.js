@@ -51,6 +51,10 @@ const PlayQueue = (props) => {
     // console.log("Helloooooo!*!*!*!*!*!*!*!*");
   };
 
+  const handleVeto = () =>{
+    
+  }
+
   return (
     <div id="playerBar">
       {isAdmin ? (
