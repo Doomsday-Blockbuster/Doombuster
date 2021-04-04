@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import VideoPlayer from "./videoplayer";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
@@ -42,7 +43,8 @@ const styles = () => ({
 });
 
 const PlayQueue = (props) => {
-  const { queue, isAdmin, classes } = props;
+  const { queue, isAdmin, classes, room, gameWon } = props;
+  const [butDisabled, setButDisabled] = useState(false)
   let topThree = queue.slice(0, 3);
   //console.log(queue);
 
@@ -52,7 +54,8 @@ const PlayQueue = (props) => {
   };
 
   const handleVeto = () =>{
-    
+    props.deleteSongFromQueue(props.queue[0], props.auth, props.queue[3]);
+    //empty local storage
   }
 
   return (
@@ -145,14 +148,15 @@ const PlayQueue = (props) => {
                 }}
               >
                 <Button
-                  id="skip-button"
+                  id="veto-button"
+                  disabled = {butDisabled}
                   variant="contained"
                   color="primary"
-                  onClick={() => {
-                    handleSkip();
-                  }}
+                  onClick={()=>setButDisabled(!butDisabled)}
                 >
+                <Link to={`/trivia/${room}`}>
                   Veto Power
+                </Link>
                 </Button>
               </div>
             ) : (
@@ -193,6 +197,8 @@ const mapState = (state) => {
     isAdmin: state.auth.admin,
     queue: state.queue,
     auth: state.auth.roomId,
+    room: state.auth.roomId,
+    gameWon: state.auth.gameWon
   };
 };
 const mapDispatch = (dispatch, { history }) => {

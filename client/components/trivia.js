@@ -121,6 +121,7 @@ export const Trivia = (props) => {
     console.log(`score`, score);
     if (score >= 2) {
       setGameWon(true);
+      localStorage.setItem('gameWon', true)
       axios.put(`/api/users/${room}`, { username, gameWon: true });
       setScore(0);
     }
