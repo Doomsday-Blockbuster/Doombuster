@@ -121,6 +121,7 @@ export const Trivia = (props) => {
     console.log(`score`, score);
     if (score >= 2) {
       setGameWon(true);
+      localStorage.setItem('gameWon', true)
       axios.put(`/api/users/${room}`, { username, gameWon: true });
       setScore(0);
     }
@@ -132,9 +133,9 @@ export const Trivia = (props) => {
         const num = Math.floor(Math.random() * 50);
         const question = response.data.results[num];
         console.log(`question: `, question)
-        let answers = [question.correct_answer]
+        let answers = [convertHTML(question.correct_answer)]
         for(let i = 0; i < question.incorrect_answers.length; i++){
-          answers.push(question.incorrect_answers[i])
+          answers.push(convertHTML(question.incorrect_answers[i]))
         }
     
         for(let i = answers.length-1; i > 0; i--){
@@ -143,6 +144,7 @@ export const Trivia = (props) => {
           answers[i] = answers[randomNum]
           answers[randomNum] = temp
         }
+        setRadioValue('');
         setQuestion(question);
         setAnswerArray(answers)
       });
@@ -187,6 +189,7 @@ export const Trivia = (props) => {
     );
 
   }
+
 
   return (
     <div>
@@ -236,7 +239,7 @@ export const Trivia = (props) => {
                 <h6 style={{ color: "#fe019a" }}>{renderFeedback()}</h6>
               </div>
             </div>
-            <StyledButton onClick={() => handleNext()}>Next</StyledButton>
+            <StyledButton disabled={!radioValue} onClick={() => handleNext()}>Next</StyledButton>
           </div>
         )}
 
