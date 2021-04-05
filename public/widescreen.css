@@ -330,8 +330,9 @@ width:10%;
 .activeTrivia{
     background-color: black;
     color: white;
-    width:996px;
+    width:100vw;
     font-family: JMH;
+    padding: 1rem;
 }
 
 .answerAndScore{
@@ -358,6 +359,8 @@ width:10%;
   font-family: 'Plane Crash';
   color: #34ebe5;
   background-color: black;
+  padding:1rem;
+  margin-top:2rem;
 }
 
 
