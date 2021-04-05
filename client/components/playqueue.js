@@ -44,11 +44,11 @@ const styles = () => ({
 
 const PlayQueue = (props) => {
   const { queue, isAdmin, classes, room, gameWon } = props;
-  const [butDisabled, setButDisabled] = useState(false)
   let topThree = queue.slice(0, 3);
   //console.log(queue);
 
   const handleSkip = () => {
+    localStorage.removeItem("gameWon")
     props.deleteSongFromQueue(props.queue[0], props.auth, props.queue[3]);
     // console.log("Helloooooo!*!*!*!*!*!*!*!*");
   };
@@ -147,17 +147,34 @@ const PlayQueue = (props) => {
                   marginBottom: "0.5rem",
                 }}
               >
-                <Button
-                  id="veto-button"
-                  disabled = {butDisabled}
-                  variant="contained"
-                  color="primary"
-                >
-                <Link to={`/trivia/${room}`}>
-                  Veto Power
-                </Link>
-                </Button>
-              </div>
+                {
+                  localStorage.getItem("gameWon") === 'true' ?
+                  (
+                    <Button
+                      id="skip-button"
+                      variant="contained"
+                      color="primary"
+                      onClick={() => {
+                        handleSkip();
+                      }}
+                    >
+                      Skip - still working on it
+                    </Button>
+                  )
+                  :
+                  (
+                    <Button
+                    id="veto-button"
+                    variant="contained"
+                    color="primary"
+                  >
+                  <Link to={`/trivia/${room}`}>
+                    Veto Power
+                  </Link>
+                  </Button>
+                  )
+                }
+                </div>
             ) : (
               ""
             )}
