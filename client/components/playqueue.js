@@ -59,7 +59,8 @@ const PlayQueue = (props) => {
             {queue.length > 0 ? (
               <VideoPlayer videoId={queue.length ? queue[0].videoId : ""} />
             ) : (
-              <img id="placeholder" src="../placeholder.jpg" />
+              // <img id="placeholder" src="../placeholder.jpg" />
+              <img id="placeholder" src="../Pick_A_Song.png" />
             )}
           </div>
           {topThree.length > 0 ? (
