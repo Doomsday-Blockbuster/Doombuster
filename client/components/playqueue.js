@@ -152,7 +152,6 @@ const PlayQueue = (props) => {
                   disabled = {butDisabled}
                   variant="contained"
                   color="primary"
-                  onClick={()=>setButDisabled(!butDisabled)}
                 >
                 <Link to={`/trivia/${room}`}>
                   Veto Power
