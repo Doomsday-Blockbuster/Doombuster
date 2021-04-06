@@ -48,8 +48,15 @@ export const Trivia = (props) => {
   const [gameWon, setGameWon] = useState(false);
   const [open, setOpen] = useState(false);
   const [answerArray, setAnswerArray] = useState([])
-  const { userId, username, room } = props;
+  const { username, room, setPage } = props;
 
+  useEffect(() => {
+    setPage();
+    loadQuestions();
+  }, []);
+
+  console.log('SCORE',score)
+  console.log('GAMEWON',gameWon)
   function convertHTML(str) {
     let regex = /&quot;|&amp;|&#039;|&lt;|&gt;|&eacute;/g;
     return str.replace(regex, function (match, numStr) {
@@ -72,11 +79,7 @@ export const Trivia = (props) => {
     });
   }
 
-  // URL for just music trivia below
-  //https://opentdb.com/api.php?amount=50&category=12&difficulty=easy&type=multiple
-  useEffect(() => {
-    props.setPage()
-    
+  function loadQuestions(){
     axios
       .get(
         "https://opentdb.com/api.php?amount=50&category=12&difficulty=easy&type=multiple"
@@ -99,18 +102,15 @@ export const Trivia = (props) => {
           answers[randomNum] = temp
         }
         setQuestion(question);
-        setAnswerArray(answers)
+        setAnswerArray(answers);
+        setRadioValue('');
       });
-  }, []);
+  }
 
   const handleNext = async() => {
     if (question.correct_answer === radioValue.response) {
-      setScore((score) => score + 1);
-    } else {
-      handleLoserPop();
-      setScore(0);
-    }
-    if (score >= 2) {
+      setScore(score + 1);
+      if (score >= 2) {
       let updatedUser = (await axios.put(`/api/users/${room}`, { username, gameWon: true })).data;
       localStorage.setItem("vetoUsed", "0")
       setGameWon(true);
@@ -119,29 +119,20 @@ export const Trivia = (props) => {
         props.updateWinner();
       }
     }
-    await axios
-      .get(
-        "https://opentdb.com/api.php?amount=50&category=12&difficulty=easy&type=multiple"
-      )
-      .then((response) => {
-        const num = Math.floor(Math.random() * 50);
-        const question = response.data.results[num];
-        console.log(`question: `, question)
-        let answers = [convertHTML(question.correct_answer)]
-        for(let i = 0; i < question.incorrect_answers.length; i++){
-          answers.push(convertHTML(question.incorrect_answers[i]))
-        }
-    
-        for(let i = answers.length-1; i > 0; i--){
-          let randomNum = Math.floor(Math.random() * (i+1))
-          let temp = answers[i]
-          answers[i] = answers[randomNum]
-          answers[randomNum] = temp
-        }
-        setRadioValue('');
-        setQuestion(question);
-        setAnswerArray(answers)
-      });
+    } else {
+      handleLoserPop();
+      setScore(0);
+    }
+    // if (score >= 2) {
+    //   let updatedUser = (await axios.put(`/api/users/${room}`, { username, gameWon: true })).data;
+    //   localStorage.setItem("vetoUsed", "0")
+    //   setGameWon(true);
+    //   setScore(0);
+    //   if(updatedUser.gameWon===true){
+    //     props.updateWinner();
+    //   }
+    // }
+      loadQuestions();
   };
 
   const handleRadioChange = (ev) => {
@@ -157,11 +148,7 @@ export const Trivia = (props) => {
         return "Correct";
       case 2:
         return "One More";
-      // case 3:
-      //   return "Don't Blow It";
-      // case 4:
-      //   return "One More!";
-      // default:
+      default:
         return "";
     }
   };
@@ -195,7 +182,7 @@ export const Trivia = (props) => {
         {gameWon ? (
           <div className="activeTrivia">
             <h2>You Won! You can veto one song. Veto wisely.</h2>
-            <StyledButton onClick={() => close()}>Close</StyledButton>
+            <StyledButton onClick={() => close()}>Got it</StyledButton>
           </div>
         ) : (
           <div className="activeTrivia">
@@ -219,16 +206,6 @@ export const Trivia = (props) => {
                           )
                         })
                       }
-                      {/* <FormControlLabel
-                        value="True"
-                        control={<StyledRadio />}
-                        label="True"
-                      />
-                      <FormControlLabel
-                        value="False"
-                        control={<StyledRadio />}
-                        label="False"
-                      /> */}
                     </RadioGroup>
                   </FormControl>
               </form>
