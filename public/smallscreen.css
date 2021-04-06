@@ -68,9 +68,9 @@ form div {
   display: inline-block;
 }
 
-.MuiTypography-body1 {
+/* .MuiTypography-body1 {
   font-size: 0.8rem !important;
-}
+} */
 
 button {
   cursor: pointer;
@@ -275,7 +275,6 @@ button {
   background-color: black;
   margin-bottom: 0.2em;
   color: white;
-  overflow: hidden;
   width: 99%;
   box-shadow: 0 3px 8px rgb(52 235 229 / 50%);
   font-family: "Passion One";
@@ -291,6 +290,7 @@ button {
   display: flex;
   width: 80%;
   max-height: 100%;
+  overflow: hidden;
 }
 
 #options {
@@ -355,29 +355,57 @@ button {
   width: 100vw;
 }
 
-.activeTrivia {
-  background-color: black;
-  color: white;
+#trivia-container{
   width: 100vw;
-  font-family: JMH;
+  height: 100vh;
+  background-color: black;
+  padding-bottom: 2rem;
 }
 
-.activeTrivia {
-  background-color: black;
-  color: white;
-  width: 100vw;
-  font-family: JMH;
-}
-
-.answerAndScore {
+#trivia-container *{
   display: flex;
-  justify-content: space-around;
-  font-family: JMH;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'JMH';
+}
+
+#trivia-instructions {
+  font-size: 0.85rem;
+  font-family: "Plane Crash";
+  color: #34ebe5;
+  background-color: black;
+  padding: 0 2rem 0 2rem;
+  margin-top: 2rem;
+}
+
+.activeTrivia {
+  color: white;
+  width: 100vw;
+  padding: 0 1.5rem 0 1.5rem;
+}
+
+.activeTrivia h2{
+  font-size: 1rem;
+}
+
+#answerAndScore {
+  flex-direction: row;
+  justify-content: space-between;
+  width:100%;
+}
+
+#answers-options {
+  flex-direction: row;
+  justify-content: left;
+  width: 100%;
+}
+
+#answers-options *{
+  font-size: 1rem;
 }
 
 #score-div {
   display: flex;
-  flex: 0.5;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -386,14 +414,9 @@ button {
 }
 
 #score-board {
-  font-size: 6rem;
-}
-#trivia-instructions {
   font-size: 1rem;
-  font-family: "Plane Crash";
-  color: #34ebe5;
-  background-color: black;
 }
+
 
 @keyframes floatText {
   to {

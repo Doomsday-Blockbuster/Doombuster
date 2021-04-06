@@ -21,14 +21,18 @@ import axios from "axios";
 
 const StyledButton = withStyles({
   root: {
-    margin: "1rem",
-    width: "100px",
-    backgroundColor: "#34ebe5",
-    color: "black",
+    color: "white",
+    backgroundColor: "black",
+    border: '1px solid white',
     "&:hover": {
-      backgroundColor: "#fe019a",
+      backgroundColor: "white",
+      color:'black'
     },
   },
+  disabled :{
+    color:"black",
+    backgroundColor: 'grey'
+  }
 })(Button);
 
 const StyledRadio = withStyles({
@@ -178,7 +182,7 @@ export const Trivia = (props) => {
   }
 
   return (
-    <div>
+    <div id='trivia-container'>
       {(!gameWon && retries<totalRetries)?<h2 id="trivia-instructions">answer 3 in a row to veto a song</h2>:""}
       <div id="trivia-master">
         {gameWon ? (
@@ -195,7 +199,7 @@ export const Trivia = (props) => {
         (
           <div className="activeTrivia">
             <h2>{question.question}</h2>
-            <div className="answerAndScore">
+            <div id="answerAndScore">
               <form>
                 <FormControl component="fieldset">
                   <RadioGroup
@@ -205,6 +209,7 @@ export const Trivia = (props) => {
                     {answerArray.map((answer, idx) => {
                       return (
                         <FormControlLabel
+                          id='answers-options'
                           key={idx}
                           value={answer}
                           control={<StyledRadio />}
