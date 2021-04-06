@@ -50,7 +50,7 @@ const PlayQueue = (props) => {
  // console.log(`gamewon in useeffect`, gameWon)
   const [vetoUsed, setVetoUsed] = useState("0")
 
-  console.log(`trivia component gameWon`, gameWon)
+  // console.log(`trivia component gameWon`, gameWon)
   //localStorage.setItem("vetoUsed","2")
   console.log('Local Storage',localStorage.getItem("vetoUsed"))
   
@@ -174,7 +174,7 @@ const PlayQueue = (props) => {
                         handleSkip();
                       }}
                     >
-                      Skip - still working on it
+                      Skip Song
                     </Button>
                   )
                   // : vetoUsed === '1'?

@@ -58,8 +58,8 @@ export const Trivia = (props) => {
     loadQuestions();
   }, []);
 
-  console.log("SCORE", score);
-  console.log("GAMEWON", gameWon);
+  // console.log("SCORE", score);
+  // console.log("GAMEWON", gameWon);
   function convertHTML(str) {
     let regex = /&quot;|&amp;|&#039;|&lt;|&gt;|&eacute;/g;
     return str.replace(regex, function (match, numStr) {
@@ -128,7 +128,7 @@ export const Trivia = (props) => {
       handleLoserPop();
       setScore(0);
       setRetries(retries+1)
-      console.log('RETRIES',retries)
+      //console.log('RETRIES',retries)
     }
     loadQuestions();
   };
@@ -154,10 +154,16 @@ export const Trivia = (props) => {
   const handleLoserPop = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
-  const close = (room) => {
+
+  const close = (retries) => {
+    console.log('Retries',retries)
+    if(retries>=totalRetries){
+      localStorage.setItem("vetoUsed", "1")
+    }
     props.close(props.room);
   };
 
@@ -178,12 +184,12 @@ export const Trivia = (props) => {
         {gameWon ? (
           <div className="activeTrivia">
             <h2>You Won! You can veto one song. Veto wisely.</h2>
-            <StyledButton onClick={() => close()}>Got it</StyledButton>
+            <StyledButton onClick={() => close(retries)}>Got it</StyledButton>
           </div>
         ) : retries>=totalRetries?(
           <div className="activeTrivia">
           <h2>Out Of Retries! Better Luck Next Time</h2>
-          <StyledButton onClick={() => close()}>Got it</StyledButton>
+          <StyledButton onClick={() => close(retries)}>Got it</StyledButton>
         </div>
         ):
         (
