@@ -1,4 +1,4 @@
-*{
+* {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -6,7 +6,7 @@
 
 body {
   font-family: sans-serif;
-  margin:0;
+  margin: 0;
 }
 
 a {
@@ -22,46 +22,46 @@ nav a {
   margin: 1em;
 }
 
-#main{
-background-image :url('background.jpg');
-background-size:cover;
-padding-top: 64px;
-position:relative;
-height:100vh;
-display: flex;
-flex-direction: column;
-align-items: center;
-background-repeat: repeat;
+#main {
+  background-image: url("background.jpg");
+  background-size: cover;
+  padding-top: 64px;
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-repeat: repeat;
 }
 
-#appname{
+#appname {
   font-size: 10rem;
-  font-family: 'Erosion';
+  font-family: "Erosion";
   opacity: 90%;
   -webkit-text-stroke: 0.1px black;
 }
 
-#icon{
-  font-family: 'DJ';
+#icon {
+  font-family: "DJ";
   font-size: 10rem;
   opacity: 80%;
-  color:black;
+  color: black;
   -webkit-text-stroke: 1px white;
 }
 
-#icon-nav{
-  font-family: 'DJ';
+#icon-nav {
+  font-family: "DJ";
   font-size: 3rem;
   opacity: 80%;
-  color:black;
+  color: black;
   -webkit-text-stroke: 1px white;
 }
 
 #form {
-  width:500px;
+  width: 500px;
 }
 
-.MuiTypography-body1{
+.MuiTypography-body1 {
   font-size: 1rem !important;
 }
 
@@ -69,21 +69,21 @@ form div {
   margin: 1em;
   display: inline-block;
 }
-button{
+button {
   cursor: pointer;
 }
-#songList{
+#songList {
   display: flex;
   flex-wrap: wrap;
   background-color: black;
   justify-content: center;
 }
-.choice-title{
+.choice-title {
   width: 300px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-family: 'Bohemian';
+  font-family: "Bohemian";
   padding-left: 0.5em;
   text-align: left;
 }
@@ -98,8 +98,8 @@ button{
   z-index: -1;
 }
 
-.MuiInputBase-input{
-  color:white !important
+.MuiInputBase-input {
+  color: white !important;
 }
 
 .MuiButton-contained {
@@ -108,135 +108,133 @@ button{
 }
 
 .MuiFormLabel-root {
-  color:white !important
+  color: white !important;
 }
 
-
-.navtitles{
-  font-family:'Plane Crash';
-  font-size:2em;
-  color:white;
-  opacity:85%;
-  text-shadow:6px 2px black;;
+.navtitles {
+  font-family: "Plane Crash";
+  font-size: 2em;
+  color: white;
+  opacity: 85%;
+  text-shadow: 6px 2px black;
 }
 
-.navtitle-container{
-width:310px;
-display: flex;
-justify-content: center
+.navtitle-container {
+  width: 310px;
+  display: flex;
+  justify-content: center;
 }
 
-#playerBar{
-  display:flex;
-  justify-content:center;
+#playerBar {
+  display: flex;
+  justify-content: center;
 }
 
-#playerContainer{
+#playerContainer {
   max-height: 430px;
 }
 
-#playerBarItems{
-  display:flex;
+#playerBarItems {
+  display: flex;
   flex-direction: row;
-  justify-content:space-around;
-  align-items:center;
+  justify-content: space-around;
+  align-items: center;
 }
 
-#player{
-  max-width:640px;
-  background-color:black;
-  color:white;
+#player {
+  max-width: 640px;
+  background-color: black;
+  color: white;
 }
 
-#topThree{
-  display:flex;
-  flex-direction:column;
-  background-color:black;
-  color:white;
-  width : 500px;
-  height:100%;
+#topThree {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  color: white;
+  width: 500px;
+  height: 100%;
   margin: 0 0 0 1rem;
 }
 
-#topThree h1{
-  display:flex;
-  justify-content:center;
-  display:flex;
-  justify-content:center;
-  font-size:3em;
-  font-family:'Plane Crash';
+#topThree h1 {
+  display: flex;
+  justify-content: center;
+  display: flex;
+  justify-content: center;
+  font-size: 3em;
+  font-family: "Plane Crash";
   margin: 0.4em 0 0.4em 0;
   opacity: 85%;
 }
 
-#topThree img{
-  height:75px;
-  width:100px;
+#topThree img {
+  height: 75px;
+  width: 100px;
 }
 
-#topThreeItem{
-  box-shadow:0 4px 12px rgb(52 235 229 / 50%);
+#topThreeItem {
+  box-shadow: 0 4px 12px rgb(52 235 229 / 50%);
   display: flex;
   align-items: center;
-  margin:0.5em 0.5em 0.5em 0.5em;
+  margin: 0.5em 0.5em 0.5em 0.5em;
 }
 
 #largeThumbnail {
-  width:480px;
-  height:340px;
+  width: 480px;
+  height: 340px;
 }
 
-.currentSongName{
-  margin:0;
-  font-family:'Passion One';
-  font-size:1.5rem;
+.currentSongName {
+  margin: 0;
+  font-family: "Passion One";
+  font-size: 1.5rem;
 }
 
-#placeholder{
-  width:100%;
-  height:390px;
+#placeholder {
+  width: 98%;
+  height: 390px;
 }
 
-
-.MuiCard-root{
-  font-size:14px;
-  background-color:#050e4a;
-  color:white;
-  margin:10px;
+.MuiCard-root {
+  font-size: 14px;
+  background-color: #050e4a;
+  color: white;
+  margin: 10px;
   height: 75px;
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
   /* padding:1px; */
-  white-space:nowrap;
-  overflow:scroll;
+  white-space: nowrap;
+  overflow: scroll;
   text-overflow: ellipsis;
 }
 
-#queue{
+#queue {
   width: 1156px;
   background-color: #081522;
-  color:white;
-  font-family: 'Plane Crash';
-  display:flex;
+  color: white;
+  font-family: "Plane Crash";
+  display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 1rem;
 }
 
-#queue h1{
+#queue h1 {
   opacity: 85%;
 }
 
-#queueItem{
-  display:flex;
+#queueItem {
+  display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 0.5em 0 0.5em;
-  background-color:black;
+  background-color: black;
   margin-bottom: 0.5em;
   color: white;
   overflow: hidden;
-  width:99%;
+  width: 99%;
   box-shadow: 0 3px 8px rgb(52 235 229 / 50%);
   font-family: "Passion One";
   font-size: 1.8em;
@@ -244,104 +242,103 @@ justify-content: center
   border-radius: 10px;
 }
 
-.queue-liner{
-display: flex;
-width:90%;
-max-height:100%;
+.queue-liner {
+  display: flex;
+  width: 90%;
+  max-height: 100%;
 }
 
-
-.queue-biz{
-display:flex;
-align-items:center;
-width:10%;
+.queue-biz {
+  display: flex;
+  align-items: center;
+  width: 10%;
 }
 
-.queue-song{
+.queue-song {
   opacity: 80%;
   white-space: nowrap;
   overflow: hidden;
-  width:85%;
+  width: 85%;
   padding-left: 0.2em;
 }
 
-#options{
+#options {
   display: flex;
   justify-content: center;
   align-items: center;
   padding-top: 0.5rem;
 }
 
-#options-main{
-  width:70%;
+#options-main {
+  width: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: black
+  background-color: black;
   /* background-image :url('background.jpg'); */
   /* background-size: cover; */
 }
 
-#options-main h3{
-  color:white;
-  font-family:'Bohemian';
+#options-main h3 {
+  color: white;
+  font-family: "Bohemian";
 }
 
-#custom-song{
-  width:60%;
-  display:flex;
+#custom-song {
+  width: 60%;
+  display: flex;
   justify-content: center;
-  align-items:center;
-  margin-left:2rem;
+  align-items: center;
+  margin-left: 2rem;
 }
 
-#select-playlist-container{
-  width:60%;
-  display:flex;
+#select-playlist-container {
+  width: 60%;
+  display: flex;
   justify-content: center;
-  align-items:center
+  align-items: center;
 }
 
-#addPlaylist{
-  display:flex;
+#addPlaylist {
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   margin: 1rem 0 1rem 0;
 }
 
-#search{
-  margin-left:2rem;
+#search {
+  margin-left: 2rem;
 }
 
-#searchbar{
+#searchbar {
   width: 20rem;
 }
 
-#custom-song-input{
+#custom-song-input {
   width: 20rem;
 }
 
-#songList{
+#songList {
   background-color: black;
 }
 
-.activeTrivia{
-    background-color: black;
-    color: white;
-    width:100vw;
-    font-family: JMH;
-    padding: 1rem;
+.activeTrivia {
+  background-color: black;
+  color: white;
+  width: 100vw;
+  font-family: JMH;
+  padding: 1rem;
 }
 
-.answerAndScore{
+.answerAndScore {
   display: flex;
   justify-content: space-around;
   font-family: JMH;
 }
 
-#score-div{
+#score-div {
   display: flex;
   flex: 0.5;
   flex-direction: column;
@@ -351,18 +348,17 @@ width:10%;
   font-size: 2rem;
 }
 
-#score-board{
+#score-board {
   font-size: 6rem;
 }
-#trivia-instructions{
+#trivia-instructions {
   font-size: 2rem;
-  font-family: 'Plane Crash';
+  font-family: "Plane Crash";
   color: #34ebe5;
   background-color: black;
-  padding:1rem;
-  margin-top:2rem;
+  padding: 1rem;
+  margin-top: 2rem;
 }
-
 
 @keyframes floatText {
   to {
@@ -370,14 +366,47 @@ width:10%;
   }
 }
 
-@font-face { font-family: Vintage Warehouse; src: url('./fonts/Vintage\ Warehouse.ttf'); } 
-@font-face { font-family: Tatoo Shop; src: url('./fonts/Tattoo\ Shop.otf'); }
-@font-face { font-family: Chernobyl; src: url('./fonts/Chernobyl.otf'); }
-@font-face { font-family: Propaganda; src: url('./fonts/PROPAGAN.ttf'); }
-@font-face { font-family: Plane Crash; src: url('./fonts/Plane\ Crash.ttf'); }
-@font-face { font-family: Eight Bit; src: url('./fonts/8-BIT\ WONDER.TTF'); }
-@font-face { font-family: Gazelle; src: url('./fonts/Gazelle.ttf'); }
-@font-face { font-family: Erosion; src: url('./fonts/Examples\ of\ erosion.ttf'); }
-@font-face { font-family: DJ; src: url('./fonts/DJ\ Icons.ttf')}
-@font-face { font-family: Bohemian; src: url('./fonts/Bohemian\ Typewriter.ttf')}
-@font-face { font-family: JMH; src: url('./fonts/JMH\ Typewriter.ttf')}
+@font-face {
+  font-family: Vintage Warehouse;
+  src: url("./fonts/Vintage\ Warehouse.ttf");
+}
+@font-face {
+  font-family: Tatoo Shop;
+  src: url("./fonts/Tattoo\ Shop.otf");
+}
+@font-face {
+  font-family: Chernobyl;
+  src: url("./fonts/Chernobyl.otf");
+}
+@font-face {
+  font-family: Propaganda;
+  src: url("./fonts/PROPAGAN.ttf");
+}
+@font-face {
+  font-family: Plane Crash;
+  src: url("./fonts/Plane\ Crash.ttf");
+}
+@font-face {
+  font-family: Eight Bit;
+  src: url("./fonts/8-BIT\ WONDER.TTF");
+}
+@font-face {
+  font-family: Gazelle;
+  src: url("./fonts/Gazelle.ttf");
+}
+@font-face {
+  font-family: Erosion;
+  src: url("./fonts/Examples\ of\ erosion.ttf");
+}
+@font-face {
+  font-family: DJ;
+  src: url("./fonts/DJ\ Icons.ttf");
+}
+@font-face {
+  font-family: Bohemian;
+  src: url("./fonts/Bohemian\ Typewriter.ttf");
+}
+@font-face {
+  font-family: JMH;
+  src: url("./fonts/JMH\ Typewriter.ttf");
+}
