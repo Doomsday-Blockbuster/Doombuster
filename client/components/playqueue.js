@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import VideoPlayer from "./videoplayer";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
@@ -42,14 +43,20 @@ const styles = () => ({
 });
 
 const PlayQueue = (props) => {
-  const { queue, isAdmin, classes } = props;
+  const { queue, isAdmin, classes, room, gameWon } = props;
   let topThree = queue.slice(0, 3);
   //console.log(queue);
 
   const handleSkip = () => {
+    localStorage.removeItem("gameWon")
     props.deleteSongFromQueue(props.queue[0], props.auth, props.queue[3]);
     // console.log("Helloooooo!*!*!*!*!*!*!*!*");
   };
+
+  const handleVeto = () =>{
+    props.deleteSongFromQueue(props.queue[0], props.auth, props.queue[3]);
+    //empty local storage
+  }
 
   return (
     <div id="playerBar">
@@ -61,6 +68,29 @@ const PlayQueue = (props) => {
             ) : (
               // <img id="placeholder" src="../placeholder.jpg" />
               <img id="placeholder" src="../Pick_A_Song.png" />
+            )}
+            {queue.length > 0 ? (
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                <Button
+                  id="skip-button"
+                  variant="contained"
+                  color="primary"
+                  onClick={() => {
+                    handleSkip();
+                  }}
+                >
+                  Skip Song
+                </Button>
+              </div>
+            ) : (
+              ""
             )}
           </div>
           {topThree.length > 0 ? (
@@ -81,23 +111,6 @@ const PlayQueue = (props) => {
                   </div>
                 );
               })}
-              <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {
-                    handleSkip();
-                  }}
-                >
-                  Skip Song
-                </Button>
-              </div>
             </div>
           ) : (
             ""
@@ -126,6 +139,46 @@ const PlayQueue = (props) => {
                 <img id="placeholder" src="../placeholder.jpg" />
               </div>
             )}
+            {queue.length > 0 ? (
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                {
+                  localStorage.getItem("gameWon") === 'true' ?
+                  (
+                    <Button
+                      id="skip-button"
+                      variant="contained"
+                      color="primary"
+                      onClick={() => {
+                        handleSkip();
+                      }}
+                    >
+                      Skip - still working on it
+                    </Button>
+                  )
+                  :
+                  (
+                    <Button
+                    id="veto-button"
+                    variant="contained"
+                    color="primary"
+                  >
+                  <Link to={`/trivia/${room}`}>
+                    Veto Power
+                  </Link>
+                  </Button>
+                  )
+                }
+                </div>
+            ) : (
+              ""
+            )}
           </div>
           {topThree.length > 0 ? (
             <div id="topThree">
@@ -145,53 +198,11 @@ const PlayQueue = (props) => {
                   </div>
                 );
               })}
-              <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {
-                    handleSkip();
-                  }}
-                >
-                  Skip Song
-                </Button>
-              </div>
             </div>
           ) : (
             ""
           )}
         </div>
-        // <div>
-        //   {queue.length > 0 ? (
-        //     <div>
-        //       <div
-        //         style={{
-        //           display: "flex",
-        //           justifyContent: "center",
-        //           alignItems: "center",
-        //           flexDirection: "column",
-        //         }}
-        //       >
-        //         <h3>{queue[0].name}</h3>
-        //         <img id="largeThumbnail" src={queue[0].largeImage} />
-        //         <h3>CURRENTLY PLAYING</h3>
-        //       </div>
-        //       <div id="topThree">
-        //         <p>Hi</p>
-        //       </div>
-        //     </div>
-        //   ) : (
-        //     <div>
-        //       <img id="placeholder" src="../placeholder.jpg" />
-        //     </div>
-        //   )}
-        // </div>
       )}
     </div>
   );
@@ -203,6 +214,8 @@ const mapState = (state) => {
     isAdmin: state.auth.admin,
     queue: state.queue,
     auth: state.auth.roomId,
+    room: state.auth.roomId,
+    gameWon: state.auth.gameWon
   };
 };
 const mapDispatch = (dispatch, { history }) => {
