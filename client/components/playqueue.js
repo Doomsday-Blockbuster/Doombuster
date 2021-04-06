@@ -44,30 +44,33 @@ const styles = () => ({
 
 const PlayQueue = (props) => {
   const { queue, isAdmin, classes, room, gameWon, localS } = props;
-  console.log(`looooocalst`,localS);
-  console.log(`gamewon in useeffect`, gameWon)
+  let topThree = queue.slice(0, 3);
+  console.log('playqueue props',props)
+ // console.log(`looooocalst`,localS);
+ // console.log(`gamewon in useeffect`, gameWon)
   const [vetoUsed, setVetoUsed] = useState("0")
 
   console.log(`trivia component gameWon`, gameWon)
-
-  let topThree = queue.slice(0, 3);
+  //localStorage.setItem("vetoUsed","2")
+  console.log('Local Storage',localStorage.getItem("vetoUsed"))
+  
   //console.log(queue);
 
   const handleSkip = () => {
     localStorage.setItem("vetoUsed", "1")
-    props.deleteSongFromQueue(props.queue[0], props.auth, props.queue[3]);
+    props.deleteSongFromQueue(props.queue[0], props.room, props.queue[3],props.history);
     // console.log("Helloooooo!*!*!*!*!*!*!*!*");
   };
 
-  useEffect(() => {
+  // useEffect(() => {
     
-    window.addEventListener('storage', () => {
-    setVetoUsed(localStorage.getItem('vetoUsed') || "0")
-    console.log(`gamewon in useeffect`, gameWon)
-    console.log(`vetoused in useeffect`, vetoUsed)
-     });
+  //   window.addEventListener('storage', () => {
+  //   setVetoUsed(localStorage.getItem('vetoUsed') || "0")
+  //   //console.log(`gamewon in useeffect`, gameWon)
+  //   console.log(`vetoused in useeffect`, vetoUsed)
+  //    });
        
-  }, [])
+  // }, [])
 
   return (
     <div id="playerBar">
@@ -147,7 +150,7 @@ const PlayQueue = (props) => {
               </div>
             ) : (
               <div>
-                <img id="placeholder" src="../placeholder.jpg" />
+                <img id="placeholder" src="../Pick_A_Song.png" />
               </div>
             )}
             {queue.length > 0 ? (
@@ -174,7 +177,8 @@ const PlayQueue = (props) => {
                       Skip - still working on it
                     </Button>
                   )
-                  : vetoUsed === '1'?
+                  // : vetoUsed === '1'?
+                  : localStorage.getItem("vetoUsed") === '1'?
                   (
                     ""
                   )
@@ -235,10 +239,10 @@ const mapState = (state) => {
     localS: state.auth.gameWon && localStorage.getItem("vetoUsed")
   };
 };
-const mapDispatch = (dispatch, { history }) => {
+const mapDispatch = (dispatch) => {
   return {
     deleteSongFromQueue: (song, room, nextSong) =>
-      dispatch(deleteSongFromQueue(song, room, nextSong, history)),
+    dispatch(deleteSongFromQueue(song, room, nextSong)),
   };
 };
 

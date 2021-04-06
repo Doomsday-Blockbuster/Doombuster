@@ -64,7 +64,7 @@ router.put(`/:id`, async(req,res,next)=>{
         }})
       }
     }
-    res.sendStatus(200);
+    res.send(current).status(201);
 
   }catch(err){
     next(err)

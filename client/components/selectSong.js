@@ -59,7 +59,7 @@ export const SongList = (props) => {
     customSong
   } = props;
 
-  console.log('**SONGS**',props)
+  //console.log('**SONGS**',props)
   useEffect(() => {
     props.setPage();
   }, []);

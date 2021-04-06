@@ -9,7 +9,7 @@ const App = () => {
   return (
       <div>
         <Navbar history={history} />
-        <Routes />
+        <Routes history={history}/>
       </div>
   )
 }

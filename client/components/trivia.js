@@ -48,16 +48,7 @@ export const Trivia = (props) => {
   const [gameWon, setGameWon] = useState(false);
   const [open, setOpen] = useState(false);
   const [answerArray, setAnswerArray] = useState([])
-
   const { userId, username, room } = props;
-
-  //   function parseHtmlEnteties(str) {
-  //     return str.replace(/&#([0-9]{1,3});/gi, function(match, numStr) {
-  //         var num = parseInt(numStr, 10); // read num as normal number
-  //         return String.fromCharCode(num);
-  //     });
-  // }
-
 
   function convertHTML(str) {
     let regex = /&quot;|&amp;|&#039;|&lt;|&gt;|&eacute;/g;
@@ -85,6 +76,7 @@ export const Trivia = (props) => {
   //https://opentdb.com/api.php?amount=50&category=12&difficulty=easy&type=multiple
   useEffect(() => {
     props.setPage()
+    
     axios
       .get(
         "https://opentdb.com/api.php?amount=50&category=12&difficulty=easy&type=multiple"
@@ -118,15 +110,16 @@ export const Trivia = (props) => {
       handleLoserPop();
       setScore(0);
     }
-    console.log(`score`, score);
     if (score >= 2) {
-      setGameWon(true);
+      let updatedUser = (await axios.put(`/api/users/${room}`, { username, gameWon: true })).data;
       localStorage.setItem("vetoUsed", "0")
-      await axios.put(`/api/users/${room}`, { username, gameWon: true });
+      setGameWon(true);
       setScore(0);
-      await props.updateWinner()
+      if(updatedUser.gameWon===true){
+        props.updateWinner();
+      }
     }
-    axios
+    await axios
       .get(
         "https://opentdb.com/api.php?amount=50&category=12&difficulty=easy&type=multiple"
       )
@@ -179,6 +172,9 @@ export const Trivia = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
+  const close = (room) => {
+    props.close(props.room)
+  }
 
   if (Object.keys(question).length !== 0) {
     question.question = convertHTML(question.question);
@@ -199,6 +195,7 @@ export const Trivia = (props) => {
         {gameWon ? (
           <div className="activeTrivia">
             <h2>You Won! You can veto one song. Veto wisely.</h2>
+            <StyledButton onClick={() => close()}>Close</StyledButton>
           </div>
         ) : (
           <div className="activeTrivia">
@@ -211,9 +208,10 @@ export const Trivia = (props) => {
                       defaultValue={radioValue}
                     >
                       {
-                        answerArray.map(answer=>{
+                        answerArray.map((answer,idx)=>{
                           return (
                             <FormControlLabel
+                              key={idx}
                               value={answer}
                               control={<StyledRadio />}
                               label={answer}
@@ -270,7 +268,8 @@ const mapState = (state, otherProps) => {
 const mapDispatch = (dispatch, { history }) => {
   return {
     updateWinner: () => dispatch(me()),
-    setPage:()=>dispatch(page())
+    setPage:()=>dispatch(page()),
+    close:(room)=>history.push(`/home/${room}`)
   };
 };
 

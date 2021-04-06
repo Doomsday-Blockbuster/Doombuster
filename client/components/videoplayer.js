@@ -47,9 +47,9 @@ constructor(){
 
 const mapState = state => state
 
-const mapDispatch = (dispatch, {history}) => {
+const mapDispatch = (dispatch) => {
   return {
-    deleteSongFromQueue: (song,room,nextSong) => dispatch(deleteSongFromQueue(song,room,nextSong,history)),
+    deleteSongFromQueue: (song,room,nextSong) => dispatch(deleteSongFromQueue(song,room,nextSong)),
   }
 };
 

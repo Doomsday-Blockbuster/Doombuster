@@ -24,21 +24,21 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn,room } = this.props;
-
+    console.log('ROOM',room)
     return (
       <div id='main'>
         {isLoggedIn? (
           <div id='playerContainer'>
-          <PlayQueue/>
+          <PlayQueue history={this.props.history}/>
           </div>
         ) : (
           ""
         )}
         {isLoggedIn ? (
           <Switch>
-            <Route path="/home/:id" component={Home} />
-            <Route path="/select/:id" component={selectSong} />
-            <Route path="/trivia/:id" component={trivia} />
+            <Route path="/home/:id" component={Home}/>
+            <Route path="/select/:id" component={selectSong}/>
+            <Route path="/trivia/:id" component={trivia}/>
             <Redirect to={`/home/${room}`} />
           </Switch>
         ) : (
