@@ -33,9 +33,9 @@ const Navbar = (props) => {
           <AppBar position="fixed" className={classes.colorPrimary}>
             
             <Toolbar className={classes.root}>
-              <Typography style={{display:'flex',alignItems:'center'}}>
+              <Typography id='appname-nav'>
                 <Link to={`/select/${room}`} id='icon-nav'>h</Link>
-                <Link to={`/select/${room}`} className='navtitles' style={{fontFamily:'Erosion'}}>doombuster</Link>
+                <Link to={`/select/${room}`} id='name-nav' className='navtitles' style={{fontFamily:'Erosion'}}>doombuster</Link>
               </Typography>
               <div id='select-queue' className='navtitle-container'>
               {page==='select' || page==='trivia'?(

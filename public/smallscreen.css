@@ -41,6 +41,12 @@ nav a {
   margin: 0;
 }
 
+#appname-nav {
+  display:flex;
+  align-items:center;
+  justify-content: left;
+}
+
 #icon {
   font-family: "DJ";
   font-size: 6rem;
@@ -51,12 +57,30 @@ nav a {
   -webkit-text-stroke: 1px white;
 }
 
+
+
+#navbar *{
+  font-size: 0.7rem;
+}
+
 #icon-nav {
   font-family: "DJ";
-  font-size: 1rem;
+  font-size: 2rem;
   opacity: 80%;
   color: black;
   -webkit-text-stroke: 1px white;
+}
+
+#select-queue{
+  margin-right: 1rem;
+}
+
+.navtitles {
+  font-family: "Plane Crash";
+  font-size: 1em;
+  color: white;
+  opacity: 85%;
+  text-shadow: 6px 2px black;
 }
 
 #form {
@@ -117,13 +141,7 @@ button {
   color: white !important;
 }
 
-.navtitles {
-  font-family: "Plane Crash";
-  font-size: 1em;
-  color: white;
-  opacity: 85%;
-  text-shadow: 6px 2px black;
-}
+
 
 .navtitle-container {
   display: flex;
