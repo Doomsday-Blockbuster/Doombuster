@@ -43,8 +43,12 @@ const styles = () => ({
 });
 
 const PlayQueue = (props) => {
-  const { queue, isAdmin, classes, room, gameWon } = props;
+  const { queue, isAdmin, classes, room, gameWon, localS } = props;
+  console.log(`looooocalst`,localS);
+  console.log(`gamewon in useeffect`, gameWon)
   const [vetoUsed, setVetoUsed] = useState("0")
+
+  console.log(`trivia component gameWon`, gameWon)
 
   let topThree = queue.slice(0, 3);
   //console.log(queue);
@@ -57,7 +61,7 @@ const PlayQueue = (props) => {
 
   useEffect(() => {
     
-    window.addEventListener('localstorage', () => {
+    window.addEventListener('storage', () => {
     setVetoUsed(localStorage.getItem('vetoUsed') || "0")
     console.log(`gamewon in useeffect`, gameWon)
     console.log(`vetoused in useeffect`, vetoUsed)
@@ -155,7 +159,8 @@ const PlayQueue = (props) => {
                 }}
               >
                 {
-                  vetoUsed === '0' && gameWon === true ?
+                  localStorage.getItem("vetoUsed") === '0' && gameWon === true ?
+                  
                   (
                     <Button
                       id="skip-button"
@@ -225,7 +230,8 @@ const mapState = (state) => {
     queue: state.queue,
     auth: state.auth.roomId,
     room: state.auth.roomId,
-    gameWon: state.auth.gameWon
+    gameWon: state.auth.gameWon,
+    localS: state.auth.gameWon && localStorage.getItem("vetoUsed")
   };
 };
 const mapDispatch = (dispatch, { history }) => {
