@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import VideoPlayer from "./videoplayer";
 import Card from "@material-ui/core/Card";
@@ -43,20 +43,31 @@ const styles = () => ({
 });
 
 const PlayQueue = (props) => {
-  const { queue, isAdmin, classes, room, gameWon } = props;
+  const { queue, isAdmin, classes, room, gameWon, localS } = props;
+  console.log(`looooocalst`,localS);
+  console.log(`gamewon in useeffect`, gameWon)
+  const [vetoUsed, setVetoUsed] = useState("0")
+
+  console.log(`trivia component gameWon`, gameWon)
+
   let topThree = queue.slice(0, 3);
   //console.log(queue);
 
   const handleSkip = () => {
-    localStorage.removeItem("gameWon")
+    localStorage.setItem("vetoUsed", "1")
     props.deleteSongFromQueue(props.queue[0], props.auth, props.queue[3]);
     // console.log("Helloooooo!*!*!*!*!*!*!*!*");
   };
 
-  const handleVeto = () =>{
-    props.deleteSongFromQueue(props.queue[0], props.auth, props.queue[3]);
-    //empty local storage
-  }
+  useEffect(() => {
+    
+    window.addEventListener('storage', () => {
+    setVetoUsed(localStorage.getItem('vetoUsed') || "0")
+    console.log(`gamewon in useeffect`, gameWon)
+    console.log(`vetoused in useeffect`, vetoUsed)
+     });
+       
+  }, [])
 
   return (
     <div id="playerBar">
@@ -149,7 +160,8 @@ const PlayQueue = (props) => {
                 }}
               >
                 {
-                  localStorage.getItem("gameWon") === 'true' ?
+                  localStorage.getItem("vetoUsed") === '0' && gameWon === true ?
+                  
                   (
                     <Button
                       id="skip-button"
@@ -161,6 +173,10 @@ const PlayQueue = (props) => {
                     >
                       Skip - still working on it
                     </Button>
+                  )
+                  : vetoUsed === '1'?
+                  (
+                    ""
                   )
                   :
                   (
@@ -215,7 +231,8 @@ const mapState = (state) => {
     queue: state.queue,
     auth: state.auth.roomId,
     room: state.auth.roomId,
-    gameWon: state.auth.gameWon
+    gameWon: state.auth.gameWon,
+    localS: state.auth.gameWon && localStorage.getItem("vetoUsed")
   };
 };
 const mapDispatch = (dispatch, { history }) => {

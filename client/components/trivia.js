@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import {page} from '../store/page'
-//import {updateWinner} from '../store/auth'
+import {me} from '../store/auth'
 
 import {
   Radio,
@@ -111,7 +111,7 @@ export const Trivia = (props) => {
       });
   }, []);
 
-  const handleNext = () => {
+  const handleNext = async() => {
     if (question.correct_answer === radioValue.response) {
       setScore((score) => score + 1);
     } else {
@@ -121,9 +121,10 @@ export const Trivia = (props) => {
     console.log(`score`, score);
     if (score >= 2) {
       setGameWon(true);
-      localStorage.setItem('gameWon', true)
-      axios.put(`/api/users/${room}`, { username, gameWon: true });
+      localStorage.setItem("vetoUsed", "0")
+      await axios.put(`/api/users/${room}`, { username, gameWon: true });
       setScore(0);
+      await props.updateWinner()
     }
     axios
       .get(
@@ -257,6 +258,7 @@ export const Trivia = (props) => {
 };
 
 const mapState = (state, otherProps) => {
+  console.log(`state`, state)
   return {
     userId: state.auth.id,
     username: state.auth.username,
@@ -267,7 +269,7 @@ const mapState = (state, otherProps) => {
 
 const mapDispatch = (dispatch, { history }) => {
   return {
-    updateWinner: (userId, bool) => dispatch(updateWinner(userId, bool)),
+    updateWinner: () => dispatch(me()),
     setPage:()=>dispatch(page())
   };
 };
