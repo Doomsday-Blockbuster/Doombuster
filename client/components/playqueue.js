@@ -23,13 +23,13 @@ const styles = () => ({
   root: {
     backgroundColor: "#050e4a",
     color: "white",
-    overflow: "hidden",
+    // overflow: "hidden",
     width: "100%",
   },
   topSong: {
     backgroundColor: "#471061",
     color: "white",
-    overflow: "hidden",
+    // overflow: "hidden",
     width: "100%",
   },
   songName: {
@@ -37,6 +37,8 @@ const styles = () => ({
     padding: "0 0 0 1em",
     fontFamily: "Eight Bit",
     opacity: "80%",
+    overflow:"hidden",
+    textOverflow:"ellipsis"
     // animation: 'floatText 12s infinite linear',
     // paddingLeft: '100%', /*Initial offset, which places the text off-screen*/
   },
