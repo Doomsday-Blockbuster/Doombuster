@@ -40,7 +40,7 @@ Finally we are starting to see an end to the Covid "doom." You have heard of doo
 - Only attendees can play Trivia game to enable skipping a single song. Admin can skip any song anytime.
 - Add your own song
 - Add your own playlist
-- When admin leaves room, admin privelages transfer automatically to a random person who is still in room
+- When admin leaves room, admin privelages transfer automatically to a random person who is still in room. If no one is left in room, room is destroyed.
 
 ## Future Improvements
 
