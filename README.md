@@ -26,7 +26,7 @@ It is a jukebox like tool using the Youtube API to create a shared playlist wher
 - Both attendees and admin should start by selecting a song from an existing playlist or add their own playlist or add their own song that they want to hear to the shared "queue"
 - Admin is the only one with a media player to play the top songs at the party. Other attendees will see a thumnail of media that is playing.
 - All users can upvote or downvote songs to see them play sooner or later.
-- Any attendee, except admin, can play trivia to gain ability to skip song
+- Any attendee, except admin, can play trivia to gain ability to skip song by clicking on "veto power"
 
 
 ## What is with the name Doombuster?
