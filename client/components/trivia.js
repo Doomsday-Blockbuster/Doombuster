@@ -97,9 +97,9 @@ export const Trivia = (props) => {
         const question = response.data.results[num];
         console.log(`question: `, question);
 
-        let answers = [question.correct_answer];
+        let answers = [convertHTML(question.correct_answer)];
         for (let i = 0; i < question.incorrect_answers.length; i++) {
-          answers.push(question.incorrect_answers[i]);
+          answers.push(convertHTML(question.incorrect_answers[i]));
         }
 
         for (let i = 0; i < answers.length; i++) {
