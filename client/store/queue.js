@@ -56,7 +56,6 @@ export const addToQueue = (room, song, history) => {
     ).data;
     dispatch(fetchQueue(room));
     socket.emit("QueueUpdated");
-    console.log('History_Add',history)
     history.push(`/home/${room}`);
   };
 };

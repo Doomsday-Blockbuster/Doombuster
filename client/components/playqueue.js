@@ -47,14 +47,14 @@ const styles = () => ({
 const PlayQueue = (props) => {
   const { queue, isAdmin, classes, room, gameWon, localS } = props;
   let topThree = queue.slice(0, 3);
-  console.log('playqueue props',props)
+//console.log('playqueue props',props)
  // console.log(`looooocalst`,localS);
  // console.log(`gamewon in useeffect`, gameWon)
   const [vetoUsed, setVetoUsed] = useState("0")
 
   // console.log(`trivia component gameWon`, gameWon)
   //localStorage.setItem("vetoUsed","2")
-  console.log('Local Storage',localStorage.getItem("vetoUsed"))
+  //console.log('Local Storage',localStorage.getItem("vetoUsed"))
   
   //console.log(queue);
 

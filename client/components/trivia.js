@@ -92,7 +92,7 @@ export const Trivia = (props) => {
         "https://opentdb.com/api.php?amount=50&category=12&difficulty=easy&type=multiple"
       )
       .then((response) => {
-        console.log(`data`, response.data.results);
+       // console.log(`data`, response.data.results);
         const num = Math.floor(Math.random() * 50);
         const question = response.data.results[num];
         console.log(`question: `, question);
@@ -246,7 +246,7 @@ export const Trivia = (props) => {
 };
 
 const mapState = (state, otherProps) => {
-  console.log(`state`, state);
+  //console.log(`state`, state);
   return {
     userId: state.auth.id,
     username: state.auth.username,
