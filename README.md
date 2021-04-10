@@ -17,7 +17,7 @@ MonilGoklani, frankumk, jsur89
 
 ## What does it do?
 
-It is a jukebox like tool using the Youtube API to create a shared playlist where users can select songs to add to a shared playlist and users can upvote/downvote songs on the shared playlist to make the songs play sooner or later or never. A trivia game allows users to skip a song if they get three answers correct in a row.
+Doombuster is a jukebox application using the Youtube API to create a crowdsourced playlist where users can select songs to add to the playlist. Users can upvote/downvote songs on the shared playlist to make the songs play sooner or later or never. A trivia game allows users to skip a song if they get three answers correct in a row.
 
 ## Instructions to Play
 
