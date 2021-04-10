@@ -13,7 +13,7 @@ MonilGoklani, frankumk, jsur89
 
 ## Heroku
 
-[Link to Doombuster on Heroku](https://doombuster-test-herokuapp.com/)
+[Link to Doombuster on Heroku](https://doombuster-test.herokuapp.com/)
 
 ## What does it do?
 
